@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<meta name="robots" content="noindex" />
+<title>Operator Control — TOPTHAI Day Business Matching Live</title>
+<link rel="stylesheet" href="/css/base.css" />
+<link rel="stylesheet" href="/css/control.css" />
+</head>
+<body class="control-body">
+
+  <!-- Passcode gate. The passcode lives only in CONTROL_PASSWORD on the
+       server; it is never embedded here and never travels in a URL. -->
+  <div class="gate" id="gate" hidden>
+    <form class="gate__card" id="login-form" autocomplete="off">
+      <h1 class="gate__title">Operator Control</h1>
+      <p class="gate__sub">TOPTHAI Day Business Matching Live</p>
+      <label class="gate__label" for="passcode">Operator passcode</label>
+      <input class="gate__input" id="passcode" name="passcode" type="password"
+             autocomplete="current-password" required />
+      <p class="gate__error" id="login-error" hidden></p>
+      <button class="btn btn--primary btn--wide" type="submit" id="login-submit">Unlock</button>
+      <p class="gate__note">This page is for the event operator only.</p>
+    </form>
+  </div>
+
+  <div id="app" hidden>
+    <header class="chead">
+      <div class="chead__row">
+        <div class="chead__brand">
+          <span class="chead__title">Operator Control</span>
+          <span class="chead__sub" id="event-name">TOPTHAI Day Business Matching Live</span>
+        </div>
+
+        <div class="chead__meta">
+          <label class="field">
+            <span class="field__label">Event day</span>
+            <select id="date-select" class="field__select"></select>
+          </label>
+          <div class="chead__clockbox">
+            <span class="chead__clock count" id="clock">--:--:--</span>
+            <span class="chead__session" id="session-name">—</span>
+          </div>
+          <div class="chead__connbox">
+            <span class="conn is-connecting" id="conn">Connecting</span>
+            <span class="chead__sync" id="sync">synced never</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="chead__row chead__row--actions">
+        <div class="globals">
+          <button class="btn btn--play btn--lg" id="global-toggle">Play All</button>
+          <button class="btn btn--ghost btn--lg" id="global-reset">Reset All</button>
+          <span class="mixed-badge" id="mixed-badge" hidden>Mixed states</span>
+        </div>
+        <div class="chead__tools">
+          <button class="btn btn--ghost" id="sound-toggle" aria-pressed="false">Room sound: Off</button>
+          <button class="btn btn--ghost" id="import-open">Import CSV</button>
+          <a class="btn btn--ghost" href="/display" target="_blank" rel="noopener">Display</a>
+          <a class="btn btn--ghost" href="/live" target="_blank" rel="noopener">Live</a>
+          <button class="btn btn--ghost" id="logout">Sign out</button>
+        </div>
+      </div>
+    </header>
+
+    <main class="cmain">
+      <section class="cgrid" id="cgrid"></section>
+    </main>
+  </div>
+
+  <!-- Generic confirmation dialog -->
+  <div class="modal" id="confirm-modal" hidden>
+    <div class="modal__box modal__box--sm" role="dialog" aria-modal="true" aria-labelledby="confirm-title">
+      <h2 class="modal__title" id="confirm-title">Are you sure?</h2>
+      <p class="modal__body" id="confirm-body"></p>
+      <div class="modal__actions">
+        <button class="btn btn--ghost" id="confirm-cancel">Cancel</button>
+        <button class="btn btn--danger" id="confirm-ok">Confirm</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Per-table queue manager -->
+  <div class="modal" id="queue-modal" hidden>
+    <div class="modal__box" role="dialog" aria-modal="true" aria-labelledby="queue-title">
+      <div class="modal__head">
+        <h2 class="modal__title" id="queue-title">Queue</h2>
+        <button class="modal__close" id="queue-close" aria-label="Close">×</button>
+      </div>
+      <div class="queue-filters" id="queue-filters"></div>
+      <div class="queue-list" id="queue-list"></div>
+    </div>
+  </div>
+
+  <!-- CSV import -->
+  <div class="modal" id="import-modal" hidden>
+    <div class="modal__box" role="dialog" aria-modal="true" aria-labelledby="import-title">
+      <div class="modal__head">
+        <h2 class="modal__title" id="import-title">Import approved schedule</h2>
+        <button class="modal__close" id="import-close" aria-label="Close">×</button>
+      </div>
+      <p class="modal__body">
+        Required columns: <code>event_date, scheduled_start, scheduled_end, platform, table_code,
+        queue_number, company_name, appointment_status, arrival_status</code>.
+        Importing replaces every appointment for the dates found in the file.
+      </p>
+      <input type="file" id="import-file" accept=".csv,text/csv" class="file-input" />
+      <textarea id="import-text" class="import-text" rows="7"
+                placeholder="…or paste CSV content here"></textarea>
+      <div id="import-report" class="import-report" hidden></div>
+      <div class="modal__actions">
+        <button class="btn btn--ghost" id="import-validate">Validate</button>
+        <button class="btn btn--primary" id="import-apply" disabled>Import</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="toast" id="toast" hidden></div>
+
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="/js/client.js"></script>
+  <script src="/js/control.js"></script>
+</body>
+</html>

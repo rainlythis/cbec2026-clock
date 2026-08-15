@@ -1,0 +1,505 @@
+event_date,scheduled_start,scheduled_end,platform,table_code,queue_number,company_name,appointment_status,arrival_status
+2026-08-17,10:00,10:15,THPM,THPM,A001,"Golden Wellness Industries Co., Ltd.",arrived,arrived
+2026-08-17,10:15,10:30,THPM,THPM,A002,"Ayutthaya Home Enterprise Co., Ltd.",arrived,arrived
+2026-08-17,10:30,10:45,THPM,THPM,A003,"Nakhon Snacks Enterprise Co., Ltd.",arrived,arrived
+2026-08-17,10:45,11:00,THPM,THPM,A004,"Royal Silk Export Co., Ltd.",scheduled,not_arrived
+2026-08-17,11:00,11:15,THPM,THPM,A005,"Thai Snacks Industries Co., Ltd.",scheduled,not_arrived
+2026-08-17,11:15,11:30,THPM,THPM,A006,"Bangsaen Jewelry Enterprise Co., Ltd.",scheduled,not_arrived
+2026-08-17,11:30,11:45,THPM,THPM,A007,"Isan Herbal Enterprise Co., Ltd.",scheduled,not_arrived
+2026-08-17,11:45,12:00,THPM,THPM,A008,"Chao Phraya Organics Enterprise Co., Ltd.",scheduled,not_arrived
+2026-08-17,13:00,13:15,THPM,THPM,A009,"Krungthep Beauty Co., Ltd.",scheduled,not_arrived
+2026-08-17,13:15,13:30,THPM,THPM,A010,"Sukhothai Home Co., Ltd.",scheduled,not_arrived
+2026-08-17,13:30,13:45,THPM,THPM,A011,"Golden Wellness Export Co., Ltd.",scheduled,not_arrived
+2026-08-17,13:45,14:00,THPM,THPM,A012,"Ayutthaya Wellness Co., Ltd.",scheduled,not_arrived
+2026-08-17,14:00,14:15,THPM,THPM,A013,"Nakhon Rice Industries Co., Ltd.",scheduled,not_arrived
+2026-08-17,14:15,14:30,THPM,THPM,A014,"Royal Coffee Export Co., Ltd.",scheduled,not_arrived
+2026-08-17,14:30,14:45,THPM,THPM,A015,"Thai Furniture Co., Ltd.",scheduled,not_arrived
+2026-08-17,14:45,15:00,THPM,THPM,A016,"Bangsaen Furniture Trading Co., Ltd.",scheduled,not_arrived
+2026-08-17,15:00,15:15,THPM,THPM,A017,"Isan Organics Co., Ltd.",scheduled,not_arrived
+2026-08-17,15:15,15:30,THPM,THPM,A018,"Chao Phraya Snacks Trading Co., Ltd.",scheduled,not_arrived
+2026-08-17,15:45,16:00,THPM,THPM,A019,"Krungthep Home Enterprise Co., Ltd.",scheduled,not_arrived
+2026-08-17,16:00,16:15,THPM,THPM,A020,"Sukhothai Spice Industries Co., Ltd.",scheduled,not_arrived
+2026-08-17,16:15,16:30,THPM,THPM,A021,"Golden Foods Industries Co., Ltd.",scheduled,not_arrived
+2026-08-17,16:30,16:45,THPM,THPM,A022,"Ayutthaya Home Export Co., Ltd.",scheduled,not_arrived
+2026-08-17,16:45,17:00,THPM,THPM,A023,"Nakhon Jewelry Group Co., Ltd.",scheduled,not_arrived
+2026-08-17,10:00,10:15,JD.com,JD.com_1,B001,"Royal Wellness Enterprise Co., Ltd.",arrived,arrived
+2026-08-17,10:15,10:30,JD.com,JD.com_1,B002,"Thai Rubber Enterprise Co., Ltd.",arrived,arrived
+2026-08-17,10:30,10:45,JD.com,JD.com_1,B003,"Bangsaen Foods Export Co., Ltd.",arrived,arrived
+2026-08-17,10:45,11:00,JD.com,JD.com_1,B004,"Isan Organics Group Co., Ltd.",scheduled,not_arrived
+2026-08-17,11:00,11:15,JD.com,JD.com_1,B005,"Chao Phraya Ceramics Co., Ltd.",scheduled,not_arrived
+2026-08-17,11:15,11:30,JD.com,JD.com_1,B006,"Krungthep Silk Industries Co., Ltd.",scheduled,not_arrived
+2026-08-17,11:30,11:45,JD.com,JD.com_1,B007,"Sukhothai Spice Enterprise Co., Ltd.",scheduled,not_arrived
+2026-08-17,11:45,12:00,JD.com,JD.com_1,B008,"Golden Fruits Enterprise Co., Ltd.",scheduled,not_arrived
+2026-08-17,13:00,13:15,JD.com,JD.com_1,B009,"Ayutthaya Wellness Export Co., Ltd.",scheduled,not_arrived
+2026-08-17,13:15,13:30,JD.com,JD.com_1,B010,"Nakhon Jewelry Group Co., Ltd.",scheduled,not_arrived
+2026-08-17,13:30,13:45,JD.com,JD.com_1,B011,"Royal Rice Co., Ltd.",scheduled,not_arrived
+2026-08-17,13:45,14:00,JD.com,JD.com_1,B012,"Thai Furniture Group Co., Ltd.",scheduled,not_arrived
+2026-08-17,14:00,14:15,JD.com,JD.com_1,B013,"Bangsaen Snacks Industries Co., Ltd.",scheduled,not_arrived
+2026-08-17,14:15,14:30,JD.com,JD.com_1,B014,"Isan Herbal Industries Co., Ltd.",scheduled,not_arrived
+2026-08-17,14:30,14:45,JD.com,JD.com_1,B015,"Chao Phraya Snacks Group Co., Ltd.",scheduled,not_arrived
+2026-08-17,14:45,15:00,JD.com,JD.com_1,B016,"Krungthep Fruits Trading Co., Ltd.",scheduled,not_arrived
+2026-08-17,15:00,15:15,JD.com,JD.com_1,B017,"Sukhothai Home Trading Co., Ltd.",scheduled,not_arrived
+2026-08-17,15:15,15:30,JD.com,JD.com_1,B018,"Golden Wellness Export Co., Ltd.",scheduled,not_arrived
+2026-08-17,15:45,16:00,JD.com,JD.com_1,B019,"Ayutthaya Craft Export Co., Ltd.",scheduled,not_arrived
+2026-08-17,16:00,16:15,JD.com,JD.com_1,B020,"Nakhon Rice Trading Co., Ltd.",scheduled,not_arrived
+2026-08-17,16:15,16:30,JD.com,JD.com_1,B021,"Royal Jewelry Group Co., Ltd.",scheduled,not_arrived
+2026-08-17,16:30,16:45,JD.com,JD.com_1,B022,"Thai Snacks Group Co., Ltd.",scheduled,not_arrived
+2026-08-17,16:45,17:00,JD.com,JD.com_1,B023,"Bangsaen Furniture Export Co., Ltd.",scheduled,not_arrived
+2026-08-17,10:00,10:15,JD.com,JD.com_2,C001,"Isan Herbal Co., Ltd.",arrived,arrived
+2026-08-17,10:15,10:30,JD.com,JD.com_2,C002,"Chao Phraya Organics Export Co., Ltd.",arrived,arrived
+2026-08-17,10:30,10:45,JD.com,JD.com_2,C003,"Krungthep Textiles Export Co., Ltd.",arrived,arrived
+2026-08-17,10:45,11:00,JD.com,JD.com_2,C004,"Sukhothai Textiles Industries Co., Ltd.",scheduled,not_arrived
+2026-08-17,11:00,11:15,JD.com,JD.com_2,C005,"Golden Coffee Export Co., Ltd.",scheduled,not_arrived
+2026-08-17,11:15,11:30,JD.com,JD.com_2,C006,"Ayutthaya Home Export Co., Ltd.",scheduled,not_arrived
+2026-08-17,11:30,11:45,JD.com,JD.com_2,C007,"Nakhon Snacks Trading Co., Ltd.",scheduled,not_arrived
+2026-08-17,11:45,12:00,JD.com,JD.com_2,C008,"Royal Silk Group Co., Ltd.",scheduled,not_arrived
+2026-08-17,13:00,13:15,JD.com,JD.com_2,C009,"Thai Organics Export Co., Ltd.",scheduled,not_arrived
+2026-08-17,13:15,13:30,JD.com,JD.com_2,C010,"Bangsaen Snacks Co., Ltd.",scheduled,not_arrived
+2026-08-17,13:30,13:45,JD.com,JD.com_2,C011,"Isan Spice Export Co., Ltd.",scheduled,not_arrived
+2026-08-17,13:45,14:00,JD.com,JD.com_2,C012,"Chao Phraya Ceramics Enterprise Co., Ltd.",scheduled,not_arrived
+2026-08-17,14:00,14:15,JD.com,JD.com_2,C013,"Krungthep Textiles Co., Ltd.",scheduled,not_arrived
+2026-08-17,14:15,14:30,JD.com,JD.com_2,C014,"Sukhothai Textiles Enterprise Co., Ltd.",scheduled,not_arrived
+2026-08-17,14:30,14:45,JD.com,JD.com_2,C015,"Golden Wellness Co., Ltd.",scheduled,not_arrived
+2026-08-17,14:45,15:00,JD.com,JD.com_2,C016,"Ayutthaya Fruits Trading Co., Ltd.",scheduled,not_arrived
+2026-08-17,15:00,15:15,JD.com,JD.com_2,C017,"Nakhon Rubber Trading Co., Ltd.",scheduled,not_arrived
+2026-08-17,15:15,15:30,JD.com,JD.com_2,C018,"Royal Jewelry Group Co., Ltd.",scheduled,not_arrived
+2026-08-17,15:45,16:00,JD.com,JD.com_2,C019,"Thai Spice Co., Ltd.",scheduled,not_arrived
+2026-08-17,16:00,16:15,JD.com,JD.com_2,C020,"Bangsaen Rubber Industries Co., Ltd.",scheduled,not_arrived
+2026-08-17,16:15,16:30,JD.com,JD.com_2,C021,"Isan Beauty Group Co., Ltd.",scheduled,not_arrived
+2026-08-17,16:30,16:45,JD.com,JD.com_2,C022,"Chao Phraya Ceramics Enterprise Co., Ltd.",scheduled,not_arrived
+2026-08-17,16:45,17:00,JD.com,JD.com_2,C023,"Krungthep Fruits Co., Ltd.",scheduled,not_arrived
+2026-08-17,10:00,10:15,TMALL,TMALL,D001,"Sukhothai Beauty Export Co., Ltd.",arrived,arrived
+2026-08-17,10:15,10:30,TMALL,TMALL,D002,"Golden Fruits Industries Co., Ltd.",arrived,arrived
+2026-08-17,10:30,10:45,TMALL,TMALL,D003,"Ayutthaya Craft Trading Co., Ltd.",arrived,arrived
+2026-08-17,10:45,11:00,TMALL,TMALL,D004,"Nakhon Rice Co., Ltd.",scheduled,not_arrived
+2026-08-17,11:00,11:15,TMALL,TMALL,D005,"Royal Rice Co., Ltd.",scheduled,not_arrived
+2026-08-17,11:15,11:30,TMALL,TMALL,D006,"Thai Herbal Co., Ltd.",scheduled,not_arrived
+2026-08-17,11:30,11:45,TMALL,TMALL,D007,"Bangsaen Rice Trading Co., Ltd.",scheduled,not_arrived
+2026-08-17,11:45,12:00,TMALL,TMALL,D008,"Isan Leather Export Co., Ltd.",scheduled,not_arrived
+2026-08-17,13:00,13:15,TMALL,TMALL,D009,"Chao Phraya Ceramics Industries Co., Ltd.",scheduled,not_arrived
+2026-08-17,13:15,13:30,TMALL,TMALL,D010,"Krungthep Silk Trading Co., Ltd.",scheduled,not_arrived
+2026-08-17,13:30,13:45,TMALL,TMALL,D011,"Sukhothai Leather Industries Co., Ltd.",scheduled,not_arrived
+2026-08-17,13:45,14:00,TMALL,TMALL,D012,"Golden Foods Enterprise Co., Ltd.",scheduled,not_arrived
+2026-08-17,14:00,14:15,TMALL,TMALL,D013,"Ayutthaya Leather Group Co., Ltd.",scheduled,not_arrived
+2026-08-17,14:15,14:30,TMALL,TMALL,D014,"Nakhon Furniture Export Co., Ltd.",scheduled,not_arrived
+2026-08-17,14:30,14:45,TMALL,TMALL,D015,"Royal Wellness Enterprise Co., Ltd.",scheduled,not_arrived
+2026-08-17,14:45,15:00,TMALL,TMALL,D016,"Thai Seafood Co., Ltd.",scheduled,not_arrived
+2026-08-17,15:00,15:15,TMALL,TMALL,D017,"Bangsaen Snacks Group Co., Ltd.",scheduled,not_arrived
+2026-08-17,15:15,15:30,TMALL,TMALL,D018,"Isan Organics Group Co., Ltd.",scheduled,not_arrived
+2026-08-17,15:45,16:00,TMALL,TMALL,D019,"Chao Phraya Furniture Enterprise Co., Ltd.",scheduled,not_arrived
+2026-08-17,16:00,16:15,TMALL,TMALL,D020,"Krungthep Beauty Group Co., Ltd.",scheduled,not_arrived
+2026-08-17,16:15,16:30,TMALL,TMALL,D021,"Sukhothai Ceramics Export Co., Ltd.",scheduled,not_arrived
+2026-08-17,16:30,16:45,TMALL,TMALL,D022,"Golden Wellness Trading Co., Ltd.",scheduled,not_arrived
+2026-08-17,16:45,17:00,TMALL,TMALL,D023,"Ayutthaya Leather Industries Co., Ltd.",scheduled,not_arrived
+2026-08-17,10:00,10:15,AMAZON,AMAZON_1,E001,"Nakhon Foods Enterprise Co., Ltd.",arrived,arrived
+2026-08-17,10:15,10:30,AMAZON,AMAZON_1,E002,"Royal Coffee Industries Co., Ltd.",arrived,arrived
+2026-08-17,10:30,10:45,AMAZON,AMAZON_1,E003,"Thai Seafood Co., Ltd.",arrived,arrived
+2026-08-17,10:45,11:00,AMAZON,AMAZON_1,E004,"Bangsaen Foods Industries Co., Ltd.",scheduled,not_arrived
+2026-08-17,11:00,11:15,AMAZON,AMAZON_1,E005,"Isan Ceramics Co., Ltd.",scheduled,not_arrived
+2026-08-17,11:15,11:30,AMAZON,AMAZON_1,E006,"Chao Phraya Spice Trading Co., Ltd.",scheduled,not_arrived
+2026-08-17,11:30,11:45,AMAZON,AMAZON_1,E007,"Krungthep Beauty Enterprise Co., Ltd.",scheduled,not_arrived
+2026-08-17,11:45,12:00,AMAZON,AMAZON_1,E008,"Sukhothai Textiles Trading Co., Ltd.",scheduled,not_arrived
+2026-08-17,13:00,13:15,AMAZON,AMAZON_1,E009,"Golden Jewelry Trading Co., Ltd.",scheduled,not_arrived
+2026-08-17,13:15,13:30,AMAZON,AMAZON_1,E010,"Ayutthaya Wellness Enterprise Co., Ltd.",scheduled,not_arrived
+2026-08-17,13:30,13:45,AMAZON,AMAZON_1,E011,"Nakhon Coffee Export Co., Ltd.",scheduled,not_arrived
+2026-08-17,13:45,14:00,AMAZON,AMAZON_1,E012,"Royal Silk Enterprise Co., Ltd.",scheduled,not_arrived
+2026-08-17,14:00,14:15,AMAZON,AMAZON_1,E013,"Thai Furniture Co., Ltd.",scheduled,not_arrived
+2026-08-17,14:15,14:30,AMAZON,AMAZON_1,E014,"Bangsaen Foods Group Co., Ltd.",scheduled,not_arrived
+2026-08-17,14:30,14:45,AMAZON,AMAZON_1,E015,"Isan Leather Export Co., Ltd.",scheduled,not_arrived
+2026-08-17,14:45,15:00,AMAZON,AMAZON_1,E016,"Chao Phraya Herbal Group Co., Ltd.",scheduled,not_arrived
+2026-08-17,15:00,15:15,AMAZON,AMAZON_1,E017,"Krungthep Leather Trading Co., Ltd.",scheduled,not_arrived
+2026-08-17,15:15,15:30,AMAZON,AMAZON_1,E018,"Sukhothai Herbal Export Co., Ltd.",scheduled,not_arrived
+2026-08-17,15:45,16:00,AMAZON,AMAZON_1,E019,"Golden Jewelry Co., Ltd.",scheduled,not_arrived
+2026-08-17,16:00,16:15,AMAZON,AMAZON_1,E020,"Ayutthaya Silk Enterprise Co., Ltd.",scheduled,not_arrived
+2026-08-17,16:15,16:30,AMAZON,AMAZON_1,E021,"Nakhon Snacks Co., Ltd.",scheduled,not_arrived
+2026-08-17,16:30,16:45,AMAZON,AMAZON_1,E022,"Royal Foods Enterprise Co., Ltd.",scheduled,not_arrived
+2026-08-17,16:45,17:00,AMAZON,AMAZON_1,E023,"Thai Herbal Export Co., Ltd.",scheduled,not_arrived
+2026-08-17,10:00,10:15,AMAZON,AMAZON_2,F001,"Bangsaen Rubber Trading Co., Ltd.",arrived,arrived
+2026-08-17,10:15,10:30,AMAZON,AMAZON_2,F002,"Isan Herbal Trading Co., Ltd.",arrived,arrived
+2026-08-17,10:30,10:45,AMAZON,AMAZON_2,F003,"Chao Phraya Spice Group Co., Ltd.",arrived,arrived
+2026-08-17,10:45,11:00,AMAZON,AMAZON_2,F004,"Krungthep Silk Export Co., Ltd.",scheduled,not_arrived
+2026-08-17,11:00,11:15,AMAZON,AMAZON_2,F005,"Sukhothai Home Trading Co., Ltd.",scheduled,not_arrived
+2026-08-17,11:15,11:30,AMAZON,AMAZON_2,F006,"Golden Jewelry Industries Co., Ltd.",scheduled,not_arrived
+2026-08-17,11:30,11:45,AMAZON,AMAZON_2,F007,"Ayutthaya Craft Co., Ltd.",scheduled,not_arrived
+2026-08-17,11:45,12:00,AMAZON,AMAZON_2,F008,"Nakhon Coffee Group Co., Ltd.",scheduled,not_arrived
+2026-08-17,13:00,13:15,AMAZON,AMAZON_2,F009,"Royal Fruits Enterprise Co., Ltd.",scheduled,not_arrived
+2026-08-17,13:15,13:30,AMAZON,AMAZON_2,F010,"Thai Herbal Industries Co., Ltd.",scheduled,not_arrived
+2026-08-17,13:30,13:45,AMAZON,AMAZON_2,F011,"Bangsaen Foods Industries Co., Ltd.",scheduled,not_arrived
+2026-08-17,13:45,14:00,AMAZON,AMAZON_2,F012,"Isan Ceramics Enterprise Co., Ltd.",scheduled,not_arrived
+2026-08-17,14:00,14:15,AMAZON,AMAZON_2,F013,"Chao Phraya Furniture Industries Co., Ltd.",scheduled,not_arrived
+2026-08-17,14:15,14:30,AMAZON,AMAZON_2,F014,"Krungthep Silk Co., Ltd.",scheduled,not_arrived
+2026-08-17,14:30,14:45,AMAZON,AMAZON_2,F015,"Sukhothai Herbal Industries Co., Ltd.",scheduled,not_arrived
+2026-08-17,14:45,15:00,AMAZON,AMAZON_2,F016,"Golden Wellness Co., Ltd.",scheduled,not_arrived
+2026-08-17,15:00,15:15,AMAZON,AMAZON_2,F017,"Ayutthaya Craft Trading Co., Ltd.",scheduled,not_arrived
+2026-08-17,15:15,15:30,AMAZON,AMAZON_2,F018,"Nakhon Rubber Enterprise Co., Ltd.",scheduled,not_arrived
+2026-08-17,15:45,16:00,AMAZON,AMAZON_2,F019,"Royal Silk Trading Co., Ltd.",scheduled,not_arrived
+2026-08-17,16:00,16:15,AMAZON,AMAZON_2,F020,"Thai Furniture Trading Co., Ltd.",scheduled,not_arrived
+2026-08-17,16:15,16:30,AMAZON,AMAZON_2,F021,"Bangsaen Seafood Group Co., Ltd.",scheduled,not_arrived
+2026-08-17,16:30,16:45,AMAZON,AMAZON_2,F022,"Isan Herbal Co., Ltd.",scheduled,not_arrived
+2026-08-17,16:45,17:00,AMAZON,AMAZON_2,F023,"Chao Phraya Herbal Co., Ltd.",scheduled,not_arrived
+2026-08-17,10:00,10:15,ALIBABA,ALIBABA_1,G001,"Krungthep Textiles Trading Co., Ltd.",arrived,arrived
+2026-08-17,10:15,10:30,ALIBABA,ALIBABA_1,G002,"Sukhothai Spice Co., Ltd.",arrived,arrived
+2026-08-17,10:30,10:45,ALIBABA,ALIBABA_1,G003,"Golden Silk Export Co., Ltd.",arrived,arrived
+2026-08-17,10:45,11:00,ALIBABA,ALIBABA_1,G004,"Ayutthaya Silk Enterprise Co., Ltd.",scheduled,not_arrived
+2026-08-17,11:00,11:15,ALIBABA,ALIBABA_1,G005,"Nakhon Jewelry Group Co., Ltd.",scheduled,not_arrived
+2026-08-17,11:15,11:30,ALIBABA,ALIBABA_1,G006,"Royal Wellness Group Co., Ltd.",scheduled,not_arrived
+2026-08-17,11:30,11:45,ALIBABA,ALIBABA_1,G007,"Thai Herbal Enterprise Co., Ltd.",scheduled,not_arrived
+2026-08-17,11:45,12:00,ALIBABA,ALIBABA_1,G008,"Bangsaen Snacks Industries Co., Ltd.",scheduled,not_arrived
+2026-08-17,13:00,13:15,ALIBABA,ALIBABA_1,G009,"Isan Ceramics Export Co., Ltd.",scheduled,not_arrived
+2026-08-17,13:15,13:30,ALIBABA,ALIBABA_1,G010,"Chao Phraya Seafood Export Co., Ltd.",scheduled,not_arrived
+2026-08-17,13:30,13:45,ALIBABA,ALIBABA_1,G011,"Krungthep Home Industries Co., Ltd.",scheduled,not_arrived
+2026-08-17,13:45,14:00,ALIBABA,ALIBABA_1,G012,"Sukhothai Leather Export Co., Ltd.",scheduled,not_arrived
+2026-08-17,14:00,14:15,ALIBABA,ALIBABA_1,G013,"Golden Coffee Industries Co., Ltd.",scheduled,not_arrived
+2026-08-17,14:15,14:30,ALIBABA,ALIBABA_1,G014,"Ayutthaya Silk Group Co., Ltd.",scheduled,not_arrived
+2026-08-17,14:30,14:45,ALIBABA,ALIBABA_1,G015,"Nakhon Coffee Co., Ltd.",scheduled,not_arrived
+2026-08-17,14:45,15:00,ALIBABA,ALIBABA_1,G016,"Royal Foods Co., Ltd.",scheduled,not_arrived
+2026-08-17,15:00,15:15,ALIBABA,ALIBABA_1,G017,"Thai Herbal Co., Ltd.",scheduled,not_arrived
+2026-08-17,15:15,15:30,ALIBABA,ALIBABA_1,G018,"Bangsaen Jewelry Enterprise Co., Ltd.",scheduled,not_arrived
+2026-08-17,15:45,16:00,ALIBABA,ALIBABA_1,G019,"Isan Herbal Industries Co., Ltd.",scheduled,not_arrived
+2026-08-17,16:00,16:15,ALIBABA,ALIBABA_1,G020,"Chao Phraya Seafood Export Co., Ltd.",scheduled,not_arrived
+2026-08-17,16:15,16:30,ALIBABA,ALIBABA_1,G021,"Krungthep Craft Trading Co., Ltd.",scheduled,not_arrived
+2026-08-17,16:30,16:45,ALIBABA,ALIBABA_1,G022,"Sukhothai Spice Trading Co., Ltd.",scheduled,not_arrived
+2026-08-17,16:45,17:00,ALIBABA,ALIBABA_1,G023,"Golden Craft Enterprise Co., Ltd.",scheduled,not_arrived
+2026-08-17,10:00,10:15,ALIBABA,ALIBABA_2,H001,"Ayutthaya Craft Group Co., Ltd.",arrived,arrived
+2026-08-17,10:15,10:30,ALIBABA,ALIBABA_2,H002,"Nakhon Jewelry Co., Ltd.",arrived,arrived
+2026-08-17,10:30,10:45,ALIBABA,ALIBABA_2,H003,"Royal Rice Industries Co., Ltd.",arrived,arrived
+2026-08-17,10:45,11:00,ALIBABA,ALIBABA_2,H004,"Thai Furniture Industries Co., Ltd.",scheduled,not_arrived
+2026-08-17,11:00,11:15,ALIBABA,ALIBABA_2,H005,"Bangsaen Foods Industries Co., Ltd.",scheduled,not_arrived
+2026-08-17,11:15,11:30,ALIBABA,ALIBABA_2,H006,"Isan Leather Export Co., Ltd.",scheduled,not_arrived
+2026-08-17,11:30,11:45,ALIBABA,ALIBABA_2,H007,"Chao Phraya Herbal Industries Co., Ltd.",scheduled,not_arrived
+2026-08-17,11:45,12:00,ALIBABA,ALIBABA_2,H008,"Krungthep Craft Co., Ltd.",scheduled,not_arrived
+2026-08-17,13:00,13:15,ALIBABA,ALIBABA_2,H009,"Sukhothai Herbal Group Co., Ltd.",scheduled,not_arrived
+2026-08-17,13:15,13:30,ALIBABA,ALIBABA_2,H010,"Golden Silk Industries Co., Ltd.",scheduled,not_arrived
+2026-08-17,13:30,13:45,ALIBABA,ALIBABA_2,H011,"Ayutthaya Fruits Enterprise Co., Ltd.",scheduled,not_arrived
+2026-08-17,13:45,14:00,ALIBABA,ALIBABA_2,H012,"Nakhon Rubber Export Co., Ltd.",scheduled,not_arrived
+2026-08-17,14:00,14:15,ALIBABA,ALIBABA_2,H013,"Royal Coffee Industries Co., Ltd.",scheduled,not_arrived
+2026-08-17,14:15,14:30,ALIBABA,ALIBABA_2,H014,"Thai Herbal Trading Co., Ltd.",scheduled,not_arrived
+2026-08-17,14:30,14:45,ALIBABA,ALIBABA_2,H015,"Bangsaen Rice Export Co., Ltd.",scheduled,not_arrived
+2026-08-17,14:45,15:00,ALIBABA,ALIBABA_2,H016,"Isan Ceramics Export Co., Ltd.",scheduled,not_arrived
+2026-08-17,15:00,15:15,ALIBABA,ALIBABA_2,H017,"Chao Phraya Furniture Group Co., Ltd.",scheduled,not_arrived
+2026-08-17,15:15,15:30,ALIBABA,ALIBABA_2,H018,"Krungthep Silk Export Co., Ltd.",scheduled,not_arrived
+2026-08-17,15:45,16:00,ALIBABA,ALIBABA_2,H019,"Sukhothai Beauty Industries Co., Ltd.",scheduled,not_arrived
+2026-08-17,16:00,16:15,ALIBABA,ALIBABA_2,H020,"Golden Craft Group Co., Ltd.",scheduled,not_arrived
+2026-08-17,16:15,16:30,ALIBABA,ALIBABA_2,H021,"Ayutthaya Wellness Trading Co., Ltd.",scheduled,not_arrived
+2026-08-17,16:30,16:45,ALIBABA,ALIBABA_2,H022,"Nakhon Coffee Industries Co., Ltd.",scheduled,not_arrived
+2026-08-17,16:45,17:00,ALIBABA,ALIBABA_2,H023,"Royal Coffee Group Co., Ltd.",scheduled,not_arrived
+2026-08-17,10:00,10:10,SHOPEE,SHOPEE_1,S001,"Thai Seafood Co., Ltd.",arrived,arrived
+2026-08-17,10:10,10:20,SHOPEE,SHOPEE_1,S002,"Bangsaen Foods Co., Ltd.",arrived,arrived
+2026-08-17,10:20,10:30,SHOPEE,SHOPEE_1,S003,"Isan Organics Trading Co., Ltd.",arrived,arrived
+2026-08-17,10:30,10:40,SHOPEE,SHOPEE_1,S004,"Chao Phraya Spice Industries Co., Ltd.",scheduled,not_arrived
+2026-08-17,10:40,10:50,SHOPEE,SHOPEE_1,S005,"Krungthep Craft Co., Ltd.",scheduled,not_arrived
+2026-08-17,10:50,11:00,SHOPEE,SHOPEE_1,S006,"Sukhothai Home Group Co., Ltd.",scheduled,not_arrived
+2026-08-17,11:00,11:10,SHOPEE,SHOPEE_1,S007,"Golden Foods Enterprise Co., Ltd.",scheduled,not_arrived
+2026-08-17,11:10,11:20,SHOPEE,SHOPEE_1,S008,"Ayutthaya Home Co., Ltd.",scheduled,not_arrived
+2026-08-17,11:20,11:30,SHOPEE,SHOPEE_1,S009,"Nakhon Coffee Industries Co., Ltd.",scheduled,not_arrived
+2026-08-17,11:30,11:40,SHOPEE,SHOPEE_1,S010,"Royal Rice Group Co., Ltd.",scheduled,not_arrived
+2026-08-17,11:40,11:50,SHOPEE,SHOPEE_1,S011,"Thai Rubber Industries Co., Ltd.",scheduled,not_arrived
+2026-08-17,11:50,12:00,SHOPEE,SHOPEE_1,S012,"Bangsaen Jewelry Industries Co., Ltd.",scheduled,not_arrived
+2026-08-17,13:00,13:10,SHOPEE,SHOPEE_1,S013,"Isan Leather Export Co., Ltd.",scheduled,not_arrived
+2026-08-17,13:10,13:20,SHOPEE,SHOPEE_1,S014,"Chao Phraya Ceramics Enterprise Co., Ltd.",scheduled,not_arrived
+2026-08-17,13:20,13:30,SHOPEE,SHOPEE_1,S015,"Krungthep Craft Trading Co., Ltd.",scheduled,not_arrived
+2026-08-17,13:30,13:40,SHOPEE,SHOPEE_1,S016,"Sukhothai Leather Group Co., Ltd.",scheduled,not_arrived
+2026-08-17,13:40,13:50,SHOPEE,SHOPEE_1,S017,"Golden Jewelry Export Co., Ltd.",scheduled,not_arrived
+2026-08-17,13:50,14:00,SHOPEE,SHOPEE_1,S018,"Ayutthaya Textiles Export Co., Ltd.",scheduled,not_arrived
+2026-08-17,14:00,14:10,SHOPEE,SHOPEE_1,S019,"Nakhon Coffee Export Co., Ltd.",scheduled,not_arrived
+2026-08-17,14:10,14:20,SHOPEE,SHOPEE_1,S020,"Royal Foods Export Co., Ltd.",scheduled,not_arrived
+2026-08-17,14:20,14:30,SHOPEE,SHOPEE_1,S021,"Thai Snacks Co., Ltd.",scheduled,not_arrived
+2026-08-17,14:30,14:40,SHOPEE,SHOPEE_1,S022,"Bangsaen Snacks Co., Ltd.",scheduled,not_arrived
+2026-08-17,14:40,14:50,SHOPEE,SHOPEE_1,S023,"Isan Beauty Industries Co., Ltd.",scheduled,not_arrived
+2026-08-17,14:50,15:00,SHOPEE,SHOPEE_1,S024,"Chao Phraya Snacks Enterprise Co., Ltd.",scheduled,not_arrived
+2026-08-17,15:00,15:10,SHOPEE,SHOPEE_1,S025,"Krungthep Home Industries Co., Ltd.",scheduled,not_arrived
+2026-08-17,15:10,15:20,SHOPEE,SHOPEE_1,S026,"Sukhothai Herbal Industries Co., Ltd.",scheduled,not_arrived
+2026-08-17,15:20,15:30,SHOPEE,SHOPEE_1,S027,"Golden Fruits Enterprise Co., Ltd.",scheduled,not_arrived
+2026-08-17,15:45,15:55,SHOPEE,SHOPEE_1,S028,"Ayutthaya Silk Co., Ltd.",scheduled,not_arrived
+2026-08-17,15:55,16:05,SHOPEE,SHOPEE_1,S029,"Nakhon Foods Industries Co., Ltd.",scheduled,not_arrived
+2026-08-17,16:05,16:15,SHOPEE,SHOPEE_1,S030,"Royal Wellness Enterprise Co., Ltd.",scheduled,not_arrived
+2026-08-17,16:15,16:25,SHOPEE,SHOPEE_1,S031,"Thai Snacks Group Co., Ltd.",scheduled,not_arrived
+2026-08-17,16:25,16:35,SHOPEE,SHOPEE_1,S032,"Bangsaen Seafood Enterprise Co., Ltd.",scheduled,not_arrived
+2026-08-17,16:35,16:45,SHOPEE,SHOPEE_1,S033,"Isan Spice Industries Co., Ltd.",scheduled,not_arrived
+2026-08-17,16:45,16:55,SHOPEE,SHOPEE_1,S034,"Chao Phraya Organics Group Co., Ltd.",scheduled,not_arrived
+2026-08-17,10:00,10:10,SHOPEE,SHOPEE_2,T001,"Krungthep Leather Co., Ltd.",arrived,arrived
+2026-08-17,10:10,10:20,SHOPEE,SHOPEE_2,T002,"Sukhothai Ceramics Group Co., Ltd.",arrived,arrived
+2026-08-17,10:20,10:30,SHOPEE,SHOPEE_2,T003,"Golden Coffee Industries Co., Ltd.",arrived,arrived
+2026-08-17,10:30,10:40,SHOPEE,SHOPEE_2,T004,"Ayutthaya Fruits Trading Co., Ltd.",scheduled,not_arrived
+2026-08-17,10:40,10:50,SHOPEE,SHOPEE_2,T005,"Nakhon Furniture Group Co., Ltd.",scheduled,not_arrived
+2026-08-17,10:50,11:00,SHOPEE,SHOPEE_2,T006,"Royal Silk Co., Ltd.",scheduled,not_arrived
+2026-08-17,11:00,11:10,SHOPEE,SHOPEE_2,T007,"Thai Seafood Export Co., Ltd.",scheduled,not_arrived
+2026-08-17,11:10,11:20,SHOPEE,SHOPEE_2,T008,"Bangsaen Foods Enterprise Co., Ltd.",scheduled,not_arrived
+2026-08-17,11:20,11:30,SHOPEE,SHOPEE_2,T009,"Isan Herbal Enterprise Co., Ltd.",scheduled,not_arrived
+2026-08-17,11:30,11:40,SHOPEE,SHOPEE_2,T010,"Chao Phraya Furniture Enterprise Co., Ltd.",scheduled,not_arrived
+2026-08-17,11:40,11:50,SHOPEE,SHOPEE_2,T011,"Krungthep Silk Group Co., Ltd.",scheduled,not_arrived
+2026-08-17,11:50,12:00,SHOPEE,SHOPEE_2,T012,"Sukhothai Spice Group Co., Ltd.",scheduled,not_arrived
+2026-08-17,13:00,13:10,SHOPEE,SHOPEE_2,T013,"Golden Foods Enterprise Co., Ltd.",scheduled,not_arrived
+2026-08-17,13:10,13:20,SHOPEE,SHOPEE_2,T014,"Ayutthaya Textiles Export Co., Ltd.",scheduled,not_arrived
+2026-08-17,13:20,13:30,SHOPEE,SHOPEE_2,T015,"Nakhon Snacks Co., Ltd.",scheduled,not_arrived
+2026-08-17,13:30,13:40,SHOPEE,SHOPEE_2,T016,"Royal Fruits Industries Co., Ltd.",scheduled,not_arrived
+2026-08-17,13:40,13:50,SHOPEE,SHOPEE_2,T017,"Thai Organics Enterprise Co., Ltd.",scheduled,not_arrived
+2026-08-17,13:50,14:00,SHOPEE,SHOPEE_2,T018,"Bangsaen Rubber Co., Ltd.",scheduled,not_arrived
+2026-08-17,14:00,14:10,SHOPEE,SHOPEE_2,T019,"Isan Home Enterprise Co., Ltd.",scheduled,not_arrived
+2026-08-17,14:10,14:20,SHOPEE,SHOPEE_2,T020,"Chao Phraya Furniture Industries Co., Ltd.",scheduled,not_arrived
+2026-08-17,14:20,14:30,SHOPEE,SHOPEE_2,T021,"Krungthep Silk Industries Co., Ltd.",scheduled,not_arrived
+2026-08-17,14:30,14:40,SHOPEE,SHOPEE_2,T022,"Sukhothai Leather Industries Co., Ltd.",scheduled,not_arrived
+2026-08-17,14:40,14:50,SHOPEE,SHOPEE_2,T023,"Golden Foods Export Co., Ltd.",scheduled,not_arrived
+2026-08-17,14:50,15:00,SHOPEE,SHOPEE_2,T024,"Ayutthaya Craft Industries Co., Ltd.",scheduled,not_arrived
+2026-08-17,15:00,15:10,SHOPEE,SHOPEE_2,T025,"Nakhon Furniture Group Co., Ltd.",scheduled,not_arrived
+2026-08-17,15:10,15:20,SHOPEE,SHOPEE_2,T026,"Royal Foods Industries Co., Ltd.",scheduled,not_arrived
+2026-08-17,15:20,15:30,SHOPEE,SHOPEE_2,T027,"Thai Furniture Industries Co., Ltd.",scheduled,not_arrived
+2026-08-17,15:45,15:55,SHOPEE,SHOPEE_2,T028,"Bangsaen Rubber Industries Co., Ltd.",scheduled,not_arrived
+2026-08-17,15:55,16:05,SHOPEE,SHOPEE_2,T029,"Isan Leather Co., Ltd.",scheduled,not_arrived
+2026-08-17,16:05,16:15,SHOPEE,SHOPEE_2,T030,"Chao Phraya Furniture Export Co., Ltd.",scheduled,not_arrived
+2026-08-17,16:15,16:25,SHOPEE,SHOPEE_2,T031,"Krungthep Leather Industries Co., Ltd.",scheduled,not_arrived
+2026-08-17,16:25,16:35,SHOPEE,SHOPEE_2,T032,"Sukhothai Leather Enterprise Co., Ltd.",scheduled,not_arrived
+2026-08-17,16:35,16:45,SHOPEE,SHOPEE_2,T033,"Golden Coffee Enterprise Co., Ltd.",scheduled,not_arrived
+2026-08-17,16:45,16:55,SHOPEE,SHOPEE_2,T034,"Ayutthaya Leather Industries Co., Ltd.",scheduled,not_arrived
+2026-08-18,10:00,10:15,THPM,THPM,A001,"Nakhon Coffee Group Co., Ltd.",scheduled,not_arrived
+2026-08-18,10:15,10:30,THPM,THPM,A002,"Royal Foods Group Co., Ltd.",scheduled,not_arrived
+2026-08-18,10:30,10:45,THPM,THPM,A003,"Thai Spice Export Co., Ltd.",scheduled,not_arrived
+2026-08-18,10:45,11:00,THPM,THPM,A004,"Bangsaen Foods Co., Ltd.",scheduled,not_arrived
+2026-08-18,11:00,11:15,THPM,THPM,A005,"Isan Leather Trading Co., Ltd.",scheduled,not_arrived
+2026-08-18,11:15,11:30,THPM,THPM,A006,"Chao Phraya Spice Group Co., Ltd.",scheduled,not_arrived
+2026-08-18,11:30,11:45,THPM,THPM,A007,"Krungthep Silk Industries Co., Ltd.",scheduled,not_arrived
+2026-08-18,11:45,12:00,THPM,THPM,A008,"Sukhothai Spice Trading Co., Ltd.",scheduled,not_arrived
+2026-08-18,13:00,13:15,THPM,THPM,A009,"Golden Fruits Group Co., Ltd.",scheduled,not_arrived
+2026-08-18,13:15,13:30,THPM,THPM,A010,"Ayutthaya Craft Export Co., Ltd.",scheduled,not_arrived
+2026-08-18,13:30,13:45,THPM,THPM,A011,"Nakhon Snacks Enterprise Co., Ltd.",scheduled,not_arrived
+2026-08-18,13:45,14:00,THPM,THPM,A012,"Royal Coffee Export Co., Ltd.",scheduled,not_arrived
+2026-08-18,14:00,14:15,THPM,THPM,A013,"Thai Herbal Trading Co., Ltd.",scheduled,not_arrived
+2026-08-18,14:15,14:30,THPM,THPM,A014,"Bangsaen Seafood Export Co., Ltd.",scheduled,not_arrived
+2026-08-18,14:30,14:45,THPM,THPM,A015,"Isan Home Enterprise Co., Ltd.",scheduled,not_arrived
+2026-08-18,14:45,15:00,THPM,THPM,A016,"Chao Phraya Seafood Export Co., Ltd.",scheduled,not_arrived
+2026-08-18,15:00,15:15,THPM,THPM,A017,"Krungthep Beauty Export Co., Ltd.",scheduled,not_arrived
+2026-08-18,15:15,15:30,THPM,THPM,A018,"Sukhothai Leather Co., Ltd.",scheduled,not_arrived
+2026-08-18,15:45,16:00,THPM,THPM,A019,"Golden Craft Enterprise Co., Ltd.",scheduled,not_arrived
+2026-08-18,16:00,16:15,THPM,THPM,A020,"Ayutthaya Leather Trading Co., Ltd.",scheduled,not_arrived
+2026-08-18,16:15,16:30,THPM,THPM,A021,"Nakhon Rice Export Co., Ltd.",scheduled,not_arrived
+2026-08-18,16:30,16:45,THPM,THPM,A022,"Royal Wellness Enterprise Co., Ltd.",scheduled,not_arrived
+2026-08-18,16:45,17:00,THPM,THPM,A023,"Thai Seafood Group Co., Ltd.",scheduled,not_arrived
+2026-08-18,10:00,10:15,JD.com,JD.com_1,B001,"Bangsaen Rice Industries Co., Ltd.",scheduled,not_arrived
+2026-08-18,10:15,10:30,JD.com,JD.com_1,B002,"Isan Home Group Co., Ltd.",scheduled,not_arrived
+2026-08-18,10:30,10:45,JD.com,JD.com_1,B003,"Chao Phraya Furniture Trading Co., Ltd.",scheduled,not_arrived
+2026-08-18,10:45,11:00,JD.com,JD.com_1,B004,"Krungthep Silk Industries Co., Ltd.",scheduled,not_arrived
+2026-08-18,11:00,11:15,JD.com,JD.com_1,B005,"Sukhothai Leather Group Co., Ltd.",scheduled,not_arrived
+2026-08-18,11:15,11:30,JD.com,JD.com_1,B006,"Golden Wellness Co., Ltd.",scheduled,not_arrived
+2026-08-18,11:30,11:45,JD.com,JD.com_1,B007,"Ayutthaya Craft Co., Ltd.",scheduled,not_arrived
+2026-08-18,11:45,12:00,JD.com,JD.com_1,B008,"Nakhon Rice Trading Co., Ltd.",scheduled,not_arrived
+2026-08-18,13:00,13:15,JD.com,JD.com_1,B009,"Royal Jewelry Export Co., Ltd.",scheduled,not_arrived
+2026-08-18,13:15,13:30,JD.com,JD.com_1,B010,"Thai Herbal Export Co., Ltd.",scheduled,not_arrived
+2026-08-18,13:30,13:45,JD.com,JD.com_1,B011,"Bangsaen Furniture Enterprise Co., Ltd.",scheduled,not_arrived
+2026-08-18,13:45,14:00,JD.com,JD.com_1,B012,"Isan Organics Industries Co., Ltd.",scheduled,not_arrived
+2026-08-18,14:00,14:15,JD.com,JD.com_1,B013,"Chao Phraya Seafood Trading Co., Ltd.",scheduled,not_arrived
+2026-08-18,14:15,14:30,JD.com,JD.com_1,B014,"Krungthep Fruits Export Co., Ltd.",scheduled,not_arrived
+2026-08-18,14:30,14:45,JD.com,JD.com_1,B015,"Sukhothai Spice Enterprise Co., Ltd.",scheduled,not_arrived
+2026-08-18,14:45,15:00,JD.com,JD.com_1,B016,"Golden Coffee Industries Co., Ltd.",scheduled,not_arrived
+2026-08-18,15:00,15:15,JD.com,JD.com_1,B017,"Ayutthaya Leather Co., Ltd.",scheduled,not_arrived
+2026-08-18,15:15,15:30,JD.com,JD.com_1,B018,"Nakhon Snacks Industries Co., Ltd.",scheduled,not_arrived
+2026-08-18,15:45,16:00,JD.com,JD.com_1,B019,"Royal Jewelry Group Co., Ltd.",scheduled,not_arrived
+2026-08-18,16:00,16:15,JD.com,JD.com_1,B020,"Thai Organics Export Co., Ltd.",scheduled,not_arrived
+2026-08-18,16:15,16:30,JD.com,JD.com_1,B021,"Bangsaen Seafood Industries Co., Ltd.",scheduled,not_arrived
+2026-08-18,16:30,16:45,JD.com,JD.com_1,B022,"Isan Organics Co., Ltd.",scheduled,not_arrived
+2026-08-18,16:45,17:00,JD.com,JD.com_1,B023,"Chao Phraya Spice Enterprise Co., Ltd.",scheduled,not_arrived
+2026-08-18,10:00,10:15,JD.com,JD.com_2,C001,"Krungthep Textiles Export Co., Ltd.",scheduled,not_arrived
+2026-08-18,10:15,10:30,JD.com,JD.com_2,C002,"Sukhothai Ceramics Co., Ltd.",scheduled,not_arrived
+2026-08-18,10:30,10:45,JD.com,JD.com_2,C003,"Golden Jewelry Industries Co., Ltd.",scheduled,not_arrived
+2026-08-18,10:45,11:00,JD.com,JD.com_2,C004,"Ayutthaya Fruits Co., Ltd.",scheduled,not_arrived
+2026-08-18,11:00,11:15,JD.com,JD.com_2,C005,"Nakhon Foods Group Co., Ltd.",scheduled,not_arrived
+2026-08-18,11:15,11:30,JD.com,JD.com_2,C006,"Royal Foods Enterprise Co., Ltd.",scheduled,not_arrived
+2026-08-18,11:30,11:45,JD.com,JD.com_2,C007,"Thai Furniture Trading Co., Ltd.",scheduled,not_arrived
+2026-08-18,11:45,12:00,JD.com,JD.com_2,C008,"Bangsaen Furniture Group Co., Ltd.",scheduled,not_arrived
+2026-08-18,13:00,13:15,JD.com,JD.com_2,C009,"Isan Herbal Trading Co., Ltd.",scheduled,not_arrived
+2026-08-18,13:15,13:30,JD.com,JD.com_2,C010,"Chao Phraya Organics Export Co., Ltd.",scheduled,not_arrived
+2026-08-18,13:30,13:45,JD.com,JD.com_2,C011,"Krungthep Textiles Co., Ltd.",scheduled,not_arrived
+2026-08-18,13:45,14:00,JD.com,JD.com_2,C012,"Sukhothai Ceramics Group Co., Ltd.",scheduled,not_arrived
+2026-08-18,14:00,14:15,JD.com,JD.com_2,C013,"Golden Coffee Group Co., Ltd.",scheduled,not_arrived
+2026-08-18,14:15,14:30,JD.com,JD.com_2,C014,"Ayutthaya Textiles Enterprise Co., Ltd.",scheduled,not_arrived
+2026-08-18,14:30,14:45,JD.com,JD.com_2,C015,"Nakhon Furniture Export Co., Ltd.",scheduled,not_arrived
+2026-08-18,14:45,15:00,JD.com,JD.com_2,C016,"Royal Jewelry Group Co., Ltd.",scheduled,not_arrived
+2026-08-18,15:00,15:15,JD.com,JD.com_2,C017,"Thai Organics Enterprise Co., Ltd.",scheduled,not_arrived
+2026-08-18,15:15,15:30,JD.com,JD.com_2,C018,"Bangsaen Snacks Enterprise Co., Ltd.",scheduled,not_arrived
+2026-08-18,15:45,16:00,JD.com,JD.com_2,C019,"Isan Ceramics Co., Ltd.",scheduled,not_arrived
+2026-08-18,16:00,16:15,JD.com,JD.com_2,C020,"Chao Phraya Furniture Co., Ltd.",scheduled,not_arrived
+2026-08-18,16:15,16:30,JD.com,JD.com_2,C021,"Krungthep Fruits Co., Ltd.",scheduled,not_arrived
+2026-08-18,16:30,16:45,JD.com,JD.com_2,C022,"Sukhothai Textiles Enterprise Co., Ltd.",scheduled,not_arrived
+2026-08-18,16:45,17:00,JD.com,JD.com_2,C023,"Golden Wellness Enterprise Co., Ltd.",scheduled,not_arrived
+2026-08-18,10:00,10:15,TMALL,TMALL,D001,"Ayutthaya Leather Enterprise Co., Ltd.",scheduled,not_arrived
+2026-08-18,10:15,10:30,TMALL,TMALL,D002,"Nakhon Coffee Industries Co., Ltd.",scheduled,not_arrived
+2026-08-18,10:30,10:45,TMALL,TMALL,D003,"Royal Jewelry Industries Co., Ltd.",scheduled,not_arrived
+2026-08-18,10:45,11:00,TMALL,TMALL,D004,"Thai Seafood Enterprise Co., Ltd.",scheduled,not_arrived
+2026-08-18,11:00,11:15,TMALL,TMALL,D005,"Bangsaen Rubber Export Co., Ltd.",scheduled,not_arrived
+2026-08-18,11:15,11:30,TMALL,TMALL,D006,"Isan Beauty Export Co., Ltd.",scheduled,not_arrived
+2026-08-18,11:30,11:45,TMALL,TMALL,D007,"Chao Phraya Furniture Enterprise Co., Ltd.",scheduled,not_arrived
+2026-08-18,11:45,12:00,TMALL,TMALL,D008,"Krungthep Silk Trading Co., Ltd.",scheduled,not_arrived
+2026-08-18,13:00,13:15,TMALL,TMALL,D009,"Sukhothai Herbal Group Co., Ltd.",scheduled,not_arrived
+2026-08-18,13:15,13:30,TMALL,TMALL,D010,"Golden Craft Co., Ltd.",scheduled,not_arrived
+2026-08-18,13:30,13:45,TMALL,TMALL,D011,"Ayutthaya Wellness Group Co., Ltd.",scheduled,not_arrived
+2026-08-18,13:45,14:00,TMALL,TMALL,D012,"Nakhon Jewelry Industries Co., Ltd.",scheduled,not_arrived
+2026-08-18,14:00,14:15,TMALL,TMALL,D013,"Royal Wellness Co., Ltd.",scheduled,not_arrived
+2026-08-18,14:15,14:30,TMALL,TMALL,D014,"Thai Spice Trading Co., Ltd.",scheduled,not_arrived
+2026-08-18,14:30,14:45,TMALL,TMALL,D015,"Bangsaen Furniture Trading Co., Ltd.",scheduled,not_arrived
+2026-08-18,14:45,15:00,TMALL,TMALL,D016,"Isan Home Co., Ltd.",scheduled,not_arrived
+2026-08-18,15:00,15:15,TMALL,TMALL,D017,"Chao Phraya Spice Export Co., Ltd.",scheduled,not_arrived
+2026-08-18,15:15,15:30,TMALL,TMALL,D018,"Krungthep Beauty Group Co., Ltd.",scheduled,not_arrived
+2026-08-18,15:45,16:00,TMALL,TMALL,D019,"Sukhothai Herbal Trading Co., Ltd.",scheduled,not_arrived
+2026-08-18,16:00,16:15,TMALL,TMALL,D020,"Golden Coffee Export Co., Ltd.",scheduled,not_arrived
+2026-08-18,16:15,16:30,TMALL,TMALL,D021,"Ayutthaya Silk Group Co., Ltd.",scheduled,not_arrived
+2026-08-18,16:30,16:45,TMALL,TMALL,D022,"Nakhon Rubber Co., Ltd.",scheduled,not_arrived
+2026-08-18,16:45,17:00,TMALL,TMALL,D023,"Royal Coffee Industries Co., Ltd.",scheduled,not_arrived
+2026-08-18,10:00,10:15,AMAZON,AMAZON_1,E001,"Thai Spice Trading Co., Ltd.",scheduled,not_arrived
+2026-08-18,10:15,10:30,AMAZON,AMAZON_1,E002,"Bangsaen Rice Enterprise Co., Ltd.",scheduled,not_arrived
+2026-08-18,10:30,10:45,AMAZON,AMAZON_1,E003,"Isan Organics Export Co., Ltd.",scheduled,not_arrived
+2026-08-18,10:45,11:00,AMAZON,AMAZON_1,E004,"Chao Phraya Seafood Co., Ltd.",scheduled,not_arrived
+2026-08-18,11:00,11:15,AMAZON,AMAZON_1,E005,"Krungthep Silk Trading Co., Ltd.",scheduled,not_arrived
+2026-08-18,11:15,11:30,AMAZON,AMAZON_1,E006,"Sukhothai Ceramics Industries Co., Ltd.",scheduled,not_arrived
+2026-08-18,11:30,11:45,AMAZON,AMAZON_1,E007,"Golden Foods Export Co., Ltd.",scheduled,not_arrived
+2026-08-18,11:45,12:00,AMAZON,AMAZON_1,E008,"Ayutthaya Craft Trading Co., Ltd.",scheduled,not_arrived
+2026-08-18,13:00,13:15,AMAZON,AMAZON_1,E009,"Nakhon Foods Industries Co., Ltd.",scheduled,not_arrived
+2026-08-18,13:15,13:30,AMAZON,AMAZON_1,E010,"Royal Foods Trading Co., Ltd.",scheduled,not_arrived
+2026-08-18,13:30,13:45,AMAZON,AMAZON_1,E011,"Thai Herbal Trading Co., Ltd.",scheduled,not_arrived
+2026-08-18,13:45,14:00,AMAZON,AMAZON_1,E012,"Bangsaen Rice Trading Co., Ltd.",scheduled,not_arrived
+2026-08-18,14:00,14:15,AMAZON,AMAZON_1,E013,"Isan Beauty Export Co., Ltd.",scheduled,not_arrived
+2026-08-18,14:15,14:30,AMAZON,AMAZON_1,E014,"Chao Phraya Ceramics Trading Co., Ltd.",scheduled,not_arrived
+2026-08-18,14:30,14:45,AMAZON,AMAZON_1,E015,"Krungthep Fruits Co., Ltd.",scheduled,not_arrived
+2026-08-18,14:45,15:00,AMAZON,AMAZON_1,E016,"Sukhothai Beauty Co., Ltd.",scheduled,not_arrived
+2026-08-18,15:00,15:15,AMAZON,AMAZON_1,E017,"Golden Foods Group Co., Ltd.",scheduled,not_arrived
+2026-08-18,15:15,15:30,AMAZON,AMAZON_1,E018,"Ayutthaya Craft Industries Co., Ltd.",scheduled,not_arrived
+2026-08-18,15:45,16:00,AMAZON,AMAZON_1,E019,"Nakhon Foods Industries Co., Ltd.",scheduled,not_arrived
+2026-08-18,16:00,16:15,AMAZON,AMAZON_1,E020,"Royal Foods Co., Ltd.",scheduled,not_arrived
+2026-08-18,16:15,16:30,AMAZON,AMAZON_1,E021,"Thai Snacks Co., Ltd.",scheduled,not_arrived
+2026-08-18,16:30,16:45,AMAZON,AMAZON_1,E022,"Bangsaen Rice Co., Ltd.",scheduled,not_arrived
+2026-08-18,16:45,17:00,AMAZON,AMAZON_1,E023,"Isan Leather Enterprise Co., Ltd.",scheduled,not_arrived
+2026-08-18,10:00,10:15,AMAZON,AMAZON_2,F001,"Chao Phraya Snacks Export Co., Ltd.",scheduled,not_arrived
+2026-08-18,10:15,10:30,AMAZON,AMAZON_2,F002,"Krungthep Silk Export Co., Ltd.",scheduled,not_arrived
+2026-08-18,10:30,10:45,AMAZON,AMAZON_2,F003,"Sukhothai Spice Industries Co., Ltd.",scheduled,not_arrived
+2026-08-18,10:45,11:00,AMAZON,AMAZON_2,F004,"Golden Foods Enterprise Co., Ltd.",scheduled,not_arrived
+2026-08-18,11:00,11:15,AMAZON,AMAZON_2,F005,"Ayutthaya Textiles Enterprise Co., Ltd.",scheduled,not_arrived
+2026-08-18,11:15,11:30,AMAZON,AMAZON_2,F006,"Nakhon Foods Export Co., Ltd.",scheduled,not_arrived
+2026-08-18,11:30,11:45,AMAZON,AMAZON_2,F007,"Royal Fruits Co., Ltd.",scheduled,not_arrived
+2026-08-18,11:45,12:00,AMAZON,AMAZON_2,F008,"Thai Snacks Co., Ltd.",scheduled,not_arrived
+2026-08-18,13:00,13:15,AMAZON,AMAZON_2,F009,"Bangsaen Rice Enterprise Co., Ltd.",scheduled,not_arrived
+2026-08-18,13:15,13:30,AMAZON,AMAZON_2,F010,"Isan Spice Enterprise Co., Ltd.",scheduled,not_arrived
+2026-08-18,13:30,13:45,AMAZON,AMAZON_2,F011,"Chao Phraya Organics Co., Ltd.",scheduled,not_arrived
+2026-08-18,13:45,14:00,AMAZON,AMAZON_2,F012,"Krungthep Silk Co., Ltd.",scheduled,not_arrived
+2026-08-18,14:00,14:15,AMAZON,AMAZON_2,F013,"Sukhothai Beauty Group Co., Ltd.",scheduled,not_arrived
+2026-08-18,14:15,14:30,AMAZON,AMAZON_2,F014,"Golden Coffee Group Co., Ltd.",scheduled,not_arrived
+2026-08-18,14:30,14:45,AMAZON,AMAZON_2,F015,"Ayutthaya Textiles Group Co., Ltd.",scheduled,not_arrived
+2026-08-18,14:45,15:00,AMAZON,AMAZON_2,F016,"Nakhon Furniture Co., Ltd.",scheduled,not_arrived
+2026-08-18,15:00,15:15,AMAZON,AMAZON_2,F017,"Royal Foods Enterprise Co., Ltd.",scheduled,not_arrived
+2026-08-18,15:15,15:30,AMAZON,AMAZON_2,F018,"Thai Rubber Group Co., Ltd.",scheduled,not_arrived
+2026-08-18,15:45,16:00,AMAZON,AMAZON_2,F019,"Bangsaen Jewelry Trading Co., Ltd.",scheduled,not_arrived
+2026-08-18,16:00,16:15,AMAZON,AMAZON_2,F020,"Isan Leather Export Co., Ltd.",scheduled,not_arrived
+2026-08-18,16:15,16:30,AMAZON,AMAZON_2,F021,"Chao Phraya Ceramics Group Co., Ltd.",scheduled,not_arrived
+2026-08-18,16:30,16:45,AMAZON,AMAZON_2,F022,"Krungthep Leather Enterprise Co., Ltd.",scheduled,not_arrived
+2026-08-18,16:45,17:00,AMAZON,AMAZON_2,F023,"Sukhothai Leather Export Co., Ltd.",scheduled,not_arrived
+2026-08-18,10:00,10:15,ALIBABA,ALIBABA_1,G001,"Golden Fruits Industries Co., Ltd.",scheduled,not_arrived
+2026-08-18,10:15,10:30,ALIBABA,ALIBABA_1,G002,"Ayutthaya Home Trading Co., Ltd.",scheduled,not_arrived
+2026-08-18,10:30,10:45,ALIBABA,ALIBABA_1,G003,"Nakhon Rice Export Co., Ltd.",scheduled,not_arrived
+2026-08-18,10:45,11:00,ALIBABA,ALIBABA_1,G004,"Royal Silk Industries Co., Ltd.",scheduled,not_arrived
+2026-08-18,11:00,11:15,ALIBABA,ALIBABA_1,G005,"Thai Snacks Group Co., Ltd.",scheduled,not_arrived
+2026-08-18,11:15,11:30,ALIBABA,ALIBABA_1,G006,"Bangsaen Furniture Enterprise Co., Ltd.",scheduled,not_arrived
+2026-08-18,11:30,11:45,ALIBABA,ALIBABA_1,G007,"Isan Spice Trading Co., Ltd.",scheduled,not_arrived
+2026-08-18,11:45,12:00,ALIBABA,ALIBABA_1,G008,"Chao Phraya Herbal Enterprise Co., Ltd.",scheduled,not_arrived
+2026-08-18,13:00,13:15,ALIBABA,ALIBABA_1,G009,"Krungthep Home Industries Co., Ltd.",scheduled,not_arrived
+2026-08-18,13:15,13:30,ALIBABA,ALIBABA_1,G010,"Sukhothai Ceramics Trading Co., Ltd.",scheduled,not_arrived
+2026-08-18,13:30,13:45,ALIBABA,ALIBABA_1,G011,"Golden Jewelry Enterprise Co., Ltd.",scheduled,not_arrived
+2026-08-18,13:45,14:00,ALIBABA,ALIBABA_1,G012,"Ayutthaya Home Industries Co., Ltd.",scheduled,not_arrived
+2026-08-18,14:00,14:15,ALIBABA,ALIBABA_1,G013,"Nakhon Foods Trading Co., Ltd.",scheduled,not_arrived
+2026-08-18,14:15,14:30,ALIBABA,ALIBABA_1,G014,"Royal Foods Co., Ltd.",scheduled,not_arrived
+2026-08-18,14:30,14:45,ALIBABA,ALIBABA_1,G015,"Thai Snacks Trading Co., Ltd.",scheduled,not_arrived
+2026-08-18,14:45,15:00,ALIBABA,ALIBABA_1,G016,"Bangsaen Foods Co., Ltd.",scheduled,not_arrived
+2026-08-18,15:00,15:15,ALIBABA,ALIBABA_1,G017,"Isan Leather Co., Ltd.",scheduled,not_arrived
+2026-08-18,15:15,15:30,ALIBABA,ALIBABA_1,G018,"Chao Phraya Herbal Industries Co., Ltd.",scheduled,not_arrived
+2026-08-18,15:45,16:00,ALIBABA,ALIBABA_1,G019,"Krungthep Craft Trading Co., Ltd.",scheduled,not_arrived
+2026-08-18,16:00,16:15,ALIBABA,ALIBABA_1,G020,"Sukhothai Leather Industries Co., Ltd.",scheduled,not_arrived
+2026-08-18,16:15,16:30,ALIBABA,ALIBABA_1,G021,"Golden Silk Co., Ltd.",scheduled,not_arrived
+2026-08-18,16:30,16:45,ALIBABA,ALIBABA_1,G022,"Ayutthaya Textiles Group Co., Ltd.",scheduled,not_arrived
+2026-08-18,16:45,17:00,ALIBABA,ALIBABA_1,G023,"Nakhon Rice Trading Co., Ltd.",scheduled,not_arrived
+2026-08-18,10:00,10:15,ALIBABA,ALIBABA_2,H001,"Royal Rice Industries Co., Ltd.",scheduled,not_arrived
+2026-08-18,10:15,10:30,ALIBABA,ALIBABA_2,H002,"Thai Rubber Export Co., Ltd.",scheduled,not_arrived
+2026-08-18,10:30,10:45,ALIBABA,ALIBABA_2,H003,"Bangsaen Rice Enterprise Co., Ltd.",scheduled,not_arrived
+2026-08-18,10:45,11:00,ALIBABA,ALIBABA_2,H004,"Isan Spice Co., Ltd.",scheduled,not_arrived
+2026-08-18,11:00,11:15,ALIBABA,ALIBABA_2,H005,"Chao Phraya Ceramics Co., Ltd.",scheduled,not_arrived
+2026-08-18,11:15,11:30,ALIBABA,ALIBABA_2,H006,"Krungthep Home Export Co., Ltd.",scheduled,not_arrived
+2026-08-18,11:30,11:45,ALIBABA,ALIBABA_2,H007,"Sukhothai Beauty Industries Co., Ltd.",scheduled,not_arrived
+2026-08-18,11:45,12:00,ALIBABA,ALIBABA_2,H008,"Golden Fruits Enterprise Co., Ltd.",scheduled,not_arrived
+2026-08-18,13:00,13:15,ALIBABA,ALIBABA_2,H009,"Ayutthaya Textiles Trading Co., Ltd.",scheduled,not_arrived
+2026-08-18,13:15,13:30,ALIBABA,ALIBABA_2,H010,"Nakhon Furniture Industries Co., Ltd.",scheduled,not_arrived
+2026-08-18,13:30,13:45,ALIBABA,ALIBABA_2,H011,"Royal Coffee Enterprise Co., Ltd.",scheduled,not_arrived
+2026-08-18,13:45,14:00,ALIBABA,ALIBABA_2,H012,"Thai Snacks Industries Co., Ltd.",scheduled,not_arrived
+2026-08-18,14:00,14:15,ALIBABA,ALIBABA_2,H013,"Bangsaen Rubber Industries Co., Ltd.",scheduled,not_arrived
+2026-08-18,14:15,14:30,ALIBABA,ALIBABA_2,H014,"Isan Organics Co., Ltd.",scheduled,not_arrived
+2026-08-18,14:30,14:45,ALIBABA,ALIBABA_2,H015,"Chao Phraya Organics Export Co., Ltd.",scheduled,not_arrived
+2026-08-18,14:45,15:00,ALIBABA,ALIBABA_2,H016,"Krungthep Silk Export Co., Ltd.",scheduled,not_arrived
+2026-08-18,15:00,15:15,ALIBABA,ALIBABA_2,H017,"Sukhothai Spice Export Co., Ltd.",scheduled,not_arrived
+2026-08-18,15:15,15:30,ALIBABA,ALIBABA_2,H018,"Golden Silk Trading Co., Ltd.",scheduled,not_arrived
+2026-08-18,15:45,16:00,ALIBABA,ALIBABA_2,H019,"Ayutthaya Craft Enterprise Co., Ltd.",scheduled,not_arrived
+2026-08-18,16:00,16:15,ALIBABA,ALIBABA_2,H020,"Nakhon Foods Co., Ltd.",scheduled,not_arrived
+2026-08-18,16:15,16:30,ALIBABA,ALIBABA_2,H021,"Royal Coffee Trading Co., Ltd.",scheduled,not_arrived
+2026-08-18,16:30,16:45,ALIBABA,ALIBABA_2,H022,"Thai Snacks Enterprise Co., Ltd.",scheduled,not_arrived
+2026-08-18,16:45,17:00,ALIBABA,ALIBABA_2,H023,"Bangsaen Rice Group Co., Ltd.",scheduled,not_arrived
+2026-08-18,10:00,10:10,SHOPEE,SHOPEE_1,S001,"Isan Beauty Enterprise Co., Ltd.",scheduled,not_arrived
+2026-08-18,10:10,10:20,SHOPEE,SHOPEE_1,S002,"Chao Phraya Snacks Enterprise Co., Ltd.",scheduled,not_arrived
+2026-08-18,10:20,10:30,SHOPEE,SHOPEE_1,S003,"Krungthep Home Export Co., Ltd.",scheduled,not_arrived
+2026-08-18,10:30,10:40,SHOPEE,SHOPEE_1,S004,"Sukhothai Spice Export Co., Ltd.",scheduled,not_arrived
+2026-08-18,10:40,10:50,SHOPEE,SHOPEE_1,S005,"Golden Craft Co., Ltd.",scheduled,not_arrived
+2026-08-18,10:50,11:00,SHOPEE,SHOPEE_1,S006,"Ayutthaya Fruits Export Co., Ltd.",scheduled,not_arrived
+2026-08-18,11:00,11:10,SHOPEE,SHOPEE_1,S007,"Nakhon Foods Co., Ltd.",scheduled,not_arrived
+2026-08-18,11:10,11:20,SHOPEE,SHOPEE_1,S008,"Royal Rice Group Co., Ltd.",scheduled,not_arrived
+2026-08-18,11:20,11:30,SHOPEE,SHOPEE_1,S009,"Thai Seafood Group Co., Ltd.",scheduled,not_arrived
+2026-08-18,11:30,11:40,SHOPEE,SHOPEE_1,S010,"Bangsaen Foods Enterprise Co., Ltd.",scheduled,not_arrived
+2026-08-18,11:40,11:50,SHOPEE,SHOPEE_1,S011,"Isan Spice Co., Ltd.",scheduled,not_arrived
+2026-08-18,11:50,12:00,SHOPEE,SHOPEE_1,S012,"Chao Phraya Furniture Co., Ltd.",scheduled,not_arrived
+2026-08-18,13:00,13:10,SHOPEE,SHOPEE_1,S013,"Krungthep Craft Export Co., Ltd.",scheduled,not_arrived
+2026-08-18,13:10,13:20,SHOPEE,SHOPEE_1,S014,"Sukhothai Herbal Export Co., Ltd.",scheduled,not_arrived
+2026-08-18,13:20,13:30,SHOPEE,SHOPEE_1,S015,"Golden Foods Industries Co., Ltd.",scheduled,not_arrived
+2026-08-18,13:30,13:40,SHOPEE,SHOPEE_1,S016,"Ayutthaya Wellness Enterprise Co., Ltd.",scheduled,not_arrived
+2026-08-18,13:40,13:50,SHOPEE,SHOPEE_1,S017,"Nakhon Foods Enterprise Co., Ltd.",scheduled,not_arrived
+2026-08-18,13:50,14:00,SHOPEE,SHOPEE_1,S018,"Royal Foods Industries Co., Ltd.",scheduled,not_arrived
+2026-08-18,14:00,14:10,SHOPEE,SHOPEE_1,S019,"Thai Spice Enterprise Co., Ltd.",scheduled,not_arrived
+2026-08-18,14:10,14:20,SHOPEE,SHOPEE_1,S020,"Bangsaen Furniture Group Co., Ltd.",scheduled,not_arrived
+2026-08-18,14:20,14:30,SHOPEE,SHOPEE_1,S021,"Isan Herbal Group Co., Ltd.",scheduled,not_arrived
+2026-08-18,14:30,14:40,SHOPEE,SHOPEE_1,S022,"Chao Phraya Seafood Co., Ltd.",scheduled,not_arrived
+2026-08-18,14:40,14:50,SHOPEE,SHOPEE_1,S023,"Krungthep Home Enterprise Co., Ltd.",scheduled,not_arrived
+2026-08-18,14:50,15:00,SHOPEE,SHOPEE_1,S024,"Sukhothai Home Export Co., Ltd.",scheduled,not_arrived
+2026-08-18,15:00,15:10,SHOPEE,SHOPEE_1,S025,"Golden Wellness Co., Ltd.",scheduled,not_arrived
+2026-08-18,15:10,15:20,SHOPEE,SHOPEE_1,S026,"Ayutthaya Home Export Co., Ltd.",scheduled,not_arrived
+2026-08-18,15:20,15:30,SHOPEE,SHOPEE_1,S027,"Nakhon Rubber Co., Ltd.",scheduled,not_arrived
+2026-08-18,15:45,15:55,SHOPEE,SHOPEE_1,S028,"Royal Silk Trading Co., Ltd.",scheduled,not_arrived
+2026-08-18,15:55,16:05,SHOPEE,SHOPEE_1,S029,"Thai Organics Export Co., Ltd.",scheduled,not_arrived
+2026-08-18,16:05,16:15,SHOPEE,SHOPEE_1,S030,"Bangsaen Jewelry Co., Ltd.",scheduled,not_arrived
+2026-08-18,16:15,16:25,SHOPEE,SHOPEE_1,S031,"Isan Home Group Co., Ltd.",scheduled,not_arrived
+2026-08-18,16:25,16:35,SHOPEE,SHOPEE_1,S032,"Chao Phraya Spice Trading Co., Ltd.",scheduled,not_arrived
+2026-08-18,16:35,16:45,SHOPEE,SHOPEE_1,S033,"Krungthep Leather Co., Ltd.",scheduled,not_arrived
+2026-08-18,16:45,16:55,SHOPEE,SHOPEE_1,S034,"Sukhothai Home Export Co., Ltd.",scheduled,not_arrived
+2026-08-18,10:00,10:10,SHOPEE,SHOPEE_2,T001,"Golden Jewelry Enterprise Co., Ltd.",scheduled,not_arrived
+2026-08-18,10:10,10:20,SHOPEE,SHOPEE_2,T002,"Ayutthaya Silk Trading Co., Ltd.",scheduled,not_arrived
+2026-08-18,10:20,10:30,SHOPEE,SHOPEE_2,T003,"Nakhon Jewelry Export Co., Ltd.",scheduled,not_arrived
+2026-08-18,10:30,10:40,SHOPEE,SHOPEE_2,T004,"Royal Foods Industries Co., Ltd.",scheduled,not_arrived
+2026-08-18,10:40,10:50,SHOPEE,SHOPEE_2,T005,"Thai Snacks Trading Co., Ltd.",scheduled,not_arrived
+2026-08-18,10:50,11:00,SHOPEE,SHOPEE_2,T006,"Bangsaen Rice Co., Ltd.",scheduled,not_arrived
+2026-08-18,11:00,11:10,SHOPEE,SHOPEE_2,T007,"Isan Leather Trading Co., Ltd.",scheduled,not_arrived
+2026-08-18,11:10,11:20,SHOPEE,SHOPEE_2,T008,"Chao Phraya Organics Co., Ltd.",scheduled,not_arrived
+2026-08-18,11:20,11:30,SHOPEE,SHOPEE_2,T009,"Krungthep Silk Group Co., Ltd.",scheduled,not_arrived
+2026-08-18,11:30,11:40,SHOPEE,SHOPEE_2,T010,"Sukhothai Leather Export Co., Ltd.",scheduled,not_arrived
+2026-08-18,11:40,11:50,SHOPEE,SHOPEE_2,T011,"Golden Craft Co., Ltd.",scheduled,not_arrived
+2026-08-18,11:50,12:00,SHOPEE,SHOPEE_2,T012,"Ayutthaya Wellness Enterprise Co., Ltd.",scheduled,not_arrived
+2026-08-18,13:00,13:10,SHOPEE,SHOPEE_2,T013,"Nakhon Coffee Trading Co., Ltd.",scheduled,not_arrived
+2026-08-18,13:10,13:20,SHOPEE,SHOPEE_2,T014,"Royal Fruits Industries Co., Ltd.",scheduled,not_arrived
+2026-08-18,13:20,13:30,SHOPEE,SHOPEE_2,T015,"Thai Rubber Group Co., Ltd.",scheduled,not_arrived
+2026-08-18,13:30,13:40,SHOPEE,SHOPEE_2,T016,"Bangsaen Snacks Group Co., Ltd.",scheduled,not_arrived
+2026-08-18,13:40,13:50,SHOPEE,SHOPEE_2,T017,"Isan Leather Industries Co., Ltd.",scheduled,not_arrived
+2026-08-18,13:50,14:00,SHOPEE,SHOPEE_2,T018,"Chao Phraya Organics Co., Ltd.",scheduled,not_arrived
+2026-08-18,14:00,14:10,SHOPEE,SHOPEE_2,T019,"Krungthep Silk Enterprise Co., Ltd.",scheduled,not_arrived
+2026-08-18,14:10,14:20,SHOPEE,SHOPEE_2,T020,"Sukhothai Herbal Co., Ltd.",scheduled,not_arrived
+2026-08-18,14:20,14:30,SHOPEE,SHOPEE_2,T021,"Golden Craft Industries Co., Ltd.",scheduled,not_arrived
+2026-08-18,14:30,14:40,SHOPEE,SHOPEE_2,T022,"Ayutthaya Textiles Industries Co., Ltd.",scheduled,not_arrived
+2026-08-18,14:40,14:50,SHOPEE,SHOPEE_2,T023,"Nakhon Jewelry Trading Co., Ltd.",scheduled,not_arrived
+2026-08-18,14:50,15:00,SHOPEE,SHOPEE_2,T024,"Royal Foods Industries Co., Ltd.",scheduled,not_arrived
+2026-08-18,15:00,15:10,SHOPEE,SHOPEE_2,T025,"Thai Rubber Export Co., Ltd.",scheduled,not_arrived
+2026-08-18,15:10,15:20,SHOPEE,SHOPEE_2,T026,"Bangsaen Snacks Enterprise Co., Ltd.",scheduled,not_arrived
+2026-08-18,15:20,15:30,SHOPEE,SHOPEE_2,T027,"Isan Beauty Enterprise Co., Ltd.",scheduled,not_arrived
+2026-08-18,15:45,15:55,SHOPEE,SHOPEE_2,T028,"Chao Phraya Organics Enterprise Co., Ltd.",scheduled,not_arrived
+2026-08-18,15:55,16:05,SHOPEE,SHOPEE_2,T029,"Krungthep Fruits Trading Co., Ltd.",scheduled,not_arrived
+2026-08-18,16:05,16:15,SHOPEE,SHOPEE_2,T030,"Sukhothai Herbal Group Co., Ltd.",scheduled,not_arrived
+2026-08-18,16:15,16:25,SHOPEE,SHOPEE_2,T031,"Golden Jewelry Co., Ltd.",scheduled,not_arrived
+2026-08-18,16:25,16:35,SHOPEE,SHOPEE_2,T032,"Ayutthaya Silk Group Co., Ltd.",scheduled,not_arrived
+2026-08-18,16:35,16:45,SHOPEE,SHOPEE_2,T033,"Nakhon Foods Trading Co., Ltd.",scheduled,not_arrived
+2026-08-18,16:45,16:55,SHOPEE,SHOPEE_2,T034,"Royal Foods Group Co., Ltd.",scheduled,not_arrived

@@ -1,0 +1,4 @@
+event_date,scheduled_start,scheduled_end,platform,table_code,queue_number,company_name,appointment_status,arrival_status
+2026-08-17,10:00,10:15,THPM,THPM,A001,Example Company Co. Ltd.,scheduled,not_arrived
+2026-08-17,10:15,10:30,JD.com,JD.com_1,B001,Another Example Co. Ltd.,scheduled,arrived
+2026-08-17,10:00,10:10,SHOPEE,SHOPEE_1,S001,Ten Minute Table Example Co. Ltd.,scheduled,not_arrived

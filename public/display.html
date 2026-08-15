@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="robots" content="noindex" />
+<title>TOPTHAI Day Business Matching Live — Room Display</title>
+<link rel="stylesheet" href="/css/base.css" />
+<link rel="stylesheet" href="/css/display.css" />
+</head>
+<body class="display-body">
+  <div class="stage-wrap">
+    <div class="stage" id="stage">
+
+      <section class="zone zone--main">
+        <h1 class="zone__title">15 Minutes</h1>
+        <div class="grid grid--main" id="grid-main"></div>
+      </section>
+
+      <section class="zone zone--shopee">
+        <h1 class="zone__title">10 Minutes</h1>
+        <div class="grid grid--shopee" id="grid-shopee"></div>
+
+        <div class="qr-panel">
+          <img class="qr-panel__code" id="qr" src="/api/qr.svg?path=/live" alt="QR code linking to the live queue page" />
+          <div class="qr-panel__text">
+            <span class="qr-panel__lead">Scan for live queue</span>
+            <span class="qr-panel__url" id="qr-url">/live</span>
+          </div>
+        </div>
+      </section>
+
+      <footer class="bar">
+        <div class="bar__block bar__block--brand">
+          <span class="bar__event" id="event-name">TOPTHAI Day Business Matching Live</span>
+          <span class="bar__live" id="live-badge">● LIVE</span>
+        </div>
+        <div class="bar__block">
+          <span class="bar__label">Event date</span>
+          <span class="bar__value" id="event-date">—</span>
+        </div>
+        <div class="bar__block">
+          <span class="bar__label">Session</span>
+          <span class="bar__value" id="session-name">—</span>
+        </div>
+        <div class="bar__block bar__block--clock">
+          <span class="bar__label">Bangkok time</span>
+          <span class="bar__clock count" id="clock">--:--:--</span>
+        </div>
+        <div class="bar__block bar__block--conn">
+          <span class="conn is-connecting" id="conn">Connecting</span>
+          <span class="bar__sync" id="sync">synced never</span>
+        </div>
+      </footer>
+
+    </div>
+  </div>
+
+  <audio id="chime" preload="auto"></audio>
+
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="/js/client.js"></script>
+  <script src="/js/display.js"></script>
+</body>
+</html>

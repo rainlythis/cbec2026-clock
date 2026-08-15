@@ -1,0 +1,159 @@
+/* TOPTHAI Day Business Matching Live - shared tokens and primitives. */
+
+:root {
+  --ink: #111111;
+  --ink-soft: #4a4a4a;
+  --ink-faint: #8b8b8b;
+  --paper: #ffffff;
+  --paper-dim: #f4f4f5;
+  --line: #111111;
+  --line-soft: #e2e2e5;
+
+  --coral: #fb554c;
+  --coral-dark: #e0362d;
+  --green: #00b14f;
+  --red: #e5342a;
+  --amber: #f0a02c;
+  --slate: #46506a;
+  --blue: #2f4fd8;
+
+  /* Countdown bands */
+  --count-normal: #111111;
+  --count-warning: #f5893c;
+  --count-critical: #ef3226;
+
+  --radius-card: 18px;
+  --radius-pill: 999px;
+
+  --font: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue",
+    "Noto Sans Thai", Arial, sans-serif;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+/* A class-level `display` beats the [hidden] attribute on specificity, which
+   would leave dialogs and the passcode gate on screen. Make hidden absolute. */
+[hidden] {
+  display: none !important;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: var(--font);
+  color: var(--ink);
+  background: var(--paper);
+  -webkit-font-smoothing: antialiased;
+  -webkit-text-size-adjust: 100%;
+}
+
+button {
+  font-family: inherit;
+  cursor: pointer;
+}
+
+button:disabled {
+  cursor: not-allowed;
+  opacity: 0.35;
+}
+
+/* Tabular figures stop the countdown from jittering as digits change. */
+.count {
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: "tnum" 1;
+  letter-spacing: -0.02em;
+  font-weight: 800;
+  line-height: 1;
+  color: var(--count-normal);
+}
+
+.count.is-warning { color: var(--count-warning); }
+.count.is-critical,
+.count.is-timeup { color: var(--count-critical); }
+
+/* Ten-second attention pulse at 00:00, then it settles to steady red.
+   Deliberately not a continuous flash. */
+@keyframes timeup-pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.28; }
+}
+
+.count.is-pulsing {
+  animation: timeup-pulse 0.9s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .count.is-pulsing { animation: none; }
+}
+
+/* Status pill - always present so the interface never relies on colour alone. */
+.status-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4em;
+  border-radius: var(--radius-pill);
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  white-space: nowrap;
+  background: var(--paper-dim);
+  color: var(--ink-soft);
+}
+
+.status-pill::before {
+  content: "";
+  width: 0.62em;
+  height: 0.62em;
+  border-radius: 50%;
+  background: currentColor;
+  flex: none;
+}
+
+.status-ready    { background: #eceef2; color: #3d4658; }
+.status-running  { background: #e0f6ea; color: #067a3c; }
+.status-paused   { background: #fdf0d9; color: #a3670a; }
+.status-timeup   { background: #fde3e1; color: #c62018; }
+.status-break    { background: #e6ecff; color: #2f4fd8; }
+.status-closed   { background: #e6e6e8; color: #55555c; }
+
+/* Realtime connection indicator, shared by all three views. */
+.conn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45em;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.conn::before {
+  content: "";
+  width: 0.6em;
+  height: 0.6em;
+  border-radius: 50%;
+  background: currentColor;
+  flex: none;
+}
+
+.conn.is-live { color: var(--green); }
+.conn.is-connecting { color: var(--amber); }
+.conn.is-offline { color: var(--red); }
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
+}

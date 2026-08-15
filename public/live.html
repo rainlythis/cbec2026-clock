@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<meta name="theme-color" content="#fb554c" />
+<title>Live Queue — TOPTHAI Day Business Matching</title>
+<link rel="stylesheet" href="/css/base.css" />
+<link rel="stylesheet" href="/css/live.css" />
+</head>
+<body class="live-body">
+
+  <header class="live-head">
+    <div class="live-head__row">
+      <div class="live-head__brand">
+        <span class="live-head__event" id="event-name">TOPTHAI Day Business Matching</span>
+        <span class="live-head__date" id="event-date">—</span>
+      </div>
+      <div class="live-head__meta">
+        <span class="live-head__clock count" id="clock">--:--</span>
+        <span class="conn is-connecting" id="conn">Connecting</span>
+      </div>
+    </div>
+
+    <div class="live-head__search">
+      <input
+        id="search"
+        type="search"
+        inputmode="search"
+        autocomplete="off"
+        placeholder="Search queue number or company"
+        aria-label="Search by queue number or company name"
+      />
+      <button type="button" id="search-clear" class="search-clear" aria-label="Clear search" hidden>×</button>
+    </div>
+
+    <nav class="chips" id="chips" aria-label="Filter by platform"></nav>
+  </header>
+
+  <main class="live-main">
+    <p class="sync-note"><span id="sync">synced never</span> · times shown in Bangkok time (GMT+7)</p>
+    <section id="results" class="results" hidden></section>
+    <section id="tables" class="tables"></section>
+    <p class="empty" id="empty" hidden>No tables match this filter.</p>
+  </main>
+
+  <footer class="live-foot">
+    <p>Please wait for your queue number to be called at your table.</p>
+    <p class="live-foot__muted">This page updates automatically. Meeting times are 15 minutes (10 minutes at SHOPEE tables).</p>
+  </footer>
+
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="/js/client.js"></script>
+  <script src="/js/live.js"></script>
+</body>
+</html>

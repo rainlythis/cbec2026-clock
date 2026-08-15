@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<meta name="robots" content="noindex" />
+<title>Schedule Grid — TOPTHAI Day Business Matching Live</title>
+<link rel="stylesheet" href="/css/base.css" />
+<link rel="stylesheet" href="/css/control.css" />
+<link rel="stylesheet" href="/css/schedule.css" />
+</head>
+<body class="schedule-body">
+
+  <div class="gate" id="gate" hidden>
+    <form class="gate__card" id="login-form" autocomplete="off">
+      <h1 class="gate__title">Schedule Grid</h1>
+      <p class="gate__sub">TOPTHAI Day Business Matching Live</p>
+      <label class="gate__label" for="passcode">Operator passcode</label>
+      <input class="gate__input" id="passcode" name="passcode" type="password"
+             autocomplete="current-password" required />
+      <p class="gate__error" id="login-error" hidden></p>
+      <button class="btn btn--primary btn--wide" type="submit" id="login-submit">Unlock</button>
+      <p class="gate__note">This page is for the event operator only.</p>
+    </form>
+  </div>
+
+  <div id="app" hidden>
+    <header class="shead">
+      <div class="shead__row">
+        <div class="shead__brand">
+          <span class="shead__title">Schedule Grid</span>
+          <span class="shead__sub" id="grid-sub">—</span>
+        </div>
+
+        <div class="shead__tools">
+          <div class="daytabs" id="daytabs"></div>
+          <span class="live-flag" id="live-flag" hidden title="This day is the one showing in the room">In the room now</span>
+          <button class="btn btn--ghost btn--sm" id="export">Export</button>
+          <a class="btn btn--ghost btn--sm" href="/control">Timers</a>
+          <span class="conn is-connecting" id="conn">Connecting</span>
+        </div>
+      </div>
+
+      <div class="shead__row shead__row--legend">
+        <div class="legend">
+          <span class="legend__item"><i class="swatch swatch--waiting"></i>Waiting</span>
+          <span class="legend__item"><i class="swatch swatch--arrived"></i>Arrived</span>
+          <span class="legend__item"><i class="swatch swatch--live"></i>At table</span>
+          <span class="legend__item"><i class="swatch swatch--done"></i>Completed</span>
+          <span class="legend__item"><i class="swatch swatch--gone"></i>Skipped / no-show</span>
+          <span class="legend__item"><i class="swatch swatch--moved"></i>Moved</span>
+        </div>
+        <p class="hint" id="hint">Click a cell to act on it. Locked cells are already called or finished.</p>
+      </div>
+    </header>
+
+    <main class="smain">
+      <section class="gridwrap">
+        <h2 class="gridwrap__title">15 Minutes</h2>
+        <div class="tablescroll"><table class="matrix" id="matrix-main"></table></div>
+      </section>
+
+      <section class="gridwrap gridwrap--shopee">
+        <h2 class="gridwrap__title">10 Minutes</h2>
+        <div class="tablescroll"><table class="matrix" id="matrix-shopee"></table></div>
+      </section>
+
+      <section class="parked" id="parked-section" hidden>
+        <h2 class="parked__title">Parked <span class="parked__count" id="parked-count">0</span></h2>
+        <p class="parked__hint">Not on the grid and not callable. Click one to place it in a free cell.</p>
+        <div class="parked__list" id="parked-list"></div>
+      </section>
+    </main>
+  </div>
+
+  <!-- Cell action sheet -->
+  <div class="modal" id="cell-modal" hidden>
+    <div class="modal__box modal__box--sm" role="dialog" aria-modal="true" aria-labelledby="cell-title">
+      <div class="modal__head">
+        <h2 class="modal__title" id="cell-title">Cell</h2>
+        <button class="modal__close" id="cell-close" aria-label="Close">×</button>
+      </div>
+      <p class="modal__body" id="cell-meta"></p>
+      <div class="cell-actions" id="cell-actions"></div>
+      <div class="contact" id="contact" hidden></div>
+    </div>
+  </div>
+
+  <div class="modal" id="confirm-modal" hidden>
+    <div class="modal__box modal__box--sm" role="dialog" aria-modal="true" aria-labelledby="confirm-title">
+      <h2 class="modal__title" id="confirm-title">Are you sure?</h2>
+      <p class="modal__body" id="confirm-body"></p>
+      <div class="modal__actions">
+        <button class="btn btn--ghost" id="confirm-cancel">Cancel</button>
+        <button class="btn btn--danger" id="confirm-ok">Confirm</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Company picker for set / replace -->
+  <div class="modal" id="pick-modal" hidden>
+    <div class="modal__box" role="dialog" aria-modal="true" aria-labelledby="pick-title">
+      <div class="modal__head">
+        <h2 class="modal__title" id="pick-title">Choose a company</h2>
+        <button class="modal__close" id="pick-close" aria-label="Close">×</button>
+      </div>
+      <input class="gate__input" id="pick-search" type="search" placeholder="Search company name" autocomplete="off" />
+      <div class="pick-list" id="pick-list"></div>
+    </div>
+  </div>
+
+  <div class="toast" id="toast" hidden></div>
+
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="/js/client.js"></script>
+  <script src="/js/schedule.js"></script>
+</body>
+</html>
