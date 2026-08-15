@@ -139,7 +139,7 @@ fresh database is enough.
 
 1. **Create the project** and add a **PostgreSQL** database to it.
 2. **Add this repository** as a service (Nixpacks picks up `railway.json`:
-   build `npm ci && npm run build`, start `npm run start`, health check `/health`).
+   build `npm run build`, start `npm run start`, health check `/health`).
 3. **Set the service variables:**
 
    | Variable | Value |
@@ -147,7 +147,7 @@ fresh database is enough.
    | `DATABASE_URL` | `${{Postgres.DATABASE_URL}}` |
    | `CONTROL_PASSWORD` | a long random operator passcode |
    | `SESSION_SECRET` | a long random string (keep it stable across deploys) |
-   | `PUBLIC_BASE_URL` | `https://<your-service>.up.railway.app` — used for the QR code |
+   | `PUBLIC_BASE_URL` | `https://<your-service>.up.railway.app` — pins the QR code target. Optional: if unset the QR uses the origin the request arrived on, which is already correct on Railway |
    | `TZ` | `Asia/Bangkok` |
    | `PORT` | injected by Railway; no need to set it |
 

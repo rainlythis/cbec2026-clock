@@ -21,7 +21,7 @@ async function main(): Promise<void> {
     logger.info('TOPTHAI Day Business Matching Live is running', {
       port: config.port,
       timezone: config.timezone,
-      baseUrl: config.publicBaseUrl,
+      baseUrl: config.publicBaseUrl ?? '(PUBLIC_BASE_URL not set - the QR code will use each request\'s own origin)',
     });
   });
 

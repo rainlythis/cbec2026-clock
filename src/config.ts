@@ -37,7 +37,16 @@ export interface AppConfig {
   databaseUrl: string;
   controlPassword: string;
   sessionSecret: string;
-  publicBaseUrl: string;
+  /**
+   * Explicit public origin, or null when PUBLIC_BASE_URL is not set.
+   *
+   * Null on purpose rather than a localhost default: the QR code on the room
+   * screen is built from this, and a QR that silently encodes localhost is the
+   * kind of fault you discover when a room full of people is scanning it. When
+   * this is null the QR falls back to the origin the request actually arrived
+   * on, which is correct on Railway without any configuration.
+   */
+  publicBaseUrl: string | null;
   timezone: string;
   isProduction: boolean;
   cookieSecure: boolean;
@@ -57,8 +66,9 @@ export function loadConfig(): AppConfig {
     databaseUrl: required('DATABASE_URL'),
     controlPassword: required('CONTROL_PASSWORD'),
     sessionSecret: required('SESSION_SECRET'),
-    publicBaseUrl: (process.env.PUBLIC_BASE_URL || `http://localhost:${optionalInt('PORT', 8080)}`)
-      .replace(/\/+$/, ''),
+    publicBaseUrl: process.env.PUBLIC_BASE_URL
+      ? process.env.PUBLIC_BASE_URL.trim().replace(/\/+$/, '')
+      : null,
     timezone: EVENT_TIMEZONE,
     isProduction,
     cookieSecure: cookieSecureRaw ? cookieSecureRaw !== 'false' : isProduction,

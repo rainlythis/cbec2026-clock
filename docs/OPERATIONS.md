@@ -8,7 +8,9 @@ For the operator. Everything here is done from `/control` (timers) and
 1. Open `/control`, sign in, confirm **Event day** is today's date.
 2. Open `/schedule` and check the grid against your spreadsheet.
 3. Put `/display` on the room screen and press **F11** for fullscreen.
-4. Print or show the QR (bottom-right of the room screen) — it points at `/live`.
+4. Print or show the QR (bottom-right of the room screen). **Check the URL printed
+   beside it is your real address, not localhost** — that text is read back from
+   the QR image itself, so if it looks right, the code is right.
 5. Leave **Room sound: Off** unless you want a chime at 00:00.
 
 Each table starts **Ready** with no company loaded. Press **Complete & Next**
@@ -98,6 +100,7 @@ column. Opens straight in Excel with Thai text intact.
 | *"This cell changed in another tab"* | Another tab edited it. The grid reloads; try again. |
 | A company appears twice at 14:00 | You pushed a queue up. Check the warning list and move one of them. |
 | Wrong day on screen | `/control` → Event day. |
+| QR points at localhost | `PUBLIC_BASE_URL` is set to a stale value in Railway. Clear it (the QR then uses the real address automatically) or set it to the live URL. |
 | Locked out of `/control` | Too many wrong passcodes; wait five minutes. |
 
 **Never** edit the database by hand during the event. Every action above is

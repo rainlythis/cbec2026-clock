@@ -26,7 +26,13 @@
   window.addEventListener('resize', fitStage);
   fitStage();
 
-  qrUrlEl.textContent = window.location.origin + '/live';
+  // Print the URL the QR image actually encodes, taken from the response
+  // header, so the text beside it can never disagree with the code itself.
+  fetch('/api/qr.svg?path=/live', { method: 'HEAD' })
+    .then(function (response) {
+      qrUrlEl.textContent = response.headers.get('X-QR-Target') || window.location.origin + '/live';
+    })
+    .catch(function () { qrUrlEl.textContent = window.location.origin + '/live'; });
 
   function buildCard(table) {
     var el = document.createElement('article');

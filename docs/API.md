@@ -10,7 +10,7 @@ All JSON unless noted. Times are ISO-8601 instants; wall-clock times are
 | GET | `/health` | `{status, time, timezone}`; 503 if the database is unreachable |
 | GET | `/api/time` | `{serverTime}` — clock-sync probe |
 | GET | `/api/state` | the full snapshot (also the polling fallback) |
-| GET | `/api/qr.svg?path=/live` | QR code SVG for the room display |
+| GET | `/api/qr.svg?path=/live` | QR code SVG for the room display. Encodes `PUBLIC_BASE_URL` when set, otherwise the origin the request arrived on. The resolved URL is echoed in the `X-QR-Target` response header, so `curl -I` confirms it without decoding the image |
 
 ### Snapshot shape
 
