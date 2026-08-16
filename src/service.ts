@@ -803,6 +803,125 @@ export async function globalReset(): Promise<void> {
   bumpRevision();
 }
 
+export interface ResetDayResult {
+  date: string;
+  appointments: number;
+  tables: number;
+  clearedCompleted: number;
+  clearedSkipped: number;
+  restoredToOriginalCell: number;
+}
+
+/**
+ * Puts a whole day back to "never run".
+ *
+ * Intended for the morning of the event, after a rehearsal: every appointment
+ * returns to `scheduled`/`not_arrived` in the cell it was imported into, every
+ * timer goes back to its full duration with nobody loaded, and the day starts
+ * clean.
+ *
+ * Deliberately does NOT touch `operation_log` - the record of what happened,
+ * including the rehearsal and this reset itself, is kept.
+ *
+ * Destructive: completed and skipped outcomes for the day are discarded, and
+ * any grid edits are undone. The route demands an explicit confirmation and the
+ * UI asks the operator to type the word.
+ */
+export async function resetDay(eventDate: string): Promise<ResetDayResult> {
+  if (!EVENT_DATES.includes(eventDate as (typeof EVENT_DATES)[number])) {
+    throw new OperationError(`Event date must be one of ${EVENT_DATES.join(', ')}.`);
+  }
+
+  const result = await withTransaction(async (client) => {
+    await lockGrid(client);
+
+    const before = (
+      await client.query<{ completed: string; skipped: string; moved: string; total: string }>(
+        `SELECT count(*) FILTER (WHERE appointment_status = 'completed')::text AS completed,
+                count(*) FILTER (WHERE appointment_status IN ('skipped','no_show'))::text AS skipped,
+                count(*) FILTER (WHERE slot_id IS DISTINCT FROM original_slot_id
+                                    OR table_code IS DISTINCT FROM original_table_code)::text AS moved,
+                count(*)::text AS total
+           FROM appointments WHERE event_date = $1`,
+        [eventDate],
+      )
+    ).rows[0];
+
+    // Timers first, so no pointer survives into the cleared appointments.
+    const timers = await client.query(
+      `UPDATE timer_states ts
+          SET timer_status = 'ready',
+              duration_seconds = td.duration_seconds,
+              started_at = NULL,
+              ends_at = NULL,
+              paused_remaining_seconds = NULL,
+              timeup_at = NULL,
+              current_appointment_id = NULL,
+              event_date = $1,
+              updated_at = now()
+         FROM table_days td
+        WHERE td.table_code = ts.table_code AND td.event_date = $1`,
+      [eventDate],
+    );
+
+    // Two phases again: restoring original cells can cross two appointments
+    // that were swapped, and the cell uniqueness index is partial so it cannot
+    // be deferred to commit time.
+    await client.query(
+      `UPDATE appointments SET slot_id = NULL WHERE event_date = $1`,
+      [eventDate],
+    );
+    const appointments = await client.query(
+      `UPDATE appointments a
+          SET appointment_status = 'scheduled',
+              arrival_status = 'not_arrived',
+              table_code = origin.table_code,
+              slot_id = origin.slot_id,
+              scheduled_start = COALESCE(origin.starts_at, a.scheduled_start),
+              scheduled_end = COALESCE(origin.ends_at, a.scheduled_end),
+              platform = COALESCE(origin.platform, a.platform),
+              row_version = a.row_version + 1,
+              updated_at = now()
+         FROM (
+           SELECT x.id,
+                  COALESCE(x.original_table_code, x.table_code) AS table_code,
+                  x.original_slot_id                            AS slot_id,
+                  s.starts_at, s.ends_at, td.platform
+             FROM appointments x
+             LEFT JOIN time_slots s ON s.id = x.original_slot_id
+             LEFT JOIN table_days td
+                    ON td.event_date = x.event_date
+                   AND td.table_code = COALESCE(x.original_table_code, x.table_code)
+            WHERE x.event_date = $1
+         ) AS origin
+        WHERE a.id = origin.id`,
+      [eventDate],
+    );
+
+    await logOperation(client, 'day.reset', {
+      date: eventDate,
+      clearedCompleted: Number(before.completed),
+      clearedSkipped: Number(before.skipped),
+      restoredToOriginalCell: Number(before.moved),
+      appointments: appointments.rowCount,
+    });
+    await bumpGridRevision(client);
+
+    return {
+      date: eventDate,
+      appointments: appointments.rowCount ?? 0,
+      tables: timers.rowCount ?? 0,
+      clearedCompleted: Number(before.completed),
+      clearedSkipped: Number(before.skipped),
+      restoredToOriginalCell: Number(before.moved),
+    };
+  });
+
+  bumpRevision();
+  logger.warn('Day reset to a fresh state', result);
+  return result;
+}
+
 export async function setSoundEnabled(enabled: boolean): Promise<void> {
   await withTransaction(async (client) => {
     await client.query(

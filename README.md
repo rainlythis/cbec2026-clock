@@ -96,8 +96,16 @@ Under **⋯ More**: add one minute, remove one minute (both confirmed), manage
 queue / recall skipped, put the table on break, close the table.
 
 Global: one **Play All / Pause All** toggle (labelled by what will happen, with a
-**Mixed states** badge when tables disagree) and **Reset All**, which requires a
-confirmation dialog and a confirmation flag on the API call.
+**Mixed states** badge when tables disagree), **Reset All** (timers only, back to
+full duration — the queue is untouched), and **Fresh Day**.
+
+**Fresh Day** puts the whole active day back to never-run: every company waiting
+in the slot it was imported into, every timer at full, nothing loaded at any
+table. It is how you clear a rehearsal on the morning of the event. It discards
+that day's completed and skipped outcomes and undoes schedule-grid edits, keeps
+the roster and the operation log, and never touches the other day. Because it
+cannot be undone by pressing it again, it is the one control that asks you to
+type **RESET** to confirm.
 
 Nothing ever advances or starts the next meeting automatically.
 

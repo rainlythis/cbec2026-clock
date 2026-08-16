@@ -35,6 +35,7 @@ import {
   importSchedule,
   previousAppointment,
   recallAppointment,
+  resetDay,
   recentOperations,
   resetTimer,
   selectCurrent,
@@ -167,6 +168,28 @@ export function controlRouter(): Router {
 
   // --- global controls ---
   router.post('/global/toggle', mutation(() => globalToggle()));
+  /**
+   * Fresh day: puts the active day back to never-run. Destructive, so it needs
+   * both the confirm flag and the date the operator believes they are wiping.
+   */
+  router.post(
+    '/global/reset-day',
+    mutation(async (req) => {
+      const body = req.body as { confirm?: boolean; date?: unknown };
+      if (body?.confirm !== true) {
+        throw new OperationError('Resetting the day must be confirmed.', 'bad_request');
+      }
+      const settings = await getSettings();
+      const date = String(body?.date ?? settings.active_event_date);
+      if (date !== settings.active_event_date) {
+        throw new OperationError(
+          `That is not the day currently in the room (${settings.active_event_date}). Switch day first.`,
+        );
+      }
+      return resetDay(date);
+    }),
+  );
+
   router.post(
     '/global/reset',
     mutation(async (req) => {

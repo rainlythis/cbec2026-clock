@@ -66,17 +66,43 @@
     );
   }
 
-  /** Promise-based confirmation dialog; resolves false on cancel. */
-  function confirmDialog(title, body, confirmLabel) {
+  /**
+   * Promise-based confirmation dialog; resolves false on cancel.
+   *
+   * Pass `requireText` for a destructive action: the operator must type that
+   * word before the button unlocks. Reserved for things that cannot be undone
+   * by pressing the same button again.
+   */
+  function confirmDialog(title, body, confirmLabel, requireText) {
     return new Promise(function (resolve) {
       var modal = $('confirm-modal');
+      var box = modal.querySelector('.modal__box');
       $('confirm-title').textContent = title;
       $('confirm-body').textContent = body;
       $('confirm-ok').textContent = confirmLabel || 'Confirm';
       modal.hidden = false;
 
+      var input = null;
+      if (requireText) {
+        input = document.createElement('input');
+        input.type = 'text';
+        input.className = 'confirm-type';
+        input.autocapitalize = 'characters';
+        input.autocomplete = 'off';
+        input.placeholder = 'Type ' + requireText + ' to confirm';
+        input.setAttribute('aria-label', 'Type ' + requireText + ' to confirm');
+        box.insertBefore(input, modal.querySelector('.modal__actions'));
+        $('confirm-ok').disabled = true;
+        input.addEventListener('input', function () {
+          $('confirm-ok').disabled = input.value.trim().toUpperCase() !== requireText.toUpperCase();
+        });
+        setTimeout(function () { input.focus(); }, 40);
+      }
+
       function done(result) {
         modal.hidden = true;
+        if (input && input.parentNode) input.parentNode.removeChild(input);
+        $('confirm-ok').disabled = false;
         $('confirm-ok').removeEventListener('click', onOk);
         $('confirm-cancel').removeEventListener('click', onCancel);
         document.removeEventListener('keydown', onKey);
@@ -510,6 +536,37 @@
       'Reset all timers',
     ).then(function (ok) {
       if (ok) api('/global/reset', { confirm: true }).then(function () { toast('All timers reset.'); });
+    });
+  });
+
+  /**
+   * Fresh Day: back to never-run. Intended for the morning of the event, after
+   * a rehearsal. Typed confirmation, because unlike everything else on this
+   * page it cannot be undone by pressing the button again.
+   */
+  $('reset-day').addEventListener('click', function () {
+    if (!state) return;
+    var day = TopThai.bangkokDate(state.event.activeDate);
+    var done = state.tables.reduce(function (n, t) { return n + t.stats.completed; }, 0);
+    var skipped = state.tables.reduce(function (n, t) { return n + t.stats.skipped; }, 0);
+
+    confirmDialog(
+      'Start ' + day + ' fresh?',
+      'Every company goes back to waiting in their original slot, every timer back to full, ' +
+        'and no table has anyone loaded — as if the day had not run yet. This discards ' +
+        done + ' completed and ' + skipped + ' skipped meeting(s) for this day, and undoes any ' +
+        'changes made on the schedule grid. The roster itself and the operation log are kept. ' +
+        'The other event day is not touched.',
+      'Reset the day',
+      'RESET',
+    ).then(function (ok) {
+      if (!ok) return;
+      api('/global/reset-day', { confirm: true, date: state.event.activeDate }).then(function (data) {
+        toast(
+          'Day reset: ' + data.appointments + ' appointments back to waiting across ' +
+            data.tables + ' tables.',
+        );
+      });
     });
   });
 

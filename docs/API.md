@@ -78,7 +78,8 @@ client-to-server event that mutates anything.
 | POST | `/api/control/tables/:code/adjust` | `{deltaSeconds}` (±15 min max) |
 | POST | `/api/control/tables/:code/presence` | `{status: break\|closed\|ready}` |
 | POST | `/api/control/global/toggle` | — |
-| POST | `/api/control/global/reset` | `{confirm: true}` — **required** |
+| POST | `/api/control/global/reset` | `{confirm: true}` — **required**. Timers only |
+| POST | `/api/control/global/reset-day` | `{confirm: true, date}` — **destructive**. Whole day back to never-run. `date` must equal the active day |
 
 ### Queue
 

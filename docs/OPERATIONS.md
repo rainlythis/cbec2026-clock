@@ -14,6 +14,8 @@ For the operator. Everything here is done from `/control` (timers) and
    beside it is your real address, not localhost** — that text is read back from
    the QR image itself, so if it looks right, the code is right.
 5. Leave **Room sound: Off** unless you want a chime at 00:00.
+6. **If you rehearsed, press Fresh Day** on `/control` and type `RESET`. That
+   clears the practice run completely — see below.
 
 Each table starts **Ready** with no company loaded. Press **Load First** on each
 table to call up its first company. (That button becomes **Complete & Next**
@@ -36,6 +38,23 @@ Ready until you press Play.
 
 At 00:00 the digits go red, pulse for ten seconds, then hold steady. The meeting
 is not ended for you.
+
+## Clearing a rehearsal — Fresh Day
+
+`/control` → **Fresh Day** → type `RESET`.
+
+The active day goes back to never-run: every company waiting again in the slot
+they were imported into, every timer at its full duration, nobody loaded at any
+table. Use it once on the morning of the event after testing.
+
+- It **discards** that day's completed and skipped meetings, and **undoes**
+  changes made on the schedule grid — including a queue you pushed up.
+- It **keeps** the roster itself and the operation log.
+- It **never touches** the other event day.
+- It is the only button on the page that cannot be undone by pressing it again,
+  which is why it asks you to type the word.
+
+Afterwards the schedule grid matches the approved workbook exactly again.
 
 ## Somebody hasn't turned up
 
@@ -115,6 +134,7 @@ column. Opens straight in Excel with Thai text intact.
 | **↩** greyed out | Pause the timer first, or there is nothing to go back to yet at that table. |
 | QR points at localhost | `PUBLIC_BASE_URL` is set to a stale value in Railway. Clear it (the QR then uses the real address automatically) or set it to the live URL. |
 | Locked out of `/control` | Too many wrong passcodes; wait five minutes. |
+| Fresh Day says it is not the day in the room | It only ever resets the day currently showing. Switch **Event day** first, then reset. |
 | A deploy went out but the page behaves as before | Hard-refresh that tab (**⌘⇧R** / **Ctrl+F5**). Assets now revalidate on every load, but a tab left open since before the deploy is still running the JavaScript it loaded then. Refresh long-lived screens after any deploy. |
 
 **Never** edit the database by hand during the event. Every action above is
