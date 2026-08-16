@@ -115,6 +115,7 @@ column. Opens straight in Excel with Thai text intact.
 | **↩** greyed out | Pause the timer first, or there is nothing to go back to yet at that table. |
 | QR points at localhost | `PUBLIC_BASE_URL` is set to a stale value in Railway. Clear it (the QR then uses the real address automatically) or set it to the live URL. |
 | Locked out of `/control` | Too many wrong passcodes; wait five minutes. |
+| A deploy went out but the page behaves as before | Hard-refresh that tab (**⌘⇧R** / **Ctrl+F5**). Assets now revalidate on every load, but a tab left open since before the deploy is still running the JavaScript it loaded then. Refresh long-lived screens after any deploy. |
 
 **Never** edit the database by hand during the event. Every action above is
 transactional and logged; direct edits are not.

@@ -43,16 +43,30 @@ export function createApp(): express.Express {
   app.use('/api/auth', authRouter());
   app.use('/api/control', controlRouter());
 
+  /**
+   * Assets always revalidate.
+   *
+   * `no-cache` does not mean "do not store" - it means "ask before reusing", so
+   * an unchanged file still costs only a 304. That matters more than the saved
+   * bytes here: these files are a handful of KB, and a stale copy is invisible
+   * but total. Caching the JS for an hour once left an operator mid-event with
+   * new HTML calling into old JavaScript, with no symptom except buttons that
+   * would not respond. Never cache the client of an app whose correctness
+   * depends on it matching the server.
+   */
   app.use(
     express.static(PUBLIC_DIR, {
-      maxAge: config.isProduction ? '1h' : 0,
       index: false,
       etag: true,
+      lastModified: true,
+      setHeaders: (res) => res.setHeader('Cache-Control', 'no-cache'),
     }),
   );
 
-  const page = (file: string) => (_req: Request, res: Response) =>
+  const page = (file: string) => (_req: Request, res: Response) => {
+    res.setHeader('Cache-Control', 'no-cache');
     res.sendFile(path.join(PUBLIC_DIR, file));
+  };
 
   app.get('/', (_req, res) => res.redirect('/display'));
   app.get('/display', page('display.html'));
