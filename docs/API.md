@@ -72,7 +72,8 @@ client-to-server event that mutates anything.
 | ------ | ---- | ---- |
 | POST | `/api/control/tables/:code/toggle` | — (Play / Pause / Resume, one button) |
 | POST | `/api/control/tables/:code/reset` | — |
-| POST | `/api/control/tables/:code/complete-next` | — |
+| POST | `/api/control/tables/:code/complete-next` | —. With an empty table this loads the first company rather than completing anything |
+| POST | `/api/control/tables/:code/back` | — undoes the last complete/skip at this table. Refused while the timer runs |
 | POST | `/api/control/tables/:code/skip-next` | `{noShow?}` |
 | POST | `/api/control/tables/:code/adjust` | `{deltaSeconds}` (±15 min max) |
 | POST | `/api/control/tables/:code/presence` | `{status: break\|closed\|ready}` |

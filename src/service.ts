@@ -479,17 +479,27 @@ async function advance(tableCode: string, outcome: AdvanceOutcome): Promise<{ ne
       )
     ).rows[0];
 
-    if (row.current_appointment_id) {
+    // Who this action closes. Normally the company at the table; but with an
+    // empty table a skip means "the one who should be here isn't", so it falls
+    // through to the next in line. Completing an empty table closes nobody and
+    // simply loads the first company - which is how the day is started.
+    let closedId = row.current_appointment_id;
+    if (!closedId && outcome !== 'completed') {
+      const waiting = await pickNextEligible(client, tableCode, settings.active_event_date, null);
+      closedId = waiting?.id ?? null;
+    }
+
+    if (closedId) {
       // The appointment is never deleted - it stays in the schedule history and
       // a skipped entrepreneur can be recalled later.
-      await setAppointmentStatus(client, row.current_appointment_id, outcome);
+      await setAppointmentStatus(client, closedId, outcome);
     }
 
     const next = await pickNextEligible(
       client,
       tableCode,
       settings.active_event_date,
-      row.current_appointment_id,
+      closedId,
     );
 
     if (next) await setAppointmentStatus(client, next.id, 'called');
@@ -502,12 +512,13 @@ async function advance(tableCode: string, outcome: AdvanceOutcome): Promise<{ ne
       outcome === 'completed' ? 'queue.complete_next' : 'queue.skip_next',
       {
         outcome,
-        previousAppointmentId: row.current_appointment_id,
+        previousAppointmentId: closedId,
+        tableWasEmpty: row.current_appointment_id === null,
         nextAppointmentId: next?.id ?? null,
         nextQueueNumber: next?.queue_number ?? null,
       },
       tableCode,
-      row.current_appointment_id,
+      closedId,
     );
 
     return { next };
@@ -519,6 +530,96 @@ async function advance(tableCode: string, outcome: AdvanceOutcome): Promise<{ ne
 export const completeAndNext = (tableCode: string) => advance(tableCode, 'completed');
 export const skipAndNext = (tableCode: string, noShow = false) =>
   advance(tableCode, noShow ? 'no_show' : 'skipped');
+
+/**
+ * Back: undoes the last Complete & Next / Skip & Next at a table.
+ *
+ * The most recently closed appointment is re-opened and put back at the table,
+ * and whoever was loaded goes back to waiting. Nothing is deleted either way,
+ * so this is reversible - pressing Complete & Next again returns to where you
+ * were. Useful when the operator advances a table by mistake, or a meeting has
+ * to be re-run.
+ */
+export async function previousAppointment(
+  tableCode: string,
+): Promise<{ restored: AppointmentRow | null }> {
+  const result = await withTransaction(async (client) => {
+    const { row, table } = await lockTimer(client, tableCode);
+
+    if (row.timer_status === 'running') {
+      throw new OperationError('Pause the timer before going back.');
+    }
+
+    const settings = (
+      await client.query<{ active_event_date: string }>(
+        `SELECT active_event_date FROM event_settings WHERE id = 1`,
+      )
+    ).rows[0];
+
+    // The last one closed at this table, by when it was closed rather than by
+    // schedule order - Back undoes the operator's last action, whatever it was.
+    const previous = (
+      await client.query<AppointmentRow>(
+        `SELECT id, event_date, scheduled_start, scheduled_end, platform, table_code,
+                queue_number, company_name, appointment_status, arrival_status, slot_id
+           FROM appointments
+          WHERE table_code = $1
+            AND event_date = $2
+            AND appointment_status IN ('completed','skipped','no_show')
+            AND ($3::int IS NULL OR id <> $3::int)
+          ORDER BY updated_at DESC, id DESC
+          LIMIT 1
+            FOR UPDATE`,
+        [tableCode, settings.active_event_date, row.current_appointment_id],
+      )
+    ).rows[0];
+
+    if (!previous) {
+      throw new OperationError('There is nothing to go back to at this table yet.');
+    }
+
+    // Whoever is loaded now returns to the waiting queue, keeping their check-in.
+    if (row.current_appointment_id) {
+      const loaded = (
+        await client.query<AppointmentRow>(
+          `SELECT id, appointment_status, arrival_status FROM appointments WHERE id = $1 FOR UPDATE`,
+          [row.current_appointment_id],
+        )
+      ).rows[0];
+      if (loaded && ['called', 'in_meeting'].includes(loaded.appointment_status)) {
+        await setAppointmentStatus(
+          client,
+          loaded.id,
+          loaded.arrival_status === 'arrived' ? 'arrived' : 'scheduled',
+        );
+      }
+    }
+
+    await setAppointmentStatus(client, previous.id, 'called', 'arrived');
+    await persistTimer(
+      client,
+      tableCode,
+      timer.reset(toTimerState(row), table.duration_seconds),
+      previous.id,
+    );
+
+    await logOperation(
+      client,
+      'queue.back',
+      {
+        restoredFrom: previous.appointment_status,
+        restoredQueueNumber: previous.queue_number,
+        displacedAppointmentId: row.current_appointment_id,
+      },
+      tableCode,
+      previous.id,
+    );
+
+    return { restored: previous };
+  });
+  bumpRevision();
+  return result;
+}
 
 /** Puts a skipped / no-show entrepreneur back into the waiting queue. */
 export async function recallAppointment(appointmentId: number): Promise<void> {

@@ -6,15 +6,18 @@ For the operator. Everything here is done from `/control` (timers) and
 ## Before doors open
 
 1. Open `/control`, sign in, confirm **Event day** is today's date.
-2. Open `/schedule` and check the grid against your spreadsheet.
+2. Open `/schedule` and check the grid against your spreadsheet. During the day
+   this page highlights whoever is at each table, with their live countdown —
+   press **Jump to now** to scroll straight to them.
 3. Put `/display` on the room screen and press **F11** for fullscreen.
 4. Print or show the QR (bottom-right of the room screen). **Check the URL printed
    beside it is your real address, not localhost** — that text is read back from
    the QR image itself, so if it looks right, the code is right.
 5. Leave **Room sound: Off** unless you want a chime at 00:00.
 
-Each table starts **Ready** with no company loaded. Press **Complete & Next**
-once per table to load the first appointment, or use the queue panel.
+Each table starts **Ready** with no company loaded. Press **Load First** on each
+table to call up its first company. (That button becomes **Complete & Next**
+once somebody is at the table — it is the same button doing the same job.)
 
 ## Running a meeting
 
@@ -25,6 +28,7 @@ once per table to load the first appointment, or use the queue panel.
 | Resume | the same button, now reading **Resume** |
 | Put the clock back to full | **Reset** (confirms; does not change the queue) |
 | Finish and load the next | **Complete & Next** |
+| Undo that — go back a company | **↩** (pause the timer first) |
 | Give them more time | ⋯ → **Add one minute** |
 
 The next meeting never starts by itself. After Complete & Next the timer sits at
@@ -46,6 +50,13 @@ record, and the next company is loaded.
   this if you really want to re-time that table for the rest of the day — it
   often makes companies clash with their own meetings elsewhere, and you'll get
   the list.
+
+## You advanced a table by mistake
+
+Press **↩** on that table. The last company you completed or skipped comes back
+to the table and whoever was loaded returns to the queue. It is fully
+reversible — press **Complete & Next** again to undo the undo. The timer must be
+paused first.
 
 ## They turn up late
 
@@ -100,6 +111,8 @@ column. Opens straight in Excel with Thai text intact.
 | *"This cell changed in another tab"* | Another tab edited it. The grid reloads; try again. |
 | A company appears twice at 14:00 | You pushed a queue up. Check the warning list and move one of them. |
 | Wrong day on screen | `/control` → Event day. |
+| **Complete & Next** looks greyed out | Only happens when that table's queue is finished, or the table is closed for the day. On an empty table it reads **Load First** and is clickable. |
+| **↩** greyed out | Pause the timer first, or there is nothing to go back to yet at that table. |
 | QR points at localhost | `PUBLIC_BASE_URL` is set to a stale value in Railway. Clear it (the QR then uses the real address automatically) or set it to the live URL. |
 | Locked out of `/control` | Too many wrong passcodes; wait five minutes. |
 

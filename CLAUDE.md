@@ -38,8 +38,11 @@ Requires Node 20+ and PostgreSQL 14+. Copy `.env.example` to `.env` first.
    stores a countdown as a number that ticks down is wrong.
 2. **One Play/Pause/Resume button. There is no Stop button** anywhere, by
    explicit product decision.
-3. **Nothing auto-starts.** Complete & Next and Skip & Next *load* the next
+3. **Nothing auto-starts.** Complete & Next, Skip & Next and Back *load* an
    appointment and reset the timer to Ready. The operator always presses Play.
+   Corollary: never disable an operator button on the grounds that nothing is
+   loaded yet — Complete & Next is what loads the first company, and gating it
+   on `table.current` deadlocked the whole page.
 4. **Exactly one function returns a contact value** — `revealContact()` in
    `src/service.ts`, behind the operator session and logged as `contact.view`.
    Contact values must never appear in `loadAppointments`, `toPublicAppointment`,

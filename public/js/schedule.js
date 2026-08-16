@@ -19,6 +19,8 @@
   var selection = null;     // a cell picked up for move/swap
   var toastTimer = null;
   var socket = null;
+  var liveState = null;   // latest timer snapshot, for the live markers
+  var liveCells = {};     // appointmentId -> { el, badge, tableCode }
 
   // --- helpers -----------------------------------------------------------
 
@@ -258,6 +260,7 @@
     buildMatrix($('matrix-main'), 'main');
     buildMatrix($('matrix-shopee'), 'shopee');
     renderParked();
+    applyLiveMarkers();
     $('hint').textContent = selection
       ? 'Moving ' + selection.companyName + ' — click a destination cell, or press Escape to cancel.'
       : 'Click a cell to act on it. Locked cells are already called or finished.';
@@ -464,6 +467,8 @@
   $('cell-close').addEventListener('click', function () { $('cell-modal').hidden = true; });
   $('pick-close').addEventListener('click', function () { $('pick-modal').hidden = true; });
 
+  $('jump-now').addEventListener('click', jumpToNow);
+
   $('export').addEventListener('click', function () {
     window.location.href = '/api/control/grid/export.csv?date=' + encodeURIComponent(date);
   });
@@ -472,24 +477,102 @@
 
   function connectSocket() {
     if (socket) return;
-    socket = io({ transports: ['websocket', 'polling'], reconnection: true });
-    socket.on('connect', function () { setConn('live'); load(date); });
-    socket.on('disconnect', function () { setConn('offline'); });
-    socket.on('connect_error', function () { setConn('offline'); });
-    socket.on('grid:changed', function (payload) {
+    socket = true;
+
+    // Shares the one connection (and its measured server clock) with the rest
+    // of the app, so the countdown in a live cell matches the room screen.
+    TopThai.on('grid:changed', function (payload) {
       if (!grid || payload.date !== date) return;
-      // Another tab (or the timers page) changed something; take the delta.
+      // Another tab, or the timers page, changed a cell.
       if (payload.gridRevision <= grid.gridRevision) return;
       load(date);
     });
-    // A timer action can change which cell is "at table", so follow those too.
-    socket.on('state', function () { if (grid) load(date); });
+
+    TopThai.onState(function (next) {
+      liveState = next;
+      // Only re-mark the live cells; a timer action never changes the grid
+      // itself, so there is no need to refetch 250 cells for it.
+      applyLiveMarkers();
+    });
+
+    TopThai.onConnection(setConn);
+    TopThai.connect();
+
+    TopThai.startRenderLoop(function () {
+      Object.keys(liveCells).forEach(function (id) {
+        var entry = liveCells[id];
+        var table = tableTimer(entry.tableCode);
+        if (!table) return;
+        var remaining = TopThai.remainingSeconds(table.timer);
+        entry.badge.textContent =
+          (table.timer.timerStatus === 'running' ? '▶ ' :
+           table.timer.timerStatus === 'paused' ? '❙❙ ' : '') + TopThai.formatMMSS(remaining);
+        entry.badge.className = 'cell__live ' + TopThai.colorClass(remaining, table.timer.timerStatus);
+      });
+    });
   }
 
   function setConn(status) {
     var el = $('conn');
     el.className = 'conn is-' + status;
     el.textContent = status === 'live' ? 'Live' : status === 'offline' ? 'Offline' : 'Reconnecting';
+  }
+
+  // --- live "at the table right now" markers ------------------------------
+
+  function tableTimer(tableCode) {
+    if (!liveState) return null;
+    for (var i = 0; i < liveState.tables.length; i += 1) {
+      if (liveState.tables[i].tableCode === tableCode) return liveState.tables[i];
+    }
+    return null;
+  }
+
+  /**
+   * Marks the company currently at each table, with its live countdown.
+   *
+   * Only applied when the grid is showing the day that is actually running in
+   * the room - while prepping day 2 there is nothing live to point at.
+   */
+  function applyLiveMarkers() {
+    Object.keys(liveCells).forEach(function (id) {
+      liveCells[id].el.classList.remove('cell--now');
+      if (liveCells[id].badge.parentNode) liveCells[id].badge.parentNode.removeChild(liveCells[id].badge);
+    });
+    liveCells = {};
+
+    var jump = $('jump-now');
+    if (!liveState || !grid || date !== activeDate) {
+      if (jump) jump.hidden = true;
+      return;
+    }
+
+    liveState.tables.forEach(function (table) {
+      if (!table.current) return;
+      var button = document.querySelector('.cell[data-appointment="' + table.current.id + '"]');
+      if (!button) return;
+
+      button.classList.add('cell--now');
+      var badge = document.createElement('span');
+      badge.className = 'cell__live';
+      badge.textContent = TopThai.formatMMSS(TopThai.remainingSeconds(table.timer));
+      button.appendChild(badge);
+      liveCells[table.current.id] = { el: button, badge: badge, tableCode: table.tableCode };
+    });
+
+    if (jump) jump.hidden = Object.keys(liveCells).length === 0;
+  }
+
+  /** Scrolls the earliest live cell into view - 23 rows is a lot to scan. */
+  function jumpToNow() {
+    var ids = Object.keys(liveCells);
+    if (ids.length === 0) return;
+    var first = null;
+    ids.forEach(function (id) {
+      var row = liveCells[id].el.closest('tr');
+      if (!first || row.rowIndex < first.rowIndex) first = row;
+    });
+    if (first) first.scrollIntoView({ behavior: 'smooth', block: 'center' });
   }
 
   // --- boot --------------------------------------------------------------

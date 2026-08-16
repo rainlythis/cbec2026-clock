@@ -81,6 +81,7 @@
 .swatch--waiting { background: #fff; }
 .swatch--arrived { background: #e0f6ea; }
 .swatch--live    { background: #fdf0d9; }
+.swatch--now     { background: #fff3c4; border-color: var(--ink); box-shadow: inset 0 0 0 1px var(--ink); }
 .swatch--done    { background: #eceef2; }
 .swatch--gone    { background: #fde3e1; }
 .swatch--moved   { background: #fff; border-left: 3px solid var(--blue); }
@@ -219,6 +220,47 @@
 .cell--moved   { box-shadow: inset 3px 0 0 var(--blue); }
 .cell--frozen  { cursor: default; }
 .cell--frozen:hover { background: inherit; }
+
+/* --- the company at the table right now --- */
+
+.matrix td:has(> .cell--now) { position: relative; z-index: 1; }
+
+.cell--now {
+  background: #fff3c4;
+  box-shadow: inset 0 0 0 3px var(--ink);
+  position: relative;
+  padding-right: 62px;   /* room for the countdown badge */
+}
+
+.cell--now .cell__co { font-weight: 800; -webkit-line-clamp: 3; line-clamp: 3; }
+.cell--now:hover { background: #ffeda6; }
+
+/* Live countdown, driven by the same server clock as the room screen. */
+.cell__live {
+  position: absolute;
+  top: 6px;
+  right: 6px;
+  font-variant-numeric: tabular-nums;
+  font-size: 13px;
+  font-weight: 800;
+  line-height: 1;
+  padding: 4px 6px;
+  border-radius: 7px;
+  background: var(--ink);
+  color: #fff;
+  white-space: nowrap;
+}
+
+.cell__live.is-warning  { background: var(--count-warning); color: #241a00; }
+.cell__live.is-critical,
+.cell__live.is-timeup   { background: var(--count-critical); color: #fff; }
+
+/* A steady pulse on the row's time cell so a live row is findable at a glance. */
+.matrix tr:has(.cell--now) > .timecol {
+  background: #fff3c4;
+  color: var(--ink);
+  box-shadow: inset -3px 0 0 var(--ink);
+}
 
 .cell--selected {
   outline: 3px solid var(--ink);

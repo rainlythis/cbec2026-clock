@@ -244,6 +244,15 @@
 .ccard__controls { display: grid; gap: 7px; }
 .ccard__controls-row { display: grid; grid-template-columns: 1fr 1fr; gap: 7px; }
 .ccard__controls-row--three { grid-template-columns: 1fr 1fr auto; }
+/* back | complete | skip | more */
+.ccard__controls-row--four { grid-template-columns: auto 1fr 1fr auto; }
+
+.btn--icon {
+  padding-left: 9px;
+  padding-right: 9px;
+  font-size: 15px;
+  line-height: 1;
+}
 
 /* --- more menu --- */
 

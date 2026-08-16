@@ -33,6 +33,7 @@ import {
   globalReset,
   globalToggle,
   importSchedule,
+  previousAppointment,
   recallAppointment,
   recentOperations,
   resetTimer,
@@ -119,6 +120,8 @@ export function controlRouter(): Router {
   router.post('/tables/:code/toggle', mutation((req) => toggleTimer(req.params.code)));
   router.post('/tables/:code/reset', mutation((req) => resetTimer(req.params.code)));
   router.post('/tables/:code/complete-next', mutation((req) => completeAndNext(req.params.code)));
+  // Back: undoes the last Complete & Next / Skip & Next at this table.
+  router.post('/tables/:code/back', mutation((req) => previousAppointment(req.params.code)));
   router.post(
     '/tables/:code/skip-next',
     mutation((req) => skipAndNext(req.params.code, (req.body as { noShow?: boolean })?.noShow === true)),

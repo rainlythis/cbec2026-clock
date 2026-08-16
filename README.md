@@ -82,9 +82,15 @@ Per table — and there is **no Stop button anywhere**:
 2. **Reset** — back to the table's default duration. Never touches the queue;
    asks for confirmation unless the timer is untouched.
 3. **Complete & Next** — current appointment → `completed`, next eligible one is
-   loaded, timer reset. **It does not auto-start.**
+   loaded, timer reset. **It does not auto-start.** On an empty table it reads
+   **Load First** and simply calls up the next company, which is how a table is
+   started.
 4. **Skip & Next** — current appointment → `skipped`, kept in the schedule and
    recallable later, next one loaded, timer reset. **It does not auto-start.**
+   On an empty table it skips whoever is next in line.
+5. **↩ Back** — undoes the last complete or skip: the previous company returns to
+   the table and the loaded one goes back to the queue. Reversible, and refused
+   while the timer is running.
 
 Under **⋯ More**: add one minute, remove one minute (both confirmed), manage
 queue / recall skipped, put the table on break, close the table.

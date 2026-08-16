@@ -164,7 +164,8 @@
       '<button class="btn btn--play" data-act="toggle">Play</button>' +
       '<button class="btn btn--ghost" data-act="reset">Reset</button>' +
       '</div>' +
-      '<div class="ccard__controls-row ccard__controls-row--three">' +
+      '<div class="ccard__controls-row ccard__controls-row--four">' +
+      '<button class="btn btn--ghost btn--sm btn--icon" data-act="back" title="Back to the previous company" aria-label="Back to the previous company">↩</button>' +
       '<button class="btn btn--primary btn--sm" data-act="complete">Complete &amp; Next</button>' +
       '<button class="btn btn--ghost btn--sm" data-act="skip">Skip &amp; Next</button>' +
       '<div class="menu"><button class="btn btn--ghost btn--sm" data-act="more" aria-haspopup="true">⋯</button></div>' +
@@ -190,6 +191,7 @@
       },
       toggle: el.querySelector('[data-act="toggle"]'),
       reset: el.querySelector('[data-act="reset"]'),
+      back: el.querySelector('[data-act="back"]'),
       complete: el.querySelector('[data-act="complete"]'),
       skip: el.querySelector('[data-act="skip"]'),
       more: el.querySelector('[data-act="more"]'),
@@ -212,7 +214,7 @@
         return;
       }
       confirmDialog(
-        'Reset ' + code + '?',
+        'Reset ' + tableLabel(code) + '?',
         'The timer will go back to ' + (snapshot ? snapshot.durationMinutes : '') +
           ':00. The queue is not changed and the current company stays at this table.',
         'Reset timer',
@@ -220,23 +222,45 @@
     });
 
     refs.complete.addEventListener('click', function () {
+      var snapshot = tableByCode(code);
+      // With an empty table this loads the first company rather than completing
+      // anything - that is how the operator starts a table at the beginning of
+      // the day, so it must never be disabled just because nothing is loaded.
+      var loadingOnly = !(snapshot && snapshot.current);
       api('/tables/' + encodeURIComponent(code) + '/complete-next').then(function () {
-        toast(code + ': meeting completed, next queue loaded (timer ready, not started).');
+        toast(
+          loadingOnly
+            ? tableLabel(code) + ': next company loaded. Press Play when they sit down.'
+            : tableLabel(code) + ': meeting completed, next company loaded (timer ready, not started).',
+        );
       });
     });
 
     refs.skip.addEventListener('click', function () {
       var snapshot = tableByCode(code);
-      var who = snapshot && snapshot.current ? snapshot.current.queueNumber : 'the current queue';
+      var current = snapshot && snapshot.current;
+      var target = current || (snapshot && snapshot.next);
+      if (!target) { toast('Nobody left in the queue at ' + tableLabel(code) + '.', true); return; }
       confirmDialog(
-        'Skip ' + who + '?',
-        'They will be marked as skipped and kept in the schedule, so you can recall them later from the queue list.',
+        'Skip ' + (target.queueNumber || target.scheduledStart) + '?',
+        (current ? '' : 'Nobody is at this table yet, so this skips the next company in line. ') +
+          target.companyName +
+          ' will be marked as skipped and kept in the schedule, so you can recall them later.',
         'Skip & Next',
       ).then(function (ok) {
         if (!ok) return;
         api('/tables/' + encodeURIComponent(code) + '/skip-next').then(function () {
-          toast(code + ': queue skipped, next queue loaded (timer ready, not started).');
+          toast(tableLabel(code) + ': queue skipped, next company loaded (timer ready, not started).');
         });
+      });
+    });
+
+    refs.back.addEventListener('click', function () {
+      api('/tables/' + encodeURIComponent(code) + '/back').then(function (data) {
+        var who = data && data.restored
+          ? (data.restored.queue_number || data.restored.company_name)
+          : 'the previous company';
+        toast(tableLabel(code) + ': went back to ' + who + '. Timer reset, not started.');
       });
     });
 
@@ -247,6 +271,12 @@
 
     cards[code] = refs;
     return el;
+  }
+
+  /** The day's vendor label for a table, for any text the operator reads. */
+  function tableLabel(code) {
+    var t = tableByCode(code);
+    return (t && t.displayLabel) || code;
   }
 
   function tableByCode(code) {
@@ -287,13 +317,13 @@
     }
 
     item('Add one minute', function () {
-      confirmDialog('Add one minute to ' + code + '?', 'The countdown will gain 60 seconds.', 'Add 1:00')
+      confirmDialog('Add one minute to ' + tableLabel(code) + '?', 'The countdown will gain 60 seconds.', 'Add 1:00')
         .then(function (ok) {
           if (ok) api('/tables/' + encodeURIComponent(code) + '/adjust', { deltaSeconds: 60 });
         });
     });
     item('Remove one minute', function () {
-      confirmDialog('Remove one minute from ' + code + '?', 'The countdown will lose 60 seconds.', 'Remove 1:00')
+      confirmDialog('Remove one minute from ' + tableLabel(code) + '?', 'The countdown will lose 60 seconds.', 'Remove 1:00')
         .then(function (ok) {
           if (ok) api('/tables/' + encodeURIComponent(code) + '/adjust', { deltaSeconds: -60 });
         });
@@ -317,7 +347,7 @@
       });
     } else {
       item('Close table for today', function () {
-        confirmDialog('Close ' + code + '?', 'The table will show as Closed on every screen.', 'Close table')
+        confirmDialog('Close ' + tableLabel(code) + '?', 'The table will show as Closed on every screen.', 'Close table')
           .then(function (ok) {
             if (ok) api('/tables/' + encodeURIComponent(code) + '/presence', { status: 'closed' });
           });
@@ -349,7 +379,7 @@
 
   function openQueue(code) {
     queueTableCode = code;
-    $('queue-title').textContent = 'Queue — ' + code;
+    $('queue-title').textContent = 'Queue — ' + tableLabel(code);
     $('queue-modal').hidden = false;
     renderQueueFilters();
     loadQueue();
@@ -682,8 +712,19 @@
         'btn ' + (table.timer.toggleLabel === 'Pause' ? 'btn--pause' : 'btn--play');
       refs.toggle.disabled = !table.timer.toggleEnabled;
 
-      refs.complete.disabled = !table.current;
-      refs.skip.disabled = !table.current;
+      // Enabled whenever there is anything to act on. Requiring a loaded
+      // company here was a deadlock: Complete & Next is what LOADS the first
+      // company, so disabling it left the operator unable to start a table.
+      var hasSomething = !!(table.current || table.next);
+      refs.complete.disabled = !hasSomething || !table.isActive;
+      refs.skip.disabled = !hasSomething || !table.isActive;
+      refs.back.disabled = !table.isActive || table.timer.timerStatus === 'running';
+
+      // Say what the button will actually do on an empty table.
+      refs.complete.textContent = table.current ? 'Complete & Next' : 'Load First';
+      refs.complete.title = table.current
+        ? 'Mark the current meeting completed and load the next company'
+        : 'Load the next company at this table';
 
       renderQueueRow(refs.nowNum, refs.nowCo, refs.nowRow, table.current, 'No company loaded');
       renderQueueRow(refs.nextNum, refs.nextCo, refs.nextRow, table.next, 'No queue waiting');

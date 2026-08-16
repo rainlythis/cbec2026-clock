@@ -77,6 +77,10 @@ All countdown rendering uses `serverNow()`.
 - **Operator-only channel:** sockets presenting a valid session cookie join the
   `operators` room. Grid deltas (`grid:changed`) go only there, so the working
   roster never reaches `/display` or `/live`. Verified by test.
+- **One socket per page.** `TopThai.on(event, handler)` lets `/schedule`
+  subscribe to `grid:changed` on the shared connection rather than opening a
+  second one, so its live countdowns use the same measured clock offset as every
+  other screen.
 
 ## Request flow for a mutation
 

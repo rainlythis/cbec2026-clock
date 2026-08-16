@@ -13,9 +13,10 @@ shows up here immediately.
 
 | Look | Meaning |
 | ---- | ------- |
+| **yellow, heavy black border, live countdown** | **at the table right now** |
 | white | waiting |
 | green | checked in (arrived) |
-| amber | at the table now, or already called |
+| amber | called, not yet started |
 | grey, struck through | completed |
 | red, struck through | skipped or no-show |
 | blue left edge | moved from its original slot |
@@ -25,6 +26,22 @@ shows up here immediately.
 The page takes its day from `?date=`, **independent of the day showing in the
 room**, so day 2 can be prepared while day 1 runs. A badge marks whichever day
 is live.
+
+### The live marker
+
+The company at each table right now is highlighted, and carries its **live
+countdown** in the corner — `▶ 12:34` running, `❙❙` paused — coloured with the
+same bands as the room screen (black → orange → red). Its time row is
+highlighted too, so a live row is findable while scrolling 23 of them, and a
+**Jump to now** button in the header scrolls the earliest one into view.
+
+Two details worth knowing:
+
+- The countdown comes from the same server clock as `/display`, over the same
+  socket, so the grid and the room can never disagree.
+- Markers appear **only when the grid is showing the day that is running in the
+  room**. Switch to the other day to prepare it and they disappear, because
+  nothing there is live.
 
 ## The frozen prefix
 

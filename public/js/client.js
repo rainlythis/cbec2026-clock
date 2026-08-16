@@ -115,6 +115,8 @@ window.TopThai = (function () {
       connectionListeners.forEach(function (fn) { fn(connectionStatus()); });
     });
 
+    extraEvents.forEach(function (pair) { socket.on(pair[0], pair[1]); });
+
     startPolling();
     syncClock().then(pollOnce);
 
@@ -209,8 +211,19 @@ window.TopThai = (function () {
     requestAnimationFrame(frame);
   }
 
+  // Extra socket events a page wants, registered before or after connect().
+  var extraEvents = [];
+
   return {
     connect: connect,
+    /**
+     * Subscribe to a raw socket event (e.g. the operator-only 'grid:changed').
+     * Lets a page share this one connection instead of opening a second.
+     */
+    on: function (event, handler) {
+      extraEvents.push([event, handler]);
+      if (socket) socket.on(event, handler);
+    },
     onState: function (fn) { listeners.push(fn); if (state) fn(state); },
     onConnection: function (fn) { connectionListeners.push(fn); fn(connectionStatus()); },
     getState: function () { return state; },
