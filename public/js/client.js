@@ -63,9 +63,38 @@ window.TopThai = (function () {
     return 'offline';
   }
 
+  var bootAssetVersion = null;
+
+  /**
+   * Reloads the page once when the server starts serving a newer frontend.
+   *
+   * Without this a screen left open across a deploy keeps running the code it
+   * loaded, which fails silently: the markup looks right and the buttons simply
+   * do nothing. The room display in particular may be on a wall nobody can
+   * reach for hours.
+   *
+   * Guarded against loops by remembering the version we already reloaded for -
+   * if the reload somehow does not pick up the new code, we stop rather than
+   * refreshing forever.
+   */
+  function checkAssetVersion(version) {
+    if (!version || version === 'unknown') return;
+    if (bootAssetVersion === null) { bootAssetVersion = version; return; }
+    if (version === bootAssetVersion) return;
+
+    try {
+      if (window.sessionStorage.getItem('topthai.reloadedFor') === version) return;
+      window.sessionStorage.setItem('topthai.reloadedFor', version);
+    } catch (error) { /* storage blocked; the check below still fires once */ }
+
+    bootAssetVersion = version;
+    window.location.reload();
+  }
+
   function applyState(next) {
     state = next;
     lastSyncAt = Date.now();
+    checkAssetVersion(next.assetVersion);
     listeners.forEach(function (fn) { fn(state); });
   }
 

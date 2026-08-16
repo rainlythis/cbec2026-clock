@@ -83,6 +83,9 @@ Requires Node 20+ and PostgreSQL 14+. Copy `.env.example` to `.env` first.
 - **`[hidden]` needs `!important`** in `base.css`: several components set
   `display: grid`, which otherwise wins on specificity and leaves dialogs on
   screen.
+- **Screens self-heal after a deploy** via `assetVersion` in the snapshot
+  (`ASSET_VERSION` in `src/app.ts`, checked in `public/js/client.js`). If you
+  change anything under `public/`, open screens reload themselves once.
 - **Never cache the frontend.** `src/app.ts` serves every asset `no-cache`
   (revalidate, 304 when unchanged). An earlier `max-age=1h` shipped new HTML
   against hour-old JavaScript in production; the only symptom was buttons that

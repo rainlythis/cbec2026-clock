@@ -18,6 +18,15 @@ import type {
 } from './types';
 import type { ScheduleRow } from './csv';
 import { FROZEN_STATUSES, canMoveBetween, guardCellEdit, planCompaction } from './grid';
+
+/**
+ * Read lazily: app.ts imports service.ts, so a top-level import here would be a
+ * cycle. The value is computed once at boot and never changes.
+ */
+function getAssetVersion(): string {
+  // eslint-disable-next-line @typescript-eslint/no-var-requires
+  return (require('./app') as typeof import('./app')).ASSET_VERSION;
+}
 import {
   queueNumberFor,
   slotKey,
@@ -238,6 +247,7 @@ export async function buildSnapshot(nowMs = Date.now()): Promise<StateSnapshot> 
 
   return {
     serverTime: nowMs,
+    assetVersion: getAssetVersion(),
     event: {
       name: settings.event_name,
       activeDate: settings.active_event_date,

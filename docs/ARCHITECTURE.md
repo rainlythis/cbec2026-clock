@@ -77,6 +77,12 @@ All countdown rendering uses `serverNow()`.
 - **Operator-only channel:** sockets presenting a valid session cookie join the
   `operators` room. Grid deltas (`grid:changed`) go only there, so the working
   roster never reaches `/display` or `/live`. Verified by test.
+- **Screens follow deploys.** Every snapshot carries `assetVersion`, a hash of
+  `public/` computed once at boot. A page that sees a version different from the
+  one it loaded with reloads itself, once, guarded by `sessionStorage` so a
+  failed reload cannot loop. Without it a screen left open across a deploy runs
+  old code against new markup and fails silently — buttons simply stop working,
+  which is exactly what happened twice before this existed.
 - **One socket per page.** `TopThai.on(event, handler)` lets `/schedule`
   subscribe to `grid:changed` on the shared connection rather than opening a
   second one, so its live countdowns use the same measured clock offset as every

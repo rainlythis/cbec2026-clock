@@ -1,3 +1,5 @@
+import crypto from 'node:crypto';
+import fs from 'node:fs';
 import path from 'node:path';
 import express, { type NextFunction, type Request, type Response } from 'express';
 import cookieParser from 'cookie-parser';
@@ -8,6 +10,41 @@ import { authRouter, controlRouter } from './routes/control';
 import { publicRouter } from './routes/public';
 
 const PUBLIC_DIR = path.resolve(__dirname, '..', 'public');
+
+/**
+ * Fingerprint of the frontend, computed once at boot.
+ *
+ * Sent with every state snapshot so a page can notice that the server is
+ * serving newer JavaScript than the page is running, and reload itself. That
+ * situation is otherwise invisible and total: the browser renders new HTML,
+ * runs old code, and buttons silently do nothing. It matters most for the room
+ * display, which nobody can reach mid-event.
+ */
+function computeAssetVersion(): string {
+  const hash = crypto.createHash('sha256');
+  const walk = (dir: string) => {
+    for (const entry of fs.readdirSync(dir, { withFileTypes: true }).sort((a, b) =>
+      a.name.localeCompare(b.name),
+    )) {
+      const full = path.join(dir, entry.name);
+      if (entry.isDirectory()) walk(full);
+      else if (/\.(js|css|html)$/.test(entry.name)) {
+        hash.update(entry.name).update(fs.readFileSync(full));
+      }
+    }
+  };
+  try {
+    walk(PUBLIC_DIR);
+    return hash.digest('hex').slice(0, 12);
+  } catch (error) {
+    logger.warn('Could not fingerprint the frontend; auto-reload on deploy is disabled', {
+      error: (error as Error).message,
+    });
+    return 'unknown';
+  }
+}
+
+export const ASSET_VERSION = computeAssetVersion();
 
 export function createApp(): express.Express {
   const config = loadConfig();

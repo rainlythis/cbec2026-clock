@@ -17,6 +17,7 @@ All JSON unless noted. Times are ISO-8601 instants; wall-clock times are
 ```jsonc
 {
   "serverTime": 1786800000000,
+  "assetVersion": "be7c0feaf31f",   // frontend fingerprint; clients reload when it changes
   "event": { "name": "...", "activeDate": "2026-08-17", "eventDates": ["2026-08-17","2026-08-18"],
              "timezone": "Asia/Bangkok", "soundEnabled": false, "sessions": [...] },
   "global": { "action": "play", "label": "Play All", "mixed": false },

@@ -65,6 +65,8 @@ export interface EventSnapshot {
 
 export interface StateSnapshot {
   serverTime: number;
+  /** Fingerprint of the frontend the server is serving; clients reload when it changes. */
+  assetVersion: string;
   event: EventSnapshot;
   tables: TableSnapshot[];
   global: { action: 'play' | 'pause'; label: string; mixed: boolean };
