@@ -16,6 +16,8 @@
   --amber: #f0a02c;
   --slate: #46506a;
   --blue: #2f4fd8;
+  /* Bare clock palette only; every other view uses the six above. */
+  --purple: #7b3fe4;
 
   /* Countdown bands */
   --count-normal: #111111;

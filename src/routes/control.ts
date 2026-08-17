@@ -22,6 +22,7 @@ import {
   globalToggleClocks,
   renameClock,
   resetClock,
+  setClockColor,
   setClockDuration,
   toggleClock,
 } from '../bare';
@@ -464,6 +465,11 @@ export function controlRouter(): Router {
   router.post(
     '/bare/clocks/:id/label',
     bareMutation((req) => renameClock(clockId(req), (req.body as { label?: unknown })?.label)),
+  );
+  // A palette name, never a colour value - see CLOCK_COLORS in src/bare.ts.
+  router.post(
+    '/bare/clocks/:id/color',
+    bareMutation((req) => setClockColor(clockId(req), (req.body as { color?: unknown })?.color)),
   );
   router.post('/bare/clocks/:id/delete', bareMutation((req) => deleteClock(clockId(req))));
   router.post('/bare/global/toggle', bareMutation(() => globalToggleClocks()));

@@ -35,8 +35,26 @@
   -webkit-overflow-scrolling: touch;
 }
 
+/* --- the palette ---
+ *
+ * The one place a bare clock colour has a value. The names must match
+ * CLOCK_COLORS in src/bare.ts and the check constraint in
+ * migrations/009_bare_clock_colors.sql. Shared with the control page, which loads
+ * this file for the swatches. */
+.color-ink    { --accent: var(--ink); }
+.color-coral  { --accent: var(--coral); }
+.color-red    { --accent: var(--red); }
+.color-orange { --accent: var(--amber); }
+.color-green  { --accent: var(--green); }
+.color-blue   { --accent: var(--blue); }
+.color-slate  { --accent: var(--slate); }
+.color-purple { --accent: var(--purple); }
+
 .bclock {
-  border: 3px solid var(--line);
+  /* --accent comes from the .color-* class on this element. It is NOT defaulted
+     here: .bclock and .color-* have equal specificity, so a declaration on this
+     rule would win on source order and every card would be black. */
+  border: 3px solid var(--accent, var(--ink));
   border-radius: var(--radius-card);
   padding: 12px 16px;
   display: grid;
@@ -49,6 +67,7 @@
 }
 
 .bclock__name {
+  color: var(--accent, var(--ink));
   font-size: var(--label-size, 24px);
   font-weight: 800;
   letter-spacing: -0.01em;
@@ -81,10 +100,13 @@
   padding: 0.38em 0.9em;
 }
 
-/* Running is the one state worth spotting from the back of a room. */
-.bclock.is-running { border-color: var(--green); }
-.bclock.is-timeup { border-color: var(--count-critical); }
-.bclock.is-paused { border-color: var(--amber); }
+/* The border carries the clock's own colour, so status is left to the pill and to
+   the countdown's colour bands - except at zero, where urgency outranks identity
+   and the whole card goes red. */
+.bclock.is-timeup {
+  border-color: var(--count-critical);
+  --accent: var(--count-critical);
+}
 
 .bare-empty {
   grid-column: 1 / -1;

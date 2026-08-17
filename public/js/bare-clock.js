@@ -208,7 +208,10 @@
 
       refs.status.className = 'status-pill status-' + clock.timer.timerStatus;
       refs.status.textContent = clock.timer.statusLabel;
-      refs.root.className = 'bclock is-' + clock.timer.timerStatus;
+      // The colour is a class, never a style value: the server sends a palette
+      // name and the hex lives only in bare-clock.css.
+      refs.root.className =
+        'bclock color-' + (clock.color || 'ink') + ' is-' + clock.timer.timerStatus;
     });
   });
 

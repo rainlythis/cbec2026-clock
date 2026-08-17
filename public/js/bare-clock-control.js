@@ -139,6 +139,40 @@
     return state.clocks.filter(function (c) { return c.id === id; })[0] || null;
   }
 
+  /** Readable names for the palette the server sends. */
+  var COLOR_NAMES = {
+    ink: 'Black',
+    coral: 'Coral',
+    red: 'Red',
+    orange: 'Orange',
+    green: 'Green',
+    blue: 'Blue',
+    slate: 'Slate',
+    purple: 'Purple',
+  };
+
+  /**
+   * Colour swatches for one card.
+   *
+   * The list comes from the snapshot, so adding a colour is a change to
+   * CLOCK_COLORS and one CSS rule - never to this page.
+   */
+  function buildSwatches(wrap, id) {
+    (state.colors || ['ink']).forEach(function (color) {
+      var button = document.createElement('button');
+      button.type = 'button';
+      button.className = 'bswatch color-' + color;
+      button.dataset.color = color;
+      button.title = COLOR_NAMES[color] || color;
+      button.setAttribute('aria-label', 'Colour: ' + (COLOR_NAMES[color] || color));
+      button.setAttribute('aria-pressed', 'false');
+      button.addEventListener('click', function () {
+        api('/bare/clocks/' + id + '/color', { color: color });
+      });
+      wrap.appendChild(button);
+    });
+  }
+
   function buildCard(clock) {
     var el = document.createElement('article');
     el.className = 'ccard';
@@ -149,6 +183,7 @@
       '</div>' +
       '<div class="bcard__meta" data-role="meta"></div>' +
       '<div class="ccard__count count">--:--</div>' +
+      '<div class="bswatches" role="group" aria-label="Clock colour"></div>' +
       '<div class="blen">' +
       '<input class="blen__input" type="text" inputmode="decimal" aria-label="Length in minutes" ' +
       'placeholder="minutes" />' +
@@ -173,11 +208,14 @@
       length: el.querySelector('.blen__input'),
       toggle: el.querySelector('[data-act="toggle"]'),
       reset: el.querySelector('[data-act="reset"]'),
+      swatches: el.querySelector('.bswatches'),
     };
     refs.name.value = clock.label;
 
     var id = clock.id;
     var base = '/bare/clocks/' + id;
+
+    buildSwatches(refs.swatches, id);
 
     /** Saves a rename, but only when the text actually changed. */
     function commitName() {
@@ -346,6 +384,13 @@
       // A rename or a length typed here must never be overwritten mid-keystroke
       // by the 5-per-second render loop.
       if (document.activeElement !== refs.name) refs.name.value = clock.label;
+
+      var color = clock.color || 'ink';
+      refs.root.className = 'ccard color-' + color;
+      for (var i = 0; i < refs.swatches.children.length; i += 1) {
+        var swatch = refs.swatches.children[i];
+        swatch.setAttribute('aria-pressed', String(swatch.dataset.color === color));
+      }
     });
   });
 

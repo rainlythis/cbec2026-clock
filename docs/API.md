@@ -72,8 +72,9 @@ nothing here can reach an appointment or a matching table.
   "assetVersion": "be7c0feaf31f",
   "timezone": "Asia/Bangkok",
   "global": { "action": "play", "label": "Play All", "mixed": false },
+  "colors": ["ink","coral","red","orange","green","blue","slate","purple"],
   "clocks": [{
-    "id": 1, "label": "THPM",
+    "id": 1, "label": "THPM", "color": "ink",
     "durationSeconds": 900, "durationMinutes": 15, "displayOrder": 1,
     "timer": { /* identical shape to a table timer */ }
   }]
@@ -83,6 +84,13 @@ nothing here can reach an appointment or a matching table.
 Clock statuses are only `ready`, `running`, `paused`, `timeup` — `break` and
 `closed` belong to a physical matching table.
 
+`color` is a palette **name**, never a value: the hex for each lives once in
+`public/css/bare-clock.css` as a `.color-*` class, so no operator input reaches a
+stylesheet. It paints the card border and the clock's name; the countdown keeps
+its own bands (orange under 5:00, red under 2:00), and at zero the whole card goes
+red because urgency outranks identity. `colors` carries the whole palette so the
+control page never hardcodes the list.
+
 | Method | Path | Body |
 | ------ | ---- | ---- |
 | POST | `/api/control/bare/clocks` | `{label, duration?}` — `duration` defaults to 15 minutes |
@@ -91,6 +99,7 @@ Clock statuses are only `ready`, `running`, `paused`, `timeup` — `break` and
 | POST | `/api/control/bare/clocks/:id/adjust` | `{deltaSeconds}` (±60 min max) |
 | POST | `/api/control/bare/clocks/:id/duration` | `{duration}` — any typed length: `"15"`, `"7.5"`, `"12:30"`, `"90s"`, up to 6 h. A running clock keeps running from the new length; anything else goes Ready and waits for Play |
 | POST | `/api/control/bare/clocks/:id/label` | `{label}` — 1–40 characters |
+| POST | `/api/control/bare/clocks/:id/color` | `{color}` — a name from `colors`; anything else is 400 |
 | POST | `/api/control/bare/clocks/:id/delete` | — really deletes; there is no roster behind a bare clock |
 | POST | `/api/control/bare/global/toggle` | — Play All / Pause All across the board |
 | POST | `/api/control/bare/global/reset` | `{confirm: true}` — **required** |

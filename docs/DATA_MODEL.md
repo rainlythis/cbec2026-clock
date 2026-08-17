@@ -146,6 +146,13 @@ somebody removed.
 Statuses are `ready`, `running`, `paused`, `timeup`; `break` and `closed` are not
 in the check constraint because they describe a physical matching table.
 
+`color` holds a palette **name** (`ink`…`purple`), constrained by a CHECK and
+mirrored by `CLOCK_COLORS` in `src/bare.ts`; the hex for each lives once, in
+`public/css/bare-clock.css`. Storing a name rather than a value keeps every colour
+legible on a white card and means operator input can never reach a stylesheet.
+Colour is identity, not status: it paints the card border and the clock's name,
+while the digits keep their own time bands.
+
 ## `operation_log`
 
 Append-only record of resets, skips, completions, grid edits, imports, day
@@ -170,6 +177,7 @@ Forward-only, numbered, applied on boot behind an advisory lock.
 | `006_short_labels.sql` | room-screen labels per day |
 | `007_original_table.sql` | remembers the cell each appointment was imported into |
 | `008_bare_clocks.sql` | the standalone clock board, seeded with ten clocks |
+| `009_bare_clock_colors.sql` | a palette colour per bare clock |
 
 `005` is written out literally rather than generated: the irregularity *is* the
 schedule and has to be reviewable in the diff.

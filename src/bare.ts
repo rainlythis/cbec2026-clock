@@ -20,7 +20,32 @@ import { query, withTransaction } from './db';
 import * as timer from './timer';
 import type { TimerState } from './timer';
 import { OperationError } from './service';
-import type { BareClockRow, BareClockSnapshot, BareClockStateSnapshot } from './types';
+import type {
+  BareClockColor,
+  BareClockRow,
+  BareClockSnapshot,
+  BareClockStateSnapshot,
+} from './types';
+
+/**
+ * The palette, in the order the swatches appear on the control page.
+ *
+ * Names only - the hex for each lives once, in `public/css/bare-clock.css`, and
+ * must match the `bare_clocks_color_check` constraint in
+ * `migrations/009_bare_clock_colors.sql`. A fixed list rather than free hex keeps
+ * every colour legible on a white card across a hall, and means no operator input
+ * can ever reach a stylesheet.
+ */
+export const CLOCK_COLORS: BareClockColor[] = [
+  'ink',
+  'coral',
+  'red',
+  'orange',
+  'green',
+  'blue',
+  'slate',
+  'purple',
+];
 
 /**
  * Read lazily to avoid an import cycle: app.ts -> routes -> bare.ts. Computed
@@ -38,7 +63,7 @@ const MAX_CLOCKS = 24;
 
 let revision = 0;
 
-const SELECT_COLUMNS = `id, label, duration_seconds, timer_status, started_at, ends_at,
+const SELECT_COLUMNS = `id, label, color, duration_seconds, timer_status, started_at, ends_at,
                         paused_remaining_seconds, timeup_at, display_order`;
 
 function toTimerState(row: BareClockRow): TimerState {
@@ -58,6 +83,7 @@ function toSnapshot(row: BareClockRow, nowMs: number): BareClockSnapshot {
   return {
     id: row.id,
     label: row.label,
+    color: row.color,
     durationSeconds: row.duration_seconds,
     durationMinutes: Math.round(row.duration_seconds / 60),
     displayOrder: row.display_order,
@@ -87,6 +113,7 @@ export async function buildBareSnapshot(nowMs = Date.now()): Promise<BareClockSt
     serverTime: nowMs,
     assetVersion: getAssetVersion(),
     timezone: loadConfig().timezone,
+    colors: CLOCK_COLORS,
     clocks,
     global: timer.globalToggleState(clocks.map((c) => c.timer)),
     revision,
@@ -222,6 +249,26 @@ function cleanLabel(value: unknown): string {
     );
   }
   return label;
+}
+
+/** Sets the card's colour. Refuses anything outside the palette. */
+export async function setClockColor(id: number, value: unknown): Promise<{ color: BareClockColor }> {
+  const color = String(value ?? '') as BareClockColor;
+  if (!CLOCK_COLORS.includes(color)) {
+    throw new OperationError(`Colour must be one of ${CLOCK_COLORS.join(', ')}.`, 'bad_request');
+  }
+
+  await withTransaction(async (client) => {
+    const row = await lockClock(client, id);
+    if (row.color === color) return;
+    await client.query(`UPDATE bare_clocks SET color = $2, updated_at = now() WHERE id = $1`, [
+      id,
+      color,
+    ]);
+    await log(client, 'bare.color', { clockId: id, label: row.label, from: row.color, to: color });
+  });
+  revision += 1;
+  return { color };
 }
 
 export async function renameClock(id: number, value: unknown): Promise<{ label: string }> {

@@ -23,7 +23,7 @@ Plus a **standalone clock board** that shares only the timer maths:
 | Route | Audience | Notes |
 | ----- | -------- | ----- |
 | `/Bare_Clock` | public, any screen | countdowns only — no queue, no companies. Fluid grid, read-only |
-| `/Bare_Clock_Control` | the single operator | rename a clock, type any length, add or delete clocks |
+| `/Bare_Clock_Control` | the single operator | rename a clock, type any length, pick its colour, add or delete clocks |
 
 ## Commands
 
@@ -103,6 +103,12 @@ Requires Node 20+ and PostgreSQL 14+. Copy `.env.example` to `.env` first.
   (revalidate, 304 when unchanged). An earlier `max-age=1h` shipped new HTML
   against hour-old JavaScript in production; the only symptom was buttons that
   did nothing. Long-lived tabs still need a manual refresh after a deploy.
+- **A bare clock's colour is a palette name, never a value.** The list is
+  `CLOCK_COLORS` in `src/bare.ts`, the CHECK constraint in migration `009`, and the
+  `.color-*` classes in `public/css/bare-clock.css` — the only place a hex exists.
+  Adding a colour means all three; storing hex instead would put operator input a
+  step away from a stylesheet. Colour is identity: it paints the border and name,
+  and the countdown keeps its own bands, so nobody loses the red at 2:00.
 - **`/Bare_Clock` sizes itself in JavaScript.** The clock count is up to the
   operator, so the column count and the digit size are measured, not fixed
   (`fitBoard` in `public/js/bare-clock.js`). Below a readable digit size the board

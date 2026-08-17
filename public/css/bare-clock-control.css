@@ -2,6 +2,37 @@
    header, modals and toast, so this file only carries what is new here: the
    inline name field and the typed length row. */
 
+/* The card echoes the clock's colour, so the operator sees on this page exactly
+   what the room sees. --accent comes from the .color-* class in bare-clock.css. */
+.ccard {
+  border-color: var(--accent, var(--line));
+}
+
+/* --- colour swatches --- */
+
+.bswatches {
+  display: flex;
+  gap: 7px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.bswatch {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  border: 0;
+  padding: 0;
+  background: var(--accent);
+  flex: none;
+}
+
+/* A ring rather than a tick: the swatch is 24px and a glyph inside it would be
+   unreadable, and the ring reads at a glance across eight of them. */
+.bswatch[aria-pressed="true"] {
+  box-shadow: 0 0 0 2px var(--paper), 0 0 0 4px var(--ink);
+}
+
 /* The name is edited in place - renaming a clock is the most common thing the
    operator does on this page, so it should not need a dialog. */
 .bname {
@@ -10,7 +41,7 @@
   font-size: 17px;
   font-weight: 800;
   letter-spacing: -0.01em;
-  color: var(--ink);
+  color: var(--accent, var(--ink));
   background: transparent;
   border: 2px solid transparent;
   border-radius: 9px;

@@ -80,9 +80,27 @@ export interface StateSnapshot {
  * Kept separate from TableSnapshot on purpose: the two systems share only the
  * pure timer maths, so nothing here can carry roster data onto the clock board.
  */
+/**
+ * Palette name, not a colour value.
+ *
+ * The hex lives once in `public/css/bare-clock.css`; the server only ever
+ * handles the name, so no operator input can reach a stylesheet.
+ */
+export type BareClockColor =
+  | 'ink'
+  | 'coral'
+  | 'red'
+  | 'orange'
+  | 'green'
+  | 'blue'
+  | 'slate'
+  | 'purple';
+
 export interface BareClockSnapshot {
   id: number;
   label: string;
+  /** Card border and name colour. The countdown keeps its own time bands. */
+  color: BareClockColor;
   durationSeconds: number;
   durationMinutes: number;
   displayOrder: number;
@@ -99,6 +117,8 @@ export interface BareClockStateSnapshot {
   /** Same frontend fingerprint as the event snapshot; these pages self-heal too. */
   assetVersion: string;
   timezone: string;
+  /** The whole palette, so the control page never hardcodes the list. */
+  colors: BareClockColor[];
   clocks: BareClockSnapshot[];
   global: { action: 'play' | 'pause'; label: string; mixed: boolean };
   revision: number;
@@ -107,6 +127,7 @@ export interface BareClockStateSnapshot {
 export interface BareClockRow {
   id: number;
   label: string;
+  color: BareClockColor;
   duration_seconds: number;
   timer_status: Extract<TimerStatus, 'ready' | 'running' | 'paused' | 'timeup'>;
   started_at: Date | null;
