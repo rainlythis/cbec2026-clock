@@ -73,6 +73,49 @@ export interface StateSnapshot {
   revision: number;
 }
 
+/**
+ * One standalone countdown on /Bare_Clock.
+ *
+ * No queue, no company, no event day - a bare clock is a label and a length.
+ * Kept separate from TableSnapshot on purpose: the two systems share only the
+ * pure timer maths, so nothing here can carry roster data onto the clock board.
+ */
+export interface BareClockSnapshot {
+  id: number;
+  label: string;
+  durationSeconds: number;
+  durationMinutes: number;
+  displayOrder: number;
+  timer: TimerState & {
+    remainingSeconds: number;
+    statusLabel: string;
+    toggleLabel: 'Play' | 'Pause' | 'Resume';
+    toggleEnabled: boolean;
+  };
+}
+
+export interface BareClockStateSnapshot {
+  serverTime: number;
+  /** Same frontend fingerprint as the event snapshot; these pages self-heal too. */
+  assetVersion: string;
+  timezone: string;
+  clocks: BareClockSnapshot[];
+  global: { action: 'play' | 'pause'; label: string; mixed: boolean };
+  revision: number;
+}
+
+export interface BareClockRow {
+  id: number;
+  label: string;
+  duration_seconds: number;
+  timer_status: Extract<TimerStatus, 'ready' | 'running' | 'paused' | 'timeup'>;
+  started_at: Date | null;
+  ends_at: Date | null;
+  paused_remaining_seconds: number | null;
+  timeup_at: Date | null;
+  display_order: number;
+}
+
 export interface TimerRow {
   table_code: string;
   timer_status: TimerStatus;

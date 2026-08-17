@@ -1,0 +1,76 @@
+/* Bare clock control. Loaded after control.css and reuses its buttons, cards,
+   header, modals and toast, so this file only carries what is new here: the
+   inline name field and the typed length row. */
+
+/* The name is edited in place - renaming a clock is the most common thing the
+   operator does on this page, so it should not need a dialog. */
+.bname {
+  width: 100%;
+  font-family: inherit;
+  font-size: 17px;
+  font-weight: 800;
+  letter-spacing: -0.01em;
+  color: var(--ink);
+  background: transparent;
+  border: 2px solid transparent;
+  border-radius: 9px;
+  padding: 5px 7px;
+  margin: -5px -7px;
+  min-width: 0;
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+.bname:hover { border-color: var(--line-soft); }
+.bname:focus { outline: none; border-color: var(--ink); background: var(--paper); }
+
+.bcard__head {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+}
+
+.bcard__head .status-pill { font-size: 10px; padding: 5px 10px; flex: none; }
+
+.bcard__meta {
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--ink-faint);
+}
+
+/* Typed length: a free text field, because "any minutes I want" includes 7.5
+   and 12:30, which a number stepper makes harder rather than easier. */
+.blen {
+  display: grid;
+  grid-template-columns: 1fr auto auto auto;
+  gap: 6px;
+  align-items: center;
+}
+
+.blen__input {
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 700;
+  padding: 8px 10px;
+  border: 2px solid var(--line-soft);
+  border-radius: 9px;
+  min-width: 0;
+  width: 100%;
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+.blen__input:focus { outline: none; border-color: var(--ink); }
+
+.bcard__controls { display: grid; gap: 7px; }
+.bcard__controls-row { display: grid; grid-template-columns: 1fr 1fr; gap: 7px; }
+
+.bare-hint {
+  margin: 24px auto 0;
+  max-width: 520px;
+  text-align: center;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--ink-soft);
+  line-height: 1.6;
+}

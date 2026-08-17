@@ -110,6 +110,11 @@ export function createApp(): express.Express {
   app.get('/live', page('live.html'));
   app.get('/control', page('control.html'));
   app.get('/schedule', page('schedule.html'));
+  // The bare clock board: a standalone countdown screen and its own control
+  // page, sharing nothing with the matching event but the timer maths. Express
+  // routing is case-insensitive, so /bare_clock reaches the same page.
+  app.get('/Bare_Clock', page('bare-clock.html'));
+  app.get('/Bare_Clock_Control', page('bare-clock-control.html'));
 
   app.use((req, res) => {
     if (req.path.startsWith('/api/')) {

@@ -13,7 +13,18 @@ import {
 } from '../auth';
 import { logger } from '../logger';
 import { parseSchedule } from '../csv';
-import { broadcastGrid, broadcastState } from '../realtime';
+import { broadcastBareState, broadcastGrid, broadcastState } from '../realtime';
+import {
+  adjustClock,
+  createClock,
+  deleteClock,
+  globalResetClocks,
+  globalToggleClocks,
+  renameClock,
+  resetClock,
+  setClockDuration,
+  toggleClock,
+} from '../bare';
 import {
   OperationError,
   adjustTimer,
@@ -398,6 +409,73 @@ export function controlRouter(): Router {
       next(error);
     }
   });
+
+  // --- bare clock board (/Bare_Clock, /Bare_Clock_Control) ---
+  //
+  // Same guard as everything else on this router, but these broadcast the clock
+  // snapshot instead of the event snapshot: nothing here can reach the matching
+  // tables, so re-sending the event state would be noise on /display.
+  function bareMutation(handler: (req: import('express').Request) => Promise<unknown>) {
+    return async (
+      req: import('express').Request,
+      res: import('express').Response,
+      next: import('express').NextFunction,
+    ) => {
+      try {
+        const result = await handler(req);
+        await broadcastBareState();
+        res.json({ ok: true, ...(result && typeof result === 'object' ? result : {}) });
+      } catch (error) {
+        if (error instanceof OperationError) {
+          res.status(error.code === 'not_found' ? 404 : error.code === 'bad_request' ? 400 : 409).json({
+            ok: false,
+            error: error.code,
+            message: error.message,
+          });
+          return;
+        }
+        next(error);
+      }
+    };
+  }
+
+  const clockId = (req: import('express').Request) => intParam(req.params.id, 'clock id');
+
+  router.post('/bare/clocks', bareMutation((req) => {
+    const body = req.body as { label?: unknown; duration?: unknown };
+    return createClock(body?.label, body?.duration);
+  }));
+  router.post('/bare/clocks/:id/toggle', bareMutation((req) => toggleClock(clockId(req))));
+  router.post('/bare/clocks/:id/reset', bareMutation((req) => resetClock(clockId(req))));
+  router.post(
+    '/bare/clocks/:id/adjust',
+    bareMutation(async (req) => {
+      const delta = intParam((req.body as { deltaSeconds?: unknown })?.deltaSeconds, 'deltaSeconds');
+      if (Math.abs(delta) > 60 * 60) throw new OperationError('Adjustment is limited to one hour.');
+      return adjustClock(clockId(req), delta);
+    }),
+  );
+  // The typed length. Accepts minutes ("15", "7.5"), MM:SS ("12:30") or seconds
+  // with a unit ("90s"); parsing and bounds live in timer.parseDurationSeconds.
+  router.post(
+    '/bare/clocks/:id/duration',
+    bareMutation((req) => setClockDuration(clockId(req), (req.body as { duration?: unknown })?.duration)),
+  );
+  router.post(
+    '/bare/clocks/:id/label',
+    bareMutation((req) => renameClock(clockId(req), (req.body as { label?: unknown })?.label)),
+  );
+  router.post('/bare/clocks/:id/delete', bareMutation((req) => deleteClock(clockId(req))));
+  router.post('/bare/global/toggle', bareMutation(() => globalToggleClocks()));
+  router.post(
+    '/bare/global/reset',
+    bareMutation(async (req) => {
+      if ((req.body as { confirm?: boolean })?.confirm !== true) {
+        throw new OperationError('Reset All must be confirmed.', 'bad_request');
+      }
+      return globalResetClocks();
+    }),
+  );
 
   router.get('/operations', async (_req, res, next) => {
     try {

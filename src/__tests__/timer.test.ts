@@ -1,15 +1,18 @@
 import assert from 'node:assert/strict';
 import { describe, it } from 'node:test';
 import {
+  MAX_REMAINING_SECONDS,
   adjust,
   colorTier,
   expire,
   formatMMSS,
   globalToggleState,
   hasExpired,
+  parseDurationSeconds,
   pause,
   remainingSeconds,
   reset,
+  setDuration,
   setPresence,
   start,
   toggle,
@@ -242,5 +245,95 @@ describe('restart safety', () => {
     };
     assert.equal(remainingSeconds(rehydrated, T0 + 400_000), remainingSeconds(running, T0 + 400_000));
     assert.equal(remainingSeconds(rehydrated, T0 + 400_000), 500);
+  });
+});
+
+// --- typed durations (the bare clock board) --------------------------------
+
+describe('operator-typed durations', () => {
+  it('reads plain minutes', () => {
+    assert.equal(parseDurationSeconds('15'), 900);
+    assert.equal(parseDurationSeconds('10'), 600);
+    assert.equal(parseDurationSeconds(' 3 '), 180);
+  });
+
+  it('reads fractional minutes to the nearest second', () => {
+    assert.equal(parseDurationSeconds('7.5'), 450);
+    assert.equal(parseDurationSeconds('0.5'), 30);
+    // 1/3 of a minute is 20s exactly; 0.51 rounds rather than being refused.
+    assert.equal(parseDurationSeconds('0.51'), 31);
+  });
+
+  it('reads MM:SS, the form the countdown is displayed in', () => {
+    assert.equal(parseDurationSeconds('12:30'), 750);
+    assert.equal(parseDurationSeconds('0:45'), 45);
+    assert.equal(parseDurationSeconds('100:00'), 6000);
+  });
+
+  it('reads an explicit unit', () => {
+    assert.equal(parseDurationSeconds('90s'), 90);
+    assert.equal(parseDurationSeconds('90 sec'), 90);
+    assert.equal(parseDurationSeconds('15 min'), 900);
+    assert.equal(parseDurationSeconds('15m'), 900);
+  });
+
+  it('treats a bare number as minutes, so 15 is never 15 seconds', () => {
+    assert.equal(parseDurationSeconds(15), 900);
+  });
+
+  it('refuses anything unusable rather than guessing', () => {
+    assert.equal(parseDurationSeconds(''), null);
+    assert.equal(parseDurationSeconds('   '), null);
+    assert.equal(parseDurationSeconds('abc'), null);
+    assert.equal(parseDurationSeconds('12:75'), null);
+    assert.equal(parseDurationSeconds('-5'), null);
+    assert.equal(parseDurationSeconds('0'), null);
+    assert.equal(parseDurationSeconds(null), null);
+    assert.equal(parseDurationSeconds(undefined), null);
+    assert.equal(parseDurationSeconds(Number.NaN), null);
+  });
+
+  it('refuses more than six hours', () => {
+    assert.equal(parseDurationSeconds('360'), MAX_REMAINING_SECONDS);
+    assert.equal(parseDurationSeconds('361'), null);
+    assert.equal(parseDurationSeconds('21601s'), null);
+  });
+});
+
+describe('replacing a timer length', () => {
+  it('puts a ready timer on the new length and waits for Play', () => {
+    const next = setDuration(ready(900), 300, T0);
+    assert.equal(next.timerStatus, 'ready');
+    assert.equal(remainingSeconds(next, T0), 300);
+    assert.equal(toggleAction(next), 'start');
+  });
+
+  it('rebases a paused timer, discarding the old frozen remainder', () => {
+    const paused = pause(start(ready(900), T0), T0 + 60_000);
+    assert.equal(remainingSeconds(paused, T0 + 60_000), 840);
+    const next = setDuration(paused, 120, T0 + 60_000);
+    assert.equal(next.timerStatus, 'ready');
+    assert.equal(remainingSeconds(next, T0 + 60_000), 120);
+  });
+
+  it('keeps a running timer running, counting the new length from now', () => {
+    const running = start(ready(900), T0);
+    const next = setDuration(running, 300, T0 + 100_000);
+    assert.equal(next.timerStatus, 'running');
+    assert.equal(remainingSeconds(next, T0 + 100_000), 300);
+    assert.equal(remainingSeconds(next, T0 + 160_000), 240);
+  });
+
+  it('clears time-up so a finished clock can be re-run without Reset', () => {
+    const finished = expire(start(ready(60), T0), T0 + 60_000);
+    const next = setDuration(finished, 600, T0 + 60_000);
+    assert.equal(next.timerStatus, 'ready');
+    assert.equal(next.timeupAt, null);
+    assert.equal(remainingSeconds(next, T0 + 60_000), 600);
+  });
+
+  it('ignores a length of zero rather than creating a dead clock', () => {
+    const state = ready(900);
+    assert.deepEqual(setDuration(state, 0, T0), state);
   });
 });

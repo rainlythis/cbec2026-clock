@@ -4,9 +4,21 @@ import { loadConfig } from './config';
 import { SESSION_COOKIE, verifySessionToken } from './auth';
 import { logger } from './logger';
 import { buildSnapshot, expireFinishedTimers } from './service';
+import { buildBareSnapshot, expireFinishedClocks } from './bare';
 
 /** Socket.IO room that only a signed-in operator can join. */
 export const OPERATOR_ROOM = 'operators';
+
+/**
+ * Room for the bare clock board.
+ *
+ * Joined from the handshake query (`io({ query: { view: 'bare' } })`) rather
+ * than from a message the client sends, so the socket stays broadcast-only in
+ * both directions of intent: a viewer still has no way to ask the server to do
+ * anything. It also keeps the event snapshot off the clock pages and the clock
+ * snapshot off /display, instead of broadcasting both to everybody.
+ */
+export const BARE_ROOM = 'bare-clock';
 
 /** Minimal cookie header parser - no need to pull cookie-parser into the socket path. */
 function readCookie(header: string | undefined, name: string): string | undefined {
@@ -25,7 +37,9 @@ let io: IoServer | null = null;
 let tickHandle: NodeJS.Timeout | null = null;
 let heartbeatHandle: NodeJS.Timeout | null = null;
 let pendingBroadcast: NodeJS.Timeout | null = null;
+let pendingBareBroadcast: NodeJS.Timeout | null = null;
 let lastBroadcastAt = 0;
+let lastBareBroadcastAt = 0;
 
 /** How often the server checks for expired timers. */
 const TICK_MS = 1_000;
@@ -53,8 +67,12 @@ export function attachRealtime(server: HttpServer): IoServer {
       socket.join(OPERATOR_ROOM);
     }
 
+    const isBareView = socket.handshake.query.view === 'bare';
+    if (isBareView) socket.join(BARE_ROOM);
+
     try {
-      socket.emit('state', await buildSnapshot());
+      if (isBareView) socket.emit('bare:state', await buildBareSnapshot());
+      else socket.emit('state', await buildSnapshot());
     } catch (error) {
       logger.error('Failed to send initial state', error);
     }
@@ -84,6 +102,18 @@ function startLoops(): void {
     } catch (error) {
       logger.error('Timer tick failed', error);
     }
+
+    // The bare clock board is expired by the same authoritative tick, so a clock
+    // reaches zero whether or not anyone has the page open.
+    try {
+      const expired = await expireFinishedClocks();
+      if (expired.length > 0) {
+        logger.info('Bare clocks reached zero', { clocks: expired });
+        await broadcastBareState();
+      }
+    } catch (error) {
+      logger.error('Bare clock tick failed', error);
+    }
   }, TICK_MS);
 
   heartbeatHandle = setInterval(async () => {
@@ -94,6 +124,18 @@ function startLoops(): void {
         await broadcastState();
       } catch (error) {
         logger.error('Heartbeat re-sync failed', error);
+      }
+    }
+    // Skipped entirely when nobody is watching the clock board, which is the
+    // usual case during the matching event.
+    if (
+      Date.now() - lastBareBroadcastAt >= FULL_RESYNC_MS &&
+      (io.sockets.adapter.rooms.get(BARE_ROOM)?.size ?? 0) > 0
+    ) {
+      try {
+        await broadcastBareState();
+      } catch (error) {
+        logger.error('Bare clock heartbeat re-sync failed', error);
       }
     }
   }, HEARTBEAT_MS);
@@ -121,6 +163,28 @@ export async function broadcastState(): Promise<void> {
 }
 
 /**
+ * Pushes the clock board to the bare clock screens only.
+ *
+ * Coalesced like the event broadcast, and addressed to BARE_ROOM so /display and
+ * /live never receive it.
+ */
+export async function broadcastBareState(): Promise<void> {
+  if (!io) return;
+  if (pendingBareBroadcast) return;
+
+  pendingBareBroadcast = setTimeout(async () => {
+    pendingBareBroadcast = null;
+    try {
+      const snapshot = await buildBareSnapshot();
+      io?.to(BARE_ROOM).emit('bare:state', snapshot);
+      lastBareBroadcastAt = Date.now();
+    } catch (error) {
+      logger.error('Bare clock broadcast failed', error);
+    }
+  }, 40);
+}
+
+/**
  * Pushes a grid change to signed-in operators only.
  *
  * Sent as a delta rather than the whole grid: a move touches two cells and a
@@ -140,7 +204,8 @@ export async function shutdownRealtime(): Promise<void> {
   if (tickHandle) clearInterval(tickHandle);
   if (heartbeatHandle) clearInterval(heartbeatHandle);
   if (pendingBroadcast) clearTimeout(pendingBroadcast);
-  tickHandle = heartbeatHandle = pendingBroadcast = null;
+  if (pendingBareBroadcast) clearTimeout(pendingBareBroadcast);
+  tickHandle = heartbeatHandle = pendingBroadcast = pendingBareBroadcast = null;
   if (io) {
     await new Promise<void>((resolve) => io?.close(() => resolve()));
     io = null;

@@ -1,6 +1,7 @@
 import { Router } from 'express';
 import QRCode from 'qrcode';
 import { loadConfig } from '../config';
+import { buildBareSnapshot } from '../bare';
 import { buildSnapshot } from '../service';
 
 /**
@@ -20,6 +21,17 @@ export function publicRouter(): Router {
   router.get('/state', async (_req, res, next) => {
     try {
       res.json(await buildSnapshot());
+    } catch (error) {
+      next(error);
+    }
+  });
+
+  // Polling fallback for the bare clock board. Read-only, like /state, and
+  // carries only clock labels and timers - the board holds no personal data at
+  // all, so this needs no session.
+  router.get('/bare/state', async (_req, res, next) => {
+    try {
+      res.json(await buildBareSnapshot());
     } catch (error) {
       next(error);
     }

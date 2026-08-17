@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="robots" content="noindex" />
+<title>Bare Clock — countdown board</title>
+<link rel="stylesheet" href="/css/base.css" />
+<link rel="stylesheet" href="/css/bare-clock.css" />
+</head>
+<body class="bare-body">
+  <!-- Read-only, exactly like /display: no button of any kind is rendered here.
+       Everything is driven from /Bare_Clock_Control. -->
+  <main class="bare-board" id="board"></main>
+
+  <footer class="bare-bar">
+    <span class="bare-bar__title" id="board-title">Bare Clock</span>
+    <span class="bare-bar__spacer"></span>
+    <span class="bare-bar__clock count" id="clock">--:--:--</span>
+    <span class="bare-bar__connbox">
+      <span class="conn is-connecting" id="conn">Connecting</span>
+      <span class="bare-bar__sync" id="sync">synced never</span>
+    </span>
+  </footer>
+
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="/js/client.js"></script>
+  <script src="/js/bare-clock.js"></script>
+</body>
+</html>

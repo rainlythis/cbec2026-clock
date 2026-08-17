@@ -1,6 +1,6 @@
 /* global io */
 /**
- * Shared realtime client for /display, /live and /control.
+ * Shared realtime client for /display, /live, /control and the bare clock board.
  *
  * Two responsibilities:
  *  1. Keep a measured offset between this device's clock and the server's, so a
@@ -22,6 +22,13 @@ window.TopThai = (function () {
 
   var POLL_MS = 3000;
   var RENDER_MS = 200;
+
+  // Which snapshot this page is on. The event pages take the default; the bare
+  // clock board passes its own channel to connect(), so the two systems share
+  // this client (and its clock sync) without sharing a payload.
+  var stateEvent = 'state';
+  var statePath = '/api/state';
+  var socketQuery = null;
 
   function serverNow() {
     return Date.now() + offsetMs;
@@ -100,7 +107,7 @@ window.TopThai = (function () {
 
   function pollOnce() {
     var sentAt = Date.now();
-    return fetch('/api/state', { cache: 'no-store' })
+    return fetch(statePath, { cache: 'no-store' })
       .then(function (r) { return r.json(); })
       .then(function (data) {
         recordSample(data.serverTime, sentAt, Date.now());
@@ -119,13 +126,27 @@ window.TopThai = (function () {
     }, POLL_MS);
   }
 
-  function connect() {
+  /**
+   * Opens the socket.
+   *
+   * `options` lets a page choose its snapshot channel:
+   *   { stateEvent: 'bare:state', statePath: '/api/bare/state', query: { view: 'bare' } }
+   * The query travels in the handshake, so the server can put the socket in the
+   * right room without the client ever having to send a message.
+   */
+  function connect(options) {
+    var opts = options || {};
+    if (opts.stateEvent) stateEvent = opts.stateEvent;
+    if (opts.statePath) statePath = opts.statePath;
+    if (opts.query) socketQuery = opts.query;
+
     socket = io({
       transports: ['websocket', 'polling'],
       reconnection: true,
       reconnectionDelay: 500,
       reconnectionDelayMax: 4000,
       timeout: 8000,
+      query: socketQuery || undefined,
     });
 
     socket.on('connect', function () {
@@ -134,7 +155,7 @@ window.TopThai = (function () {
     });
     socket.on('disconnect', function () { setConnection(false); });
     socket.on('connect_error', function () { setConnection(false); });
-    socket.on('state', function (data) {
+    socket.on(stateEvent, function (data) {
       recordSample(data.serverTime, Date.now() - 20, Date.now());
       applyState(data);
     });

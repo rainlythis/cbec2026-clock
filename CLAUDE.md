@@ -18,6 +18,13 @@ Four views, one database:
 | `/control` | the single operator | timers and queue workflow |
 | `/schedule` | the single operator | the editable time × table grid |
 
+Plus a **standalone clock board** that shares only the timer maths:
+
+| Route | Audience | Notes |
+| ----- | -------- | ----- |
+| `/Bare_Clock` | public, any screen | countdowns only — no queue, no companies. Fluid grid, read-only |
+| `/Bare_Clock_Control` | the single operator | rename a clock, type any length, add or delete clocks |
+
 ## Commands
 
 ```bash
@@ -61,6 +68,12 @@ Requires Node 20+ and PostgreSQL 14+. Copy `.env.example` to `.env` first.
 7. **Appointments are never deleted** by an edit. Skipping, no-showing or
    clearing a cell parks the row so it stays in the record and can be recalled.
 8. **Slots are data, not a formula.** The grids are irregular — see below.
+9. **The bare clock board stays independent.** `src/bare.ts` queries exactly one
+   table, `bare_clocks`, and nothing else. It must never join `appointments`,
+   `table_days`, `matching_tables` or `time_slots`: the point of the board is
+   that renaming a clock or typing a new length on it cannot disturb the room
+   during the event. Its snapshot goes to the `bare-clock` socket room only, so
+   `/display` and `/live` never receive it.
 
 ## Things that will surprise you
 
@@ -90,6 +103,12 @@ Requires Node 20+ and PostgreSQL 14+. Copy `.env.example` to `.env` first.
   (revalidate, 304 when unchanged). An earlier `max-age=1h` shipped new HTML
   against hour-old JavaScript in production; the only symptom was buttons that
   did nothing. Long-lived tabs still need a manual refresh after a deploy.
+- **`/Bare_Clock` sizes itself in JavaScript.** The clock count is up to the
+  operator, so the column count and the digit size are measured, not fixed
+  (`fitBoard` in `public/js/bare-clock.js`). Below a readable digit size the board
+  scrolls instead of shrinking further. Anything that changes the card's padding,
+  gaps or rows has to change the constants there too, or the digits overflow their
+  cards on a phone.
 
 ## Layout of the code
 
@@ -99,7 +118,8 @@ src/
   grid.ts      pure grid rules             <- unit tested, no I/O
   csv.ts       CSV parser + validator      <- unit tested, no I/O
   roster.ts    xlsx reader + validator     <- unit tested, no I/O
-  service.ts   all SQL and transactions
+  service.ts   all event SQL and transactions
+  bare.ts      the bare clock board        <- the only file touching bare_clocks
   routes/      express routers (public + control)
   realtime.ts  Socket.IO, the expiry tick, broadcasts
   app.ts       express wiring     index.ts  boot + graceful shutdown
@@ -125,4 +145,5 @@ directly. Keep new rules there.
 
 `npm test` passes, and for anything touching the timers, the grid or auth, check
 it in the browser at both dates and confirm `/display` still fits 1920×1080 with
-no scrollbars.
+no scrollbars. For the clock board, check `/Bare_Clock` with a few clocks and with
+a dozen, on a wide screen and on a phone: no digits outside a card, no overlap.

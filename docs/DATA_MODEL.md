@@ -130,11 +130,31 @@ which day the row belongs to so a day switch can safely clear
 `current_appointment_id` — leaving stale pointers would make the next
 Complete & Next mark *yesterday's* appointment completed.
 
+## `bare_clocks` (the standalone clock board)
+
+Backs `/Bare_Clock` and `/Bare_Clock_Control`, and is referenced by **no** other
+table: no event date, no platform, no appointment, no slot. A row is a label, a
+length and the same timer columns as `timer_states`, so the pure maths in
+`src/timer.ts` drives both.
+
+Rows are ordinary data — the operator renames, adds and deletes them from the
+control page, and unlike an appointment a deleted clock is really deleted,
+because there is no approved roster behind it. `008_bare_clocks.sql` seeds the ten
+event platforms as a convenience only, guarded so it never re-adds a clock
+somebody removed.
+
+Statuses are `ready`, `running`, `paused`, `timeup`; `break` and `closed` are not
+in the check constraint because they describe a physical matching table.
+
 ## `operation_log`
 
 Append-only record of resets, skips, completions, grid edits, imports, day
 switches and contact views. No dashboard by design; the last 40 entries are at
 `GET /api/control/operations`.
+
+Bare clock actions are logged here too, as `bare.*` with `table_code` left
+**null** — writing a clock id into that column would make the event's log read as
+if a matching table had been touched.
 
 ## Migrations
 
@@ -148,6 +168,8 @@ Forward-only, numbered, applied on boot behind an advisory lock.
 | `004_table_days.sql` | the per-day roster for both days |
 | `005_seed_time_slots.sql` | 114 literal slot rows |
 | `006_short_labels.sql` | room-screen labels per day |
+| `007_original_table.sql` | remembers the cell each appointment was imported into |
+| `008_bare_clocks.sql` | the standalone clock board, seeded with ten clocks |
 
 `005` is written out literally rather than generated: the irregularity *is* the
 schedule and has to be reviewable in the diff.

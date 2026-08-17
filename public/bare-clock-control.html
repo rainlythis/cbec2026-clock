@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<meta name="robots" content="noindex" />
+<title>Bare Clock Control</title>
+<link rel="stylesheet" href="/css/base.css" />
+<link rel="stylesheet" href="/css/control.css" />
+<link rel="stylesheet" href="/css/bare-clock-control.css" />
+</head>
+<body class="control-body">
+
+  <!-- Same operator passcode as /control and /schedule: one session cookie for
+       every page that can change anything. -->
+  <div class="gate" id="gate" hidden>
+    <form class="gate__card" id="login-form" autocomplete="off">
+      <h1 class="gate__title">Bare Clock Control</h1>
+      <p class="gate__sub">Standalone countdown board</p>
+      <label class="gate__label" for="passcode">Operator passcode</label>
+      <input class="gate__input" id="passcode" name="passcode" type="password"
+             autocomplete="current-password" required />
+      <p class="gate__error" id="login-error" hidden></p>
+      <button class="btn btn--primary btn--wide" type="submit" id="login-submit">Unlock</button>
+      <p class="gate__note">This page is for the event operator only.</p>
+    </form>
+  </div>
+
+  <div id="app" hidden>
+    <header class="chead">
+      <div class="chead__row">
+        <div class="chead__brand">
+          <span class="chead__title">Bare Clock Control</span>
+          <span class="chead__sub">Clocks only — no queue, no companies. Separate from the matching event.</span>
+        </div>
+
+        <div class="chead__meta">
+          <div class="chead__clockbox">
+            <span class="chead__clock count" id="clock">--:--:--</span>
+            <span class="chead__session" id="clock-count">— clocks</span>
+          </div>
+          <div class="chead__connbox">
+            <span class="conn is-connecting" id="conn">Connecting</span>
+            <span class="chead__sync" id="sync">synced never</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="chead__row chead__row--actions">
+        <div class="globals">
+          <button class="btn btn--play btn--lg" id="global-toggle">Play All</button>
+          <button class="btn btn--ghost btn--lg" id="global-reset">Reset All</button>
+          <span class="mixed-badge" id="mixed-badge" hidden>Mixed states</span>
+        </div>
+        <div class="chead__tools">
+          <button class="btn btn--primary" id="add-clock">Add clock</button>
+          <a class="btn btn--ghost" href="/Bare_Clock" target="_blank" rel="noopener">Open board</a>
+          <a class="btn btn--ghost" href="/control" target="_blank" rel="noopener">Event control</a>
+          <button class="btn btn--ghost" id="logout">Sign out</button>
+        </div>
+      </div>
+    </header>
+
+    <main class="cmain">
+      <section class="cgrid" id="cgrid"></section>
+      <p class="bare-hint" id="empty-hint" hidden>
+        The board is empty. Press <strong>Add clock</strong> to put one on it.
+      </p>
+    </main>
+  </div>
+
+  <!-- Generic confirmation dialog -->
+  <div class="modal" id="confirm-modal" hidden>
+    <div class="modal__box modal__box--sm" role="dialog" aria-modal="true" aria-labelledby="confirm-title">
+      <h2 class="modal__title" id="confirm-title">Are you sure?</h2>
+      <p class="modal__body" id="confirm-body"></p>
+      <div class="modal__actions">
+        <button class="btn btn--ghost" id="confirm-cancel">Cancel</button>
+        <button class="btn btn--danger" id="confirm-ok">Confirm</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Add a clock -->
+  <div class="modal" id="add-modal" hidden>
+    <div class="modal__box modal__box--sm" role="dialog" aria-modal="true" aria-labelledby="add-title">
+      <div class="modal__head">
+        <h2 class="modal__title" id="add-title">Add a clock</h2>
+        <button class="modal__close" id="add-close" aria-label="Close">×</button>
+      </div>
+      <form id="add-form" autocomplete="off">
+        <label class="gate__label" for="add-label">Name</label>
+        <input class="gate__input" id="add-label" type="text" maxlength="40" placeholder="e.g. Stage A" required />
+        <label class="gate__label" for="add-duration">Length</label>
+        <input class="gate__input" id="add-duration" type="text" inputmode="decimal"
+               placeholder="minutes — 15, 7.5 or 12:30" />
+        <div class="modal__actions">
+          <button class="btn btn--ghost" type="button" id="add-cancel">Cancel</button>
+          <button class="btn btn--primary" type="submit">Add clock</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <div class="toast" id="toast" hidden></div>
+
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="/js/client.js"></script>
+  <script src="/js/bare-clock-control.js"></script>
+</body>
+</html>

@@ -121,6 +121,75 @@ export function toggle(state: TimerState, nowMs: number): TimerState {
   return state;
 }
 
+/**
+ * Parses an operator-typed duration into seconds.
+ *
+ * Accepts plain minutes ("7", "7.5"), MM:SS ("7:30") and a bare seconds value
+ * with a unit ("90s"). Written for the bare clock, where the operator types a
+ * length rather than picking one: half a minute is a real answer, so fractional
+ * minutes round to the nearest second instead of being refused.
+ *
+ * Returns null for anything unparseable or outside 1s..MAX_REMAINING_SECONDS,
+ * so the caller can produce one readable message instead of guessing.
+ */
+export function parseDurationSeconds(input: unknown): number | null {
+  if (typeof input === 'number') {
+    if (!Number.isFinite(input)) return null;
+    return withinBounds(Math.round(input * 60));
+  }
+  if (typeof input !== 'string') return null;
+
+  const text = input.trim().toLowerCase();
+  if (!text) return null;
+
+  // MM:SS - the form the countdown itself is displayed in.
+  const clock = /^(\d{1,3}):([0-5]?\d)$/.exec(text);
+  if (clock) return withinBounds(Number(clock[1]) * 60 + Number(clock[2]));
+
+  const numeric = /^(\d+(?:\.\d+)?)\s*(m|min|mins|minute|minutes|s|sec|secs|second|seconds)?$/.exec(
+    text,
+  );
+  if (!numeric) return null;
+
+  const value = Number(numeric[1]);
+  if (!Number.isFinite(value)) return null;
+  const unit = numeric[2];
+  const seconds = unit && unit.startsWith('s') ? Math.round(value) : Math.round(value * 60);
+  return withinBounds(seconds);
+}
+
+function withinBounds(seconds: number): number | null {
+  if (!Number.isFinite(seconds)) return null;
+  if (seconds < 1 || seconds > MAX_REMAINING_SECONDS) return null;
+  return seconds;
+}
+
+/**
+ * Replaces the length of a timer.
+ *
+ * A ready, paused or finished timer goes back to Ready at the new length and
+ * waits for Play, like every other transition in this system. A *running* timer
+ * keeps running and restarts from the new length: "make it five minutes" said
+ * mid-session means five minutes from now, and stopping the clock to answer it
+ * would lose time the operator did not ask to lose.
+ */
+export function setDuration(state: TimerState, durationSeconds: number, nowMs: number): TimerState {
+  const duration = clampRemaining(durationSeconds);
+  if (duration <= 0) return state;
+
+  if (state.timerStatus === 'running') {
+    return {
+      ...state,
+      durationSeconds: duration,
+      startedAt: new Date(nowMs).toISOString(),
+      endsAt: new Date(nowMs + duration * 1000).toISOString(),
+      pausedRemainingSeconds: null,
+      timeupAt: null,
+    };
+  }
+  return reset(state, duration);
+}
+
 /** Back to the table's default duration. Never touches the queue. */
 export function reset(state: TimerState, durationSeconds: number): TimerState {
   return {

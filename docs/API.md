@@ -10,6 +10,7 @@ All JSON unless noted. Times are ISO-8601 instants; wall-clock times are
 | GET | `/health` | `{status, time, timezone}`; 503 if the database is unreachable |
 | GET | `/api/time` | `{serverTime}` — clock-sync probe |
 | GET | `/api/state` | the full snapshot (also the polling fallback) |
+| GET | `/api/bare/state` | the bare clock board snapshot (see [below](#bare-clock-board)) |
 | GET | `/api/qr.svg?path=/live` | QR code SVG for the room display. Encodes `PUBLIC_BASE_URL` when set, otherwise the origin the request arrived on. The resolved URL is echoed in the `X-QR-Target` response header, so `curl -I` confirms it without decoding the image |
 
 ### Snapshot shape
@@ -53,9 +54,49 @@ snapshot contains **no** contact fields.
 | `sync` | server → all | `{serverTime}`, every 5 s |
 | `time:ping` | client → server | clock probe, acked with `{clientSent, serverTime}` |
 | `grid:changed` | server → **operators room only** | `{date, gridRevision, cells[], removed[]}` |
+| `bare:state` | server → **bare-clock room only** | the clock board snapshot |
 
-Sockets presenting a valid session cookie join the `operators` room. There is no
-client-to-server event that mutates anything.
+Sockets presenting a valid session cookie join the `operators` room. Sockets that
+connect with `?view=bare` join the `bare-clock` room and receive `bare:state`
+instead of `state`. There is no client-to-server event that mutates anything.
+
+## Bare clock board
+
+A standalone countdown board, independent of the matching event: no queue, no
+companies, no event day. Backed by one table (`bare_clocks`) and no other, so
+nothing here can reach an appointment or a matching table.
+
+```jsonc
+{
+  "serverTime": 1786800000000,
+  "assetVersion": "be7c0feaf31f",
+  "timezone": "Asia/Bangkok",
+  "global": { "action": "play", "label": "Play All", "mixed": false },
+  "clocks": [{
+    "id": 1, "label": "THPM",
+    "durationSeconds": 900, "durationMinutes": 15, "displayOrder": 1,
+    "timer": { /* identical shape to a table timer */ }
+  }]
+}
+```
+
+Clock statuses are only `ready`, `running`, `paused`, `timeup` — `break` and
+`closed` belong to a physical matching table.
+
+| Method | Path | Body |
+| ------ | ---- | ---- |
+| POST | `/api/control/bare/clocks` | `{label, duration?}` — `duration` defaults to 15 minutes |
+| POST | `/api/control/bare/clocks/:id/toggle` | — (Play / Pause / Resume, one button) |
+| POST | `/api/control/bare/clocks/:id/reset` | — back to this clock's own length |
+| POST | `/api/control/bare/clocks/:id/adjust` | `{deltaSeconds}` (±60 min max) |
+| POST | `/api/control/bare/clocks/:id/duration` | `{duration}` — any typed length: `"15"`, `"7.5"`, `"12:30"`, `"90s"`, up to 6 h. A running clock keeps running from the new length; anything else goes Ready and waits for Play |
+| POST | `/api/control/bare/clocks/:id/label` | `{label}` — 1–40 characters |
+| POST | `/api/control/bare/clocks/:id/delete` | — really deletes; there is no roster behind a bare clock |
+| POST | `/api/control/bare/global/toggle` | — Play All / Pause All across the board |
+| POST | `/api/control/bare/global/reset` | `{confirm: true}` — **required** |
+
+An unparseable `duration` or an empty `label` answers **400** with a readable
+`message`; a missing clock answers 404.
 
 ## Authentication
 
